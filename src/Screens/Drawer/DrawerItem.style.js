@@ -4,7 +4,6 @@ import { backgroundColorHandler } from "../../Components/commonHelper";
 import { getFontSize, getResHeight, getResWidth } from "../../utility/responsive";
 import { useSelector } from "react-redux";
 
-// let {isDarkMode , currentBgColor , curentTextColor} = useSelector(state => state.user);
 
 
 // let backgrounColorG = backgroundColorHandler()
@@ -17,7 +16,7 @@ export const styles = StyleSheet.create({
     //   backgroundColor:"red"
     },
     imageContainer: {
-      backgroundColor:"red",
+      // backgroundColor:"red",
       paddingHorizontal:"5%",
       flexDirection:"row",
       // justifyContent:"center",

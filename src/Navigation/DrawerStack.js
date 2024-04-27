@@ -4,11 +4,14 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabNav from './TabNav';
 import {HomeStack, SettingsStack} from './StackNav';
 import DrawerItems from '../Screens/Drawer/DrawerItems';
+import { useSelector } from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 
 export default function DrawerStack(props) {
   const {isAdmin} = props;
+  let {isDarkMode , currentBgColor , currentTextColor} = useSelector(state => state.user);
+
   return (
     <>
       <Drawer.Navigator
@@ -19,9 +22,11 @@ export default function DrawerStack(props) {
         screenOptions={{
           // headerShown: false,
           drawerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: currentBgColor,
             width: '70%',
-            // borderBottomRightRadius: 40,
+            // borderBottomRightRadius: 20,
+            // borderTopRightRadius:20,
+            overflow:"hidden"
           },
         }}>
         {isAdmin ? (
@@ -30,7 +35,7 @@ export default function DrawerStack(props) {
             component={TabNav}
             options={{
               headerShadowVisible: false,
-              // headerShown: false,
+              headerShown: false,
             }}
           />
         ) : (
@@ -47,6 +52,38 @@ export default function DrawerStack(props) {
         <Drawer.Screen
           name="Settings"
           component={SettingsStack}
+          options={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="FreeResource"
+          component={AllScreens.FreeResource}
+          options={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="Events"
+          component={AllScreens.Events}
+          options={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="ContactWithUs"
+          component={AllScreens.ContactWithUs}
+          options={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="Feedback"
+          component={AllScreens.Feedback}
           options={{
             headerShadowVisible: false,
             headerShown: false,

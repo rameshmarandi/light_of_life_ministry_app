@@ -15,8 +15,12 @@ import {
 // import PhoneInput from 'react-native-phone-number-input';
 import {Button} from 'react-native-elements';
 import { VectorIcon } from './VectorIcon';
-import { getFontSize, getResHeight, getResWidth } from '../utility/responsive';
+
 import theme from '../utility/theme';
+import { getFontSize, getResHeight } from '../utility/responsive';
+import { backgroundColorHandler, textColorHandler } from './commonHelper';
+import { useSelector } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 // import {Dropdown} from 'react-native-element-dropdown';
 // import moment from 'moment';
 
@@ -38,14 +42,23 @@ import theme from '../utility/theme';
 // } from '../components/commonHelper';
 // import {getYears, removeSpace} from '../components/commonFunction';
 
+
+
 const CustomHeader = props => {
-  const {Hamburger, backPress ,backgroundColor, screenTitle,centerLogo} = props;
+  const {Hamburger, backPress ,onPressNotificaiton, backgroundColor, screenTitle,centerLogo} = props;
+  
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+  );
+  
   return (
     <>
       <SafeAreaView
         style={{
+          // flex:1,
         //   backgroundColor: backgroundColor ? backgroundColor : backgroundColorHandler()
         }}>
+         
         <View
           style={{
             width: '100%',
@@ -55,7 +68,7 @@ const CustomHeader = props => {
             justifyContent: 'space-between',
             alignItems: 'center',
             borderBottomWidth:Hamburger ? 0.5 : 0,
-            // borderBottomColor:  textColorHandler()
+            borderBottomColor:  currentBgColor
           }}>
           {Hamburger && (
             <Button
@@ -66,11 +79,9 @@ const CustomHeader = props => {
                 <VectorIcon
                   type={'Ionicons'}
                   name={'menu'}
-                  size={getFontSize(29)}
-                //   color={ textColorHandler()}
+                  size={getFontSize(3.5)}
+                  color={currentTextColor}
                   style={{
-                    marginTop:"-5.5%",
-                    marginLeft:"-2%"
                   }}
                 />
               }
@@ -78,11 +89,11 @@ const CustomHeader = props => {
               }}
               containerStyle={[
                 {
-                  width: 47,
-                  height:  45,
+                  width: getResHeight(5),
+                  height: getResHeight(5),
                   justifyContent:"center",
-                //   backgroundColor: backgroundColorHandler(),
-                  borderRadius: 100,
+                  backgroundColor:currentBgColor,
+                  borderRadius: getResHeight(100),
                 },
               ]}
               buttonStyle={[
@@ -107,12 +118,10 @@ const CustomHeader = props => {
                 <VectorIcon
                   type={'Ionicons'}
                   name={'chevron-back'}
-                  size={getFontSize(29)}
-                  color = {'red'}
-                //   color={ textColorHandler()}
+                  size={getFontSize(2.5)}
+                  color = {currentBgColor}
                   style={{
-                    marginTop:"-5.5%",
-                    marginLeft:"-2%"
+                  
                   }}
                 />
               }
@@ -120,11 +129,12 @@ const CustomHeader = props => {
               }}
               containerStyle={[
                 {
-                  width: 47,
-                  height:  45,
-                  justifyContent:"center",
-                //   backgroundColor:backgroundColor? backgroundColor:  backgroundColorHandler(),
-                  borderRadius: 100,
+                  width: getResHeight(5),
+                  height:getResHeight(5),
+                  // justifyContent:"center",
+                  backgroundColor:currentBgColor,
+                  backgroundColor:isDarkMode ? theme.color.dimWhite :  theme.color.primary,
+                  borderRadius: getResHeight(100),
                 },
               ]}
               buttonStyle={[
@@ -137,40 +147,106 @@ const CustomHeader = props => {
             />
 
             <Text style={{
-              fontSize: getFontSize(13),
+              fontSize: getFontSize(2),
               fontFamily: theme.font.medium,
-            //   color:textColorHandler(),
-              marginTop:"5%"
+              color: currentTextColor,
+              // marginTop:getResHeight(1),
+              marginLeft:"6%"
             }}>{screenTitle}</Text>
             </View>
           )}
 
           {centerLogo && typeof centerLogo == 'boolean' && (
-            <View
-              style={{
-                width: getResHeight(20),
-                height: getResHeight(20),
-                // borderRadius: 100,
-                marginLeft:"-15%",
-                backgroundColor:"red",
-                borderRadius: getResHeight(100)
-              }}>
+            // <View
+            //   style={{
+               
+            //     // borderRadius: 100,
+            //     // marginLeft:"-15%",
+            //     backgroundColor:"red",
+            //     borderRadius: getResHeight(100)
+            //   }}>
+
               <Image
-                source={theme.assets.church_logo}
+                source={theme.assets.church_logo_origianl}
                 resizeMode="cover"
                 style={{
-                  width: '100%',
-                  height: '100%',
+                  width: getResHeight(8),
+                height: getResHeight(8),
+                // backgroundColor:"red",
+                borderRadius: getResHeight(100)
                 //   borderRadius: 100,
                 }}
               />
-            </View>
+           
           )}
-          <View></View>
+          {onPressNotificaiton  && (
+            <>
+            <TouchableOpacity
+            onPress={onPressNotificaiton}
+            >
+             <Button
+             type={'clear'}
+             onPress={onPressNotificaiton}
+             iconPosition="right"            
+             icon={
+               <VectorIcon
+                 type={'MaterialIcons'}
+                 name={'notifications'}
+                 size={getFontSize(3.5)}
+                 color={ currentTextColor}
+                 style={{
+                 }}
+               />
+             }
+             iconContainerStyle={{
+             }}
+             containerStyle={[
+               {
+                 width: getResHeight(5),
+                 height: getResHeight(5),
+                 justifyContent:"center",
+                //  backgroundColor: `${backgroundColorHandler()}`,
+                 borderRadius: getResHeight(100),
+               },
+             ]}
+             buttonStyle={[
+               {
+                 width: '100%',
+                 height: '100%',
+                 borderRadius: 100,
+               },
+             ]}
+           />
+           <View style={{
+            height: getResHeight(2.5),
+            width: getResHeight(2.5),
+            borderRadius: getResHeight(100),
+            borderWidth:0.8,
+            borderColor: "white",
+            // currentTextColor,
+            backgroundColor: 'red',
+            // currentBgColor,
+            position:"absolute",
+            right : "2%",
+            top:"5%",
+            justifyContent:"center",
+            alignItems:"center"
+           }}>
+            <Text style={{
+              color:'white',
+              //  currentTextColor,
+              fontFamily: theme.font.medium,
+              fontSize: getFontSize(1.5)
+            }}>13</Text>
+         
+           </View>
+           </TouchableOpacity>
+           </>
+          )}
         </View>
       </SafeAreaView>
     </>
   );
 };
-
+// export default CustomHeader
 export default React.memo(CustomHeader);

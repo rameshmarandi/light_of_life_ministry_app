@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{memo}from 'react';
 import {
   Alert,
   Linking,
@@ -34,7 +34,8 @@ import theme from '../utility/theme';
 
 // import {Dropdown} from 'react-native-element-dropdown';
 // import {store} from '../utility/store';
-// import {backgroundColorHandler, bgInDarkMode, inAcitveTextInput, textColorHandler, textInDarkMode} from './commonHelper';
+import {backgroundColorHandler, bgInDarkMode, inAcitveTextInput, textColorHandler, textInDarkMode} from './commonHelper';
+import { useSelector } from 'react-redux';
 // const isDarkMode = store.getState().auth.isDarkMode;
 
 // export const CommonModal = props => {
@@ -117,15 +118,18 @@ import theme from '../utility/theme';
 //     />
 //   );
 // };
-// export const StatusBarComp = () => {
-//   return (
-//     <StatusBar
-//       animated={true}
-//       backgroundColor={backgroundColorHandler()}
-//       barStyle={'light-content'}
-//     />
-//   );
-// };
+export const StatusBarComp = memo(() => {
+  let {isDarkMode }= useSelector((state) =>state.user)
+  console.log("memo at status baser")
+  return (
+    <StatusBar
+      animated={true}
+      backgroundColor={backgroundColorHandler()}
+      setBackgroundColor = {"red"}
+      barStyle= {!isDarkMode ? 'dark-content' :"'light-content'"}
+    />
+  );
+})
 // export const HyperTxt = props => {
 //   const {text, hyperText, onPress} = props;
 //   return (
@@ -445,12 +449,12 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: getFontSize(12),
-    color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
+    // color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
     fontFamily: theme.font.regular
   },
   selectedTextStyle: {
     fontSize: getFontSize(12),
-    color: isDarkMode ? 'green' : theme.color.darkTheme,
+    // color: isDarkMode ? 'green' : theme.color.darkTheme,
     fontFamily: theme.font.regular
   },
 

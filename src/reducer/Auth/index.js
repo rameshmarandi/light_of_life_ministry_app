@@ -3,7 +3,7 @@ import theme from '../../utility/theme';
 
 const initialState = {
   isDarkMode: true, // Assuming you have user data
-  curentTextColor: theme.color.white,
+  currentTextColor: theme.color.white,
   currentBgColor: theme.color.darkTheme
 };
 
@@ -15,7 +15,7 @@ const authSlice = createSlice({
       state.isDarkMode = action.payload;
     },
     setTextColor(state, action) {
-      state.curentTextColor = action.payload;
+      state.currentTextColor = action.payload;
     },
     setBackgroundColor(state, action) {
       state.currentBgColor = action.payload;

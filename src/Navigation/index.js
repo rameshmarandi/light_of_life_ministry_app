@@ -6,7 +6,7 @@ export default function MainNavigation(props) {
   const {isAdmin} = props
   return (
     <>
-      <DrawerStack isAdmin={true} />
+      <DrawerStack isAdmin={false} />
     </>
   );
 }

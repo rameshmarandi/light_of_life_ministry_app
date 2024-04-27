@@ -31,7 +31,7 @@ import { CommonButtonComp } from '../../Components/commonComp';
 
 const DrawerItems = ({navigation}) => {
   const dispatch = useDispatch();
-  let {isDarkMode, currentBgColor, curentTextColor} = useSelector(
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
   );
 
@@ -55,7 +55,7 @@ const DrawerItems = ({navigation}) => {
           name={'home'}
           //  size ={iconFontSize}
           size={getFontSize(3)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -71,7 +71,7 @@ const DrawerItems = ({navigation}) => {
           name={'user'}
           //  size ={iconFontSize}
           size={getFontSize(2.9)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -79,15 +79,15 @@ const DrawerItems = ({navigation}) => {
     {
       id: 2,
       lable: MsgConfig.freeResource,
-      // route: 'FreeResource',
-      route: '',
+      route: 'FreeResource',
+   
       icon: (
         <VectorIcon
           type={'FontAwesome5'}
           name={'compress-arrows-alt'}
           size={iconFontSize}
           // size={getFontSize(21)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -103,22 +103,22 @@ const DrawerItems = ({navigation}) => {
           name={'pray'}
           //  size ={iconFontSize}
           size={getFontSize(3.3)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
     {
       id: 4,
       lable: MsgConfig.event,
-      // route: 'Events',
-      route: '',
+      route: 'Events',
+   
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
           name={'event-note'}
           size={iconFontSize}
           // size={getFontSize(25)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -126,30 +126,30 @@ const DrawerItems = ({navigation}) => {
     {
       id: 5,
       lable: MsgConfig.contactWithUs,
-      // route: 'ContactWithUs',
-      route: '',
+      route: 'ContactWithUs',
+     
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
           name={'contact-mail'}
           size={iconFontSize}
           // size={getFontSize(25)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
     {
       id: 6,
       lable: MsgConfig.feedBack,
-      // route: 'Feedback',
-      route: '',
+      route: 'Feedback',
+     
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
           name={'feedback'}
           size={iconFontSize}
           // size={getFontSize(25)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -165,7 +165,7 @@ const DrawerItems = ({navigation}) => {
           name={'settings'}
           size={iconFontSize}
           // size={getFontSize(25)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -181,7 +181,7 @@ const DrawerItems = ({navigation}) => {
           name={isDarkMode ? 'lightbulb-on' : 'lightbulb-on-outline'}
           // size={iconFontSize}
           size={getFontSize(3.3)}
-          color={curentTextColor}
+          color={currentTextColor}
         />
       ),
     },
@@ -208,7 +208,7 @@ const DrawerItems = ({navigation}) => {
           style={{
             marginTop: index === 0 ? '5%' : 0,
 
-            // borderBottomColor:`rgba(${curentTextColor},${curentTextColor},0.5)`,
+            // borderBottomColor:`rgba(${currentTextColor},${currentTextColor},0.5)`,
             //  borderBottomWidth:1
           }}>
           <Button
@@ -216,12 +216,14 @@ const DrawerItems = ({navigation}) => {
             onPress={() => {
               if (item.id === 8) {
                 handleDarkMode(); // Functional for dark/Night mode
+              }else{
+                navigation.navigate(item.route);
               }
-              // navigation.navigate(item.route);
+              
               // navigation.closeDrawer();
             }}
             icon={item.icon}
-            titleStyle={[styles.btnTitleStyle, {color: curentTextColor}]}
+            titleStyle={[styles.btnTitleStyle, {color: currentTextColor}]}
             containerStyle={[
               styles.btnContainerStyle,
               {alignItems: 'flex-start'},
@@ -246,7 +248,7 @@ const DrawerItems = ({navigation}) => {
           {
             backgroundColor: currentBgColor,
             borderBottomWidth: 0.9,
-            borderBottomColor: curentTextColor,
+            borderBottomColor: currentTextColor,
           },
         ]}>
         <View
@@ -270,7 +272,7 @@ const DrawerItems = ({navigation}) => {
           }}>
           <Text
             style={{
-              color: curentTextColor,
+              color: currentTextColor,
               fontFamily: theme.font.bold
             }}>
             Ramesh Marandi
@@ -288,7 +290,7 @@ const DrawerItems = ({navigation}) => {
           <Text
             style={{
               alignSelf: 'center',
-              color: curentTextColor,
+              color: currentTextColor,
               fontFamily: theme.font.medium,
             }}>
             V 1.0.0
