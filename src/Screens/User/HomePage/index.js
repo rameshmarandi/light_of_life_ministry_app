@@ -84,7 +84,9 @@ _renderItem = ({item}) => {
         Hamburger={() => {
           navigation.openDrawer();
         }}
-        onPressNotificaiton={() => {}}
+        onPressNotificaiton={() => {
+          navigation.navigate("UserNotification")
+        }}
         centerLogo={true}
       />
       <MarqueeComp textRender={`Welcome to Light of Life Ministries , Pune`} />
@@ -95,6 +97,7 @@ _renderItem = ({item}) => {
         }}>
         <FlatList
           data={[0, 1, 2, 3, 4, 5]}
+          showsVerticalScrollIndicator = {false}
           // contentContainerStyle={{paddingBottom:"20%"}}
           renderItem={({item, index}) => {
             switch (index) {
@@ -255,7 +258,7 @@ _renderItem = ({item}) => {
                         style={{
                           marginBottom: '70%',
                           width: '100%',
-                          height: getResHeight(35),
+                          height: getResHeight(45),
                           // borderRadius: 10,
                           // overflow: 'hidden',
                           marginTop: '6%',
@@ -446,7 +449,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     width: itemWidth,
-    height: getResHeight(20), // Adjust this according to your layout
+    height: getResHeight(25), // Adjust this according to your layout
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,7 +1,7 @@
 import {View, Text, Image, SafeAreaView, StatusBar, LogBox} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LottieView from 'lottie-react-native';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -28,6 +28,7 @@ const App = () => {
       setIsLoading(false);
     }, 3000);
   }, []);
+
   return (
     <>
       {isLoading ? (
@@ -106,7 +107,7 @@ const InitialRender = () => {
 
 const AllNavContainer = props => {
   const {isLogedIn} = props;
-
+ 
   return (
     <>
       <Provider store={store}>
@@ -115,7 +116,7 @@ const AllNavContainer = props => {
           <NavigationContainer>
             <RootNavigation
              isLogedIn={isLogedIn}
-             
+            //  isAdmin = {isAdmin}
             />
           </NavigationContainer>
           {/* </MenuProvider> */}

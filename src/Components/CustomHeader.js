@@ -63,12 +63,13 @@ const CustomHeader = props => {
           style={{
             width: '100%',
             paddingHorizontal: '4%',
+            // paddingTop:"3%",
             // backgroundColor:backgroundColor? backgroundColor:  backgroundColorHandler(),
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderBottomWidth:Hamburger ? 0.5 : 0,
-            borderBottomColor:  currentBgColor
+            borderBottomColor:  currentBgColor,
           }}>
           {Hamburger && (
             <Button
@@ -79,7 +80,7 @@ const CustomHeader = props => {
                 <VectorIcon
                   type={'Ionicons'}
                   name={'menu'}
-                  size={getFontSize(3.5)}
+                  size={getFontSize(3.9)}
                   color={currentTextColor}
                   style={{
                   }}

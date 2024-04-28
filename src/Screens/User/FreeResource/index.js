@@ -22,7 +22,8 @@ import * as Animatable from 'react-native-animatable';
 import CustomHeader from '../../../Components/CustomHeader';
 import { ALL_LINKS } from '../../../Config/constants';
 import { backgroundColorHandler, textColorHandler } from '../../../Components/commonHelper';
-import { getFontSize } from '../../../utility/responsive';
+import { getFontSize, getResHeight, getResWidth } from '../../../utility/responsive';
+import MsgConfig from '../../../Config/MsgConfig';
 
 const imageSize = () => {
   return {
@@ -98,23 +99,25 @@ const FreeResource = ({ navigation }) => {
           backPress={() => {
             navigation.goBack();
           }}
-          screenTitle={'Free resources'}
+          screenTitle={MsgConfig.freeResource}
         />
       </View>
 
       <View
         style={{
+          flex:1,
           paddingHorizontal: '5%',
         }}>
+
         <View
           style={{
-            // width: SCREENWIDTH, // Assuming SCREENWIDTH is defined elsewhere
-            // height: SCREENHEIGHT - 60, // Assuming SCREENHEIGHT is defined elsewhere
+            width: getResWidth(100), // Assuming SCREENWIDTH is defined elsewhere
+            // height: getResHeight(20) - 60, // Assuming SCREENHEIGHT is defined elsewhere
             alignSelf: 'center',
             padding: '4%',
             flexDirection: 'row',
-            flex:1,
-            backgroundColor:"red"
+            // flex:1,
+            // backgroundColor:"red"
           }}>
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -123,6 +126,7 @@ const FreeResource = ({ navigation }) => {
               flexDirection: 'row',
               justifyContent: 'space-around',
               flexWrap: 'wrap',
+              // flex:1,
             }}
             data={FreeResourceData}
             keyExtractor={item => item.id}
@@ -144,10 +148,10 @@ const FreeResource = ({ navigation }) => {
 
 const ResourceCard = props => {
   const {title, URL, imageLink, type, isDarkMode} = props.data;
-  //   const {navigation} = props
-  //   const WebViewFunction = url => {
-  //     navigation.navigate('WebRender', {URL: url, title: title})
-  //   }
+    const {navigation} = props
+    const WebViewFunction = url => {
+      // navigation.navigate('WebRender', {URL: url, title: title})
+    }
   //   //Dark Theme Select
   //   const darkStore = useSelector(state => state)
   //   const {darkTheme} = darkStore
@@ -158,11 +162,11 @@ const ResourceCard = props => {
         <TouchableOpacity
           onPress={() => {
             console.log('URL', URL);
-            //   if (type) {
-            //     navigation.navigate('MoreFreeResource', {type: `${type}`})
-            //   } else {
-            //     WebViewFunction(URL)
-            //   }
+              if (type) {
+                navigation.navigate('MoreFreeResource', {type: `${type}`})
+              } else {
+                WebViewFunction(URL)
+              }
           }}
           style={{
             width: 160,
@@ -185,7 +189,7 @@ const ResourceCard = props => {
           <View>{imageLink}</View>
           <Text
             style={{
-              fontSize: getFontSize(2),
+              fontSize: getFontSize(1.7),
               color: textColorHandler(),
               fontFamily: theme.font.medium,
               textAlign: 'center',

@@ -27,9 +27,22 @@ darkmode:"Dark Mode"
     prayerRequestNote :"Your prayer requests will be sent directly to the pastor."
 } 
 
+const headerTitle = {
+  freeResources : "Free Resources",
+  Events : "All Events",
+  contactUS : "Contact Us",
+  feedBack : "Feedback",
+  settings : "Settings",
+  prayerRequest : "Prayer Request",
+  notification : "All Notification",
+  profile: "My Profile"
+
+}
+
 export default message = {
   ...DrawerMenu,
   ...HomeModule,
 ...prayerRequest,
+...headerTitle
   
 };

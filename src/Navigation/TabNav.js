@@ -6,7 +6,7 @@ import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
 import {VectorIcon} from '../Components/VectorIcon';
 import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
-import {HomeStack, ProfileStack, SettingsStack} from './StackNav';
+import {AdminHomeStack, HomeStack, ProfileStack, SettingsStack} from './StackNav';
 import screenOptions from './NavigationSettings';
 
 const Tab = createBottomTabNavigator();
@@ -18,8 +18,8 @@ const tabArrays = [
       type: 'Foundation',
       name: 'home',
     },
-    routeNames: 'Home',
-    component: HomeStack,
+    routeNames: 'Dashboard',
+    component: AdminHomeStack,
   },
   {
     title: 'Profile',
@@ -30,15 +30,15 @@ const tabArrays = [
     routeNames: 'Profile',
     component: ProfileStack,
   },
-  {
-    title: 'Settings',
-    icon: {
-      type: 'Fontisto',
-      name: 'player-settings',
-    },
-    routeNames: 'Settings',
-    component: SettingsStack,
-  },
+  // {
+  //   title: 'Settings',
+  //   icon: {
+  //     type: 'Fontisto',
+  //     name: 'player-settings',
+  //   },
+  //   routeNames: '',
+  //   component: "",
+  // },
 ];
 
 const CustomTabBar = ({navigation}) => {

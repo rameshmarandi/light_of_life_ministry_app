@@ -19,6 +19,20 @@ export function HomeStack(props) {
     </>
   );
 }
+export function AdminHomeStack(props) {
+  return (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen
+          initialRouteName={'Dashboard'}
+          name={'Dashboard'}
+          component={AllScreens.Dashboard}
+          options={screenOptions}
+        />
+      </Stack.Navigator>
+    </>
+  );
+}
 
 export function SettingsStack() {
   return (

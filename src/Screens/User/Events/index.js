@@ -28,6 +28,7 @@ import {Button} from 'react-native-elements';
 import CustomHeader from '../../../Components/CustomHeader';
 import { getFontSize, getResHeight } from '../../../utility/responsive';
 import { backgroundColorHandler, textColorHandler } from '../../../Components/commonHelper';
+import MsgConfig from '../../../Config/MsgConfig';
 
 const TabsNames = [
   {key: '0', tabTitle: 'Upcoming Events'},
@@ -49,7 +50,7 @@ const Events = props => {
             backPress={() => {
               props.navigation.goBack();
             }}
-            screenTitle={'All Events'}
+            screenTitle={MsgConfig.Events}
           />
         </View>
         <View
@@ -59,7 +60,7 @@ const Events = props => {
             flexDirection: 'row',
             justifyContent: 'space-between',
 
-            marginTop: '2.5%',
+            marginTop: '3%',
           }}>
           {TabsNames.map((tab, index) => (
             <Button
@@ -71,7 +72,7 @@ const Events = props => {
               titleStyle={{
                 color: activeIndex === index ? 'red' : textColorHandler(),
                 fontFamily: theme.font.semiBold,
-                fontSize: getFontSize(2),
+                fontSize: getFontSize(1.7),
                 margin: 0,
                 padding: 0,
               }}

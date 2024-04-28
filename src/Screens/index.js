@@ -7,6 +7,12 @@ import FreeResource from "./User/FreeResource"
 import Events from "./User/Events"
 import ContactWithUs from "./User/Support/ContactWithUs"
 import Feedback from "./User/Support/Feedback"
+import UserNotification from "./User/Notification/UserNotification"
+
+
+// Admin Dashboard
+
+import Dashboard from "./Admin/Dashboard/index"
 
 
  const UserAllScreens = {
@@ -16,13 +22,18 @@ import Feedback from "./User/Support/Feedback"
     FreeResource,
     Events,
     ContactWithUs,
-    Feedback
+    Feedback,
+    UserNotification
  }
 
 
+ const AdminScreens = {
+   Dashboard
+ }
+
  export default AllScreens = {
     ...UserAllScreens,
-   
+   ...AdminScreens
   };
   
   

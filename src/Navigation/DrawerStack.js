@@ -15,7 +15,7 @@ export default function DrawerStack(props) {
   return (
     <>
       <Drawer.Navigator
-        initialRouteName={'Home'}
+        // initialRouteName={'Home'}
         drawerContent={props => <DrawerItems {...props} />}
         swipeable={false}
         // drawerType="permanent"
@@ -31,7 +31,7 @@ export default function DrawerStack(props) {
         }}>
         {isAdmin ? (
           <Drawer.Screen
-            name="Home"
+            name="Dashboard"
             component={TabNav}
             options={{
               headerShadowVisible: false,
@@ -84,6 +84,14 @@ export default function DrawerStack(props) {
         <Drawer.Screen
           name="Feedback"
           component={AllScreens.Feedback}
+          options={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="UserNotification"
+          component={AllScreens.UserNotification}
           options={{
             headerShadowVisible: false,
             headerShown: false,

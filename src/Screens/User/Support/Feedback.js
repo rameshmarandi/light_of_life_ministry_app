@@ -21,6 +21,7 @@ import {
 
 import { backgroundColorHandler } from '../../../Components/commonHelper';
 import CustomHeader from '../../../Components/CustomHeader';
+import MsgConfig from '../../../Config/MsgConfig';
 
 
 
@@ -38,7 +39,7 @@ const Feedback = props => {
             backPress={() => {
               props.navigation.goBack();
             }}
-            screenTitle={'Feed back'}
+            screenTitle={MsgConfig.feedBack}
           />
         </View>
         

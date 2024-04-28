@@ -1,11 +1,17 @@
 import React, {useCallback} from 'react';
-import {View, Linking, Text, TouchableWithoutFeedback,TouchableOpacity} from 'react-native';
+import {
+  View,
+  Linking,
+  Text,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native';
 
 import MapView, {Marker, Callout} from 'react-native-maps';
 import {getFontSize} from '../utility/responsive';
 import {VectorIcon} from './VectorIcon';
 import theme from '../utility/theme';
-import { MapCoordinate } from '../Config/constants';
+import {MapCoordinate} from '../Config/constants';
 
 const GoogleUIComp = () => {
   const handleCalloutPress = () => {
@@ -23,41 +29,35 @@ const GoogleUIComp = () => {
     setPopupOpen(true);
   };
   const coordinates = [
-    { latitude: 18.5890345, longitude: 73.7925924  , 
-    
-    }, // Example coordinates
-    { latitude: 18.591790, longitude: 73.819640}, // Example coordinates
-    { latitude: 18.989088, longitude: 75.760078}, // Example coordinates
-  
-
-
+    {latitude: 18.5890345, longitude: 73.7925924}, // Example coordinates
+    {latitude: 18.59179, longitude: 73.81964}, // Example coordinates
+    {latitude: 18.989088, longitude: 75.760078}, // Example coordinates
   ];
 
   const markerData = [
     {
-      coordinate: { latitude: 18.5890345, longitude: 73.7925924 },
+      coordinate: {latitude: 18.5890345, longitude: 73.7925924},
       title: 'Light of Life Church',
-      description: 'Join us for worship, fellowship, and spiritual growth at Light of Life Church. All are welcome!'
+      description:
+        'Join us for worship, fellowship, and spiritual growth at Light of Life Church. All are welcome!',
     },
-   
   ];
-
 
   return (
     <>
       <MapView
         style={{
           width: '100%',
-           height: '100%', 
-        borderRadius: 10
-      }}
+          height: '100%',
+          borderRadius: 10,
+        }}
         initialRegion={{
           latitude: MapCoordinate.latitude,
           longitude: MapCoordinate.longitude,
           latitudeDelta: 15,
           longitudeDelta: 15,
         }}>
-          {coordinates.map((coordinate, index) => (
+        {coordinates.map((coordinate, index) => (
           <Marker
             key={index}
             coordinate={coordinate}
@@ -72,11 +72,19 @@ const GoogleUIComp = () => {
               />
             )}>
             <Callout>
-              <TouchableWithoutFeedback onPress={() => handleCalloutPress(coordinate.latitude, coordinate.longitude)}>
+              <TouchableWithoutFeedback
+                onPress={() =>
+                  handleCalloutPress(coordinate.latitude, coordinate.longitude)
+                }>
                 <View>
-                  <Text style={{ fontWeight: 'bold', color: theme.color.primary }}>Light of Life Ministries</Text>
-                  <Text>Join us for worship, fellowship, and spiritual growth.</Text>
-                  <Text style={{ color: 'red', textDecorationLine: 'underline' }}>
+                  <Text
+                    style={{fontWeight: 'bold', color: theme.color.primary}}>
+                    Light of Life Ministries
+                  </Text>
+                  <Text>
+                    Join us for worship, fellowship, and spiritual growth.
+                  </Text>
+                  <Text style={{color: 'red', textDecorationLine: 'underline'}}>
                     Click to open in Google Maps
                   </Text>
                 </View>
@@ -118,6 +126,15 @@ const GoogleUIComp = () => {
           )}
         </Marker>
      */}
+
+     <TouchableOpacity 
+     style={{
+      zIndex:99999
+     }}>
+      <Text   style={{
+      zIndex:99999
+     }}>Reset</Text>
+     </TouchableOpacity>
       </MapView>
     </>
   );

@@ -354,6 +354,9 @@ export const CommonButtonComp = props => {
     disabled,
     containerStyle,
   } = props;
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+ );
   return (
     <Button
       title={title}
@@ -362,7 +365,7 @@ export const CommonButtonComp = props => {
       titleStyle={[
         styles.btnTitleStyle,
         {
-          color: textInDarkMode(),
+          color: currentBgColor
         },
       ]}
       disabledStyle={{
@@ -377,7 +380,7 @@ export const CommonButtonComp = props => {
       containerStyle={[
         styles.btnContainerStyle,
         {
-          elevation: 6,
+          // elevation: 6,
           borderRadius: 100,
         },
       ]}
@@ -386,7 +389,7 @@ export const CommonButtonComp = props => {
           width: '100%',
           height: '100%',
           borderRadius: 100,
-          backgroundColor: bgInDarkMode(),
+          backgroundColor:currentTextColor,
         },
       ]}
       {...props}
@@ -408,19 +411,19 @@ const styles = StyleSheet.create({
   // Prayer modal button style
   btnTitleStyle: {
     textAlign: 'left',
-    fontSize: getFontSize(12),
+    fontSize: getFontSize(2),
     fontFamily: theme.font.semiBold,
     marginLeft: '5%',
-    marginTop: '2%',
+    // marginTop: '2%',
   },
   btnContainerStyle: {
-    marginBottom: '1.5%',
+    marginBottom: getResHeight(6),
     width: '100%',
-    height: getResHeight(45),
+    height: getResHeight(5),
   },
   //Dropdown imle
   lableStyle: {
-    fontSize: getFontSize(12),
+    fontSize: getFontSize(2),
     fontWeight: '600',
     fontFamily: theme.font.regular,
     color: '#666666',

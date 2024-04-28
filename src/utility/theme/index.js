@@ -59,9 +59,6 @@ const font = {
   bold: 'Poppins-Bold',
   extraBold :"Poppins-ExtraBold",
   italic :"Poppins-Italic",
-  // boldItalic : 'Poppins Bold Italic 700',
-  // light :"Poppins Light 300",
-  // lightItalic :"Poppins Light Italic 300",
   thin :"Poppins-Thin"
 };
 

@@ -2,21 +2,8 @@ import React, {Component, useState, useRef, useEffect} from 'react';
 import {
   Text,
   View,
-  Platform,
   SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Alert,
-  Image,
-  Modal,
-  Linking,
-  ScrollView,
-  Animated,
-  useWindowDimensions,
-  FlatList,
-  Switch,
-  KeyboardAvoidingView,
+ 
 } from 'react-native';
 
 import {Formik} from 'formik';
@@ -25,18 +12,12 @@ import theme from '../../../utility/theme';
 
 
 import {
-  SCREENWIDTH,
-  SCREENHEIGHT,
   getFontSize,
-  hp,
-  getResWidth,
-  wp,
-  getResHeight,
 } from '../../../utility/responsive';
 
-import {store} from '../../../utility/store';
 import CustomHeader from '../../../Components/CustomHeader';
 import { backgroundColorHandler, textColorHandler } from '../../../Components/commonHelper';
+import MsgConfig from '../../../Config/MsgConfig';
 
 const ContactWithUs = props => {
   useEffect(() => {}, []);
@@ -52,7 +33,7 @@ const ContactWithUs = props => {
             backPress={() => {
               props.navigation.goBack();
             }}
-            screenTitle={'Contact us'}
+            screenTitle={MsgConfig.contactUS}
           />
 
           <View
