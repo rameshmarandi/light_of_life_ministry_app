@@ -8,6 +8,7 @@ import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
 import {AdminHomeStack, HomeStack, ProfileStack, SettingsStack} from './StackNav';
 import screenOptions from './NavigationSettings';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,8 +42,8 @@ const tabArrays = [
   // },
 ];
 
-const CustomTabBar = ({navigation}) => {
-  const [selectedTab, setSelectedTab] = useState(0);
+const CustomTabBar = ({navigation, selectedTabIndex }) => {
+  const [selectedTab, setSelectedTab] = useState(selectedTabIndex);
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -80,14 +81,16 @@ const CustomTabBar = ({navigation}) => {
               style={{
                 height: getResHeight(10),
                 width: getResHeight(10),
-                borderTopLeftRadius: getFontSize(100),
-                borderTopRightRadius: getFontSize(100),
+                borderTopWidth:index == selectedTab  ?1 : 0,
+                borderTopColor:"white",
+                // borderTopLeftRadius: getFontSize(100),
+                // borderTopRightRadius: getFontSize(100),
                 justifyContent: 'center',
                 alignItems: 'center',
                 overflow: 'hidden',
-                transform: [
-                  {translateY: index === selectedTab ? translateY : 0},
-                ],
+                // transform: [
+                //   {translateY: index === selectedTab ? translateY : 0},
+                // ],
                 backgroundColor: theme.color.darkTheme,
               }}>
               <VectorIcon
@@ -135,6 +138,9 @@ const CustomTabBar = ({navigation}) => {
 };
 
 export default function TabNav(props) {
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+ );
   return (
     <>
       <Tab.Navigator
@@ -142,6 +148,7 @@ export default function TabNav(props) {
           <CustomTabBar
             {...navigation}
             initialRouteName={tabArrays[0].routeNames}
+            selectedTabIndex={0}
           />
         )}>
         {tabArrays.map((e, i) => (
@@ -164,8 +171,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: theme.color.darkTheme,
-    borderTopRightRadius: getResHeight(2),
-    borderTopLeftRadius: getResHeight(2),
+    // borderTopRightRadius: getResHeight(2),
+    // borderTopLeftRadius: getResHeight(2),
+    // borderTopWidth:1,
+    // borderColor:"#efefef",
+
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

@@ -21,7 +21,7 @@ const App = () => {
   StatusBar.setBackgroundColor(theme.color.darkTheme); // Set your desired background color
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(true);
   // const []
   useEffect(() => {
     setTimeout(() => {

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerStack(props) {
-  const {isAdmin} = props;
+  const {isAdmin } = props;
   let {isDarkMode , currentBgColor , currentTextColor} = useSelector(state => state.user);
 
   return (
@@ -30,6 +30,7 @@ export default function DrawerStack(props) {
           },
         }}>
         {isAdmin ? (
+          <>
           <Drawer.Screen
             name="Dashboard"
             component={TabNav}
@@ -38,7 +39,15 @@ export default function DrawerStack(props) {
               headerShown: false,
             }}
           />
-        ) : (
+          {/* <Drawer.Screen
+            name="ProfilePage"
+            component={ProfilePage}
+            options={{
+              headerShadowVisible: false,
+              headerShown: false,
+            }}
+          /> */}
+        </>) : (
           <Drawer.Screen
             name="Home"
             options={{

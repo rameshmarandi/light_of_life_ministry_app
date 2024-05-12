@@ -18,6 +18,17 @@ import gotquestion from '../../assets/resources/gotquestion.png';
 import unity from '../../assets/resources/unity.png';
 import ebook from '../../assets/resources/ebook.png';
 
+//Admin
+import members from "../../assets/admin/members.png"
+import camera from "../../assets/admin/camera.png"
+import DBible from "../../assets/admin/3DBible.png"
+import pdf from "../../assets/admin/pdf.png"
+import prayer from "../../assets/admin/prayer.png"
+import contact from "../../assets/admin/contact.png"
+import alert from "../../assets/admin/alert.png"
+import adminManag from "../../assets/admin/adminManag.png"
+
+
 const resourcesImages = {
 missionary,
 theology,
@@ -39,7 +50,14 @@ const homeIcons = {
   cross,
   church_logo,
   dailyVerbsBanner,
-  birthday
+  birthday,
+  members,
+  camera, 
+  DBible,
+  pdf, prayer,
+  contact,
+  alert,
+  adminManag
 };
 export default assets = {
   ...authIcons,

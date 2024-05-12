@@ -29,6 +29,11 @@ export function AdminHomeStack(props) {
           component={AllScreens.Dashboard}
           options={screenOptions}
         />
+        <Stack.Screen
+          name={'Profile'}
+          component={AllScreens.ProfilePage}
+          options={screenOptions}
+        />
       </Stack.Navigator>
     </>
   );

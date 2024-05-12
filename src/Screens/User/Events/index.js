@@ -45,7 +45,9 @@ const Events = props => {
           flex: 1,
           backgroundColor: backgroundColorHandler(),
         }}>
-        <View>
+        <View style={{
+          marginTop:"4%"
+        }}>
           <CustomHeader
             backPress={() => {
               props.navigation.goBack();

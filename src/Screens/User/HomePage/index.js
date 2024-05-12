@@ -90,6 +90,7 @@ _renderItem = ({item}) => {
         centerLogo={true}
       />
       <MarqueeComp textRender={`Welcome to Light of Life Ministries , Pune`} />
+      
       <View
         style={{
           // paddingBottom:"50%"
@@ -189,7 +190,7 @@ _renderItem = ({item}) => {
                     </>
                   );
 
-                case 2:
+                 case 2:
                   return (
                     <>
                       <Animatable.View
@@ -259,8 +260,7 @@ _renderItem = ({item}) => {
                           marginBottom: '70%',
                           width: '100%',
                           height: getResHeight(45),
-                          // borderRadius: 10,
-                          // overflow: 'hidden',
+                          
                           marginTop: '6%',
                         }}>
                         <GoogleMapComp />
@@ -514,3 +514,5 @@ const styles = StyleSheet.create({
 });
 
 export default index;
+
+

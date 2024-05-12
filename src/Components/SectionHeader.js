@@ -10,7 +10,7 @@ import {
 } from '../utility/responsive';
 import theme from '../utility/theme';
 import {textColorHandler} from './commonHelper';
-
+import PropTypes from 'prop-types';
 const SectionHeader = props => {
   const {titleTextStyle, sectionTitle} = props;
   return (
@@ -28,5 +28,9 @@ const SectionHeader = props => {
     </View>
   );
 };
-
+SectionHeader.propTypes = {
+  sectionTitle : PropTypes.string,
+  titleTextStyle : PropTypes.object,
+  containerStyle : PropTypes.object
+}
 export default React.memo(SectionHeader);

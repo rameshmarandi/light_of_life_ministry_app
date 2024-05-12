@@ -34,7 +34,7 @@ const headerTitle = {
   feedBack : "Feedback",
   settings : "Settings",
   prayerRequest : "Prayer Request",
-  notification : "All Notification",
+  notification : "All Notifications",
   profile: "My Profile"
 
 }

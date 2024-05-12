@@ -11,7 +11,7 @@ export default function MainNavigation(props) {
   
   return (
     <>
-      <DrawerStack isAdmin={isAdmin} />
+      <DrawerStack isAdmin={true} />
     </>
   );
 }

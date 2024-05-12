@@ -20,74 +20,59 @@ import {store} from '../../../utility/store';
 import * as Animatable from 'react-native-animatable';
 
 import CustomHeader from '../../../Components/CustomHeader';
-import { ALL_LINKS } from '../../../Config/constants';
-import { backgroundColorHandler, textColorHandler } from '../../../Components/commonHelper';
-import { getFontSize, getResHeight, getResWidth } from '../../../utility/responsive';
+import {ALL_LINKS} from '../../../Config/constants';
+import {
+  backgroundColorHandler,
+  textColorHandler,
+} from '../../../Components/commonHelper';
+import {
+  getFontSize,
+  getResHeight,
+  getResWidth,
+} from '../../../utility/responsive';
 import MsgConfig from '../../../Config/MsgConfig';
-
-const imageSize = () => {
-  return {
-    height: 60,
-    width: 60,
-  };
-};
+import SquareCardComp from '../../../Components/SquareCardComp';
 
 const FreeResourceData = [
   {
     id: 6,
-    imageLink: (
-      <Image
-        source={theme.assets.ebook}
-        style={{
-          height: 100,
-          width: 100,
-        }}
-      />
-    ),
-
     title: 'E-Books (Free)',
-    URL: ALL_LINKS.E_BOOKS,
+    image: theme.assets.ebook,
+    route: ALL_LINKS.E_BOOKS,
   },
-
   {
     id: 1,
-    imageLink: <Image source={theme.assets.theology} style={imageSize()} />,
     title: 'Theology & More',
-    type: 'theology',
+    image: theme.assets.theology,
+    route: 'theology',
   },
-
   {
     id: 2,
-    imageLink: <Image source={theme.assets.gotquestion} style={imageSize()} />,
-
     title: 'GotQuestion (English)',
-    URL: ALL_LINKS.GOTQUESTION_ENGLISH,
+    image: theme.assets.gotquestion,
+    route: ALL_LINKS.GOTQUESTION_ENGLISH,
   },
   {
     id: 3,
-    imageLink: <Image source={theme.assets.gotquestion} style={imageSize()} />,
     title: 'GotQuestion (Hindi)',
-    URL: ALL_LINKS.GOTQUESTION_HINDI,
+    image: theme.assets.gotquestion,
+    route: ALL_LINKS.GOTQUESTION_HINDI,
   },
-    {
+  {
     id: 0,
-    imageLink: <Image source={theme.assets.missionary} style={imageSize()} />,
-    title: 'Misonary Biography',
-    URL: ALL_LINKS.MISSIONARY_BIOGRAPHY,
+    title: 'Missionary Biography',
+    image: theme.assets.missionary,
+    route: ALL_LINKS.MISSIONARY_BIOGRAPHY,
   },
   {
     id: 4,
-    imageLink: <Image source={theme.assets.unity} style={imageSize()} />,
     title: 'Christian Rights',
-    //   URL: CHRISTIAN_RIGHTS,
+    image: theme.assets.unity,
+    // route: CHRISTIAN_RIGHTS,
   },
-
-  
 ];
 
-const FreeResource = ({ navigation }) => {
-  const { isDarkMode } = useSelector(state => state.user);
-
+const FreeResource = ({navigation}) => {
   return (
     <SafeAreaView
       style={{
@@ -105,109 +90,26 @@ const FreeResource = ({ navigation }) => {
 
       <View
         style={{
-          flex:1,
+          flex: 1,
           paddingHorizontal: '5%',
         }}>
-
         <View
           style={{
             width: getResWidth(100), // Assuming SCREENWIDTH is defined elsewhere
-            // height: getResHeight(20) - 60, // Assuming SCREENHEIGHT is defined elsewhere
             alignSelf: 'center',
             padding: '4%',
             flexDirection: 'row',
-            // flex:1,
-            // backgroundColor:"red"
           }}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            style={{}}
-            contentContainerStyle={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              flexWrap: 'wrap',
-              // flex:1,
-            }}
-            data={FreeResourceData}
-            keyExtractor={item => item.id}
-            renderItem={({ item, index }) => {
-              return (
-                <ResourceCard
-                  data={item}
-                  isDarkMode={isDarkMode}
-                />
-              );
-            }}
-          />
+          <SquareCardComp
+          onPress = {(item)=>{
+            // alert('clikd')
+            console.log("item", item)
+          }}
+          filteredData={FreeResourceData} />
         </View>
       </View>
     </SafeAreaView>
   );
 };
 
-
-const ResourceCard = props => {
-  const {title, URL, imageLink, type, isDarkMode} = props.data;
-    const {navigation} = props
-    const WebViewFunction = url => {
-      // navigation.navigate('WebRender', {URL: url, title: title})
-    }
-  //   //Dark Theme Select
-  //   const darkStore = useSelector(state => state)
-  //   const {darkTheme} = darkStore
-  //   const dark = darkTheme?.darktheme
-  return (
-    <>
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('URL', URL);
-              if (type) {
-                navigation.navigate('MoreFreeResource', {type: `${type}`})
-              } else {
-                WebViewFunction(URL)
-              }
-          }}
-          style={{
-            width: 160,
-            height: 150,
-            borderWidth: 1,
-            // borderColor: 'white',
-            borderColor : isDarkMode ?"white": theme.color.primary,            
-            backgroundColor: backgroundColorHandler(),
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: '10%',
-            padding: '10%',
-            shadowColor: isDarkMode ? theme.color.white : 'black',
-            shadowOffset: {width: 0, height: 1},
-            shadowRadius: 5,
-            shadowOpacity: 0.3,
-            elevation: 8,
-            borderRadius: 20,
-          }}>
-          <View>{imageLink}</View>
-          <Text
-            style={{
-              fontSize: getFontSize(1.7),
-              color: textColorHandler(),
-              fontFamily: theme.font.medium,
-              textAlign: 'center',
-            }}>
-            {title}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </>
-  )
-};
-
-const styles = StyleSheet.create({
-  imageSize: {
-    height: '',
-    width: '',
-  },
-});
-
-
-export default FreeResource
+export default FreeResource;

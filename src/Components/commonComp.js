@@ -1,4 +1,4 @@
-import React ,{memo}from 'react';
+import React, {memo} from 'react';
 import {
   Alert,
   Linking,
@@ -19,7 +19,7 @@ import {
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import theme from '../utility/theme';
 import {Button, Image} from 'react-native-elements';
-import { getFontSize, getResHeight } from '../utility/responsive';
+import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
 // import {
 //   getFontSize,
@@ -34,8 +34,15 @@ import theme from '../utility/theme';
 
 // import {Dropdown} from 'react-native-element-dropdown';
 // import {store} from '../utility/store';
-import {backgroundColorHandler, bgInDarkMode, inAcitveTextInput, textColorHandler, textInDarkMode} from './commonHelper';
-import { useSelector } from 'react-redux';
+import {
+  backgroundColorHandler,
+  bgInDarkMode,
+  inAcitveTextInput,
+  textColorHandler,
+  textInDarkMode,
+} from './commonHelper';
+import {useSelector} from 'react-redux';
+import {VectorIcon} from './VectorIcon';
 // const isDarkMode = store.getState().auth.isDarkMode;
 
 // export const CommonModal = props => {
@@ -119,17 +126,17 @@ import { useSelector } from 'react-redux';
 //   );
 // };
 export const StatusBarComp = memo(() => {
-  let {isDarkMode }= useSelector((state) =>state.user)
-  console.log("memo at status baser")
+  let {isDarkMode} = useSelector(state => state.user);
+  console.log('memo at status baser');
   return (
     <StatusBar
       animated={true}
       backgroundColor={backgroundColorHandler()}
-      setBackgroundColor = {"red"}
-      barStyle= {!isDarkMode ? 'dark-content' :"'light-content'"}
+      setBackgroundColor={'red'}
+      barStyle={!isDarkMode ? 'dark-content' : "'light-content'"}
     />
   );
-})
+});
 // export const HyperTxt = props => {
 //   const {text, hyperText, onPress} = props;
 //   return (
@@ -237,7 +244,7 @@ export const StatusBarComp = memo(() => {
 //             fontFamily: theme.font.semiBold,
 //             fontSize: getFontSize(12),
 //           }}>
-//           {lableName} 
+//           {lableName}
 //         </Text>
 //         {mandatory && (
 //           <Text
@@ -340,6 +347,56 @@ export const StatusBarComp = memo(() => {
 //     </>
 //   );
 // };
+
+export const ButtonIconComp = props => {
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+  );
+  const {onPress,icon ,iconStyle, iconContainerStyle, iconPosition, containerStyle} = props;
+  return (
+    <>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <Button
+          type={'clear'}
+          onPress={onPress}
+          iconPosition={iconPosition}
+          icon={
+            icon
+          }
+          iconStyle = {iconStyle}
+          iconContainerStyle={iconContainerStyle ? iconContainerStyle:[ , {}]}
+          containerStyle={
+            containerStyle
+              ? containerStyle
+              : [
+                  {
+                    width: getResHeight(5),
+                    height: getResHeight(5),
+                    // justifyContent:"center",
+                    backgroundColor: currentBgColor,
+                    // backgroundColor: isDarkMode
+                    //   ? theme.color.dimWhite
+                    //   : theme.color.primary,
+                    borderRadius: getResHeight(100),
+                  },
+                ]
+          }
+          buttonStyle={[
+            {
+              width: '100%',
+              height: '100%',
+              borderRadius: 100,
+            },
+          ]}
+        />
+      </View>
+    </>
+  );
+};
 export const CommonButtonComp = props => {
   const {
     onPress,
@@ -356,7 +413,7 @@ export const CommonButtonComp = props => {
   } = props;
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
- );
+  );
   return (
     <Button
       title={title}
@@ -365,7 +422,7 @@ export const CommonButtonComp = props => {
       titleStyle={[
         styles.btnTitleStyle,
         {
-          color: currentBgColor
+          color: currentBgColor,
         },
       ]}
       disabledStyle={{
@@ -389,7 +446,7 @@ export const CommonButtonComp = props => {
           width: '100%',
           height: '100%',
           borderRadius: 100,
-          backgroundColor:currentTextColor,
+          backgroundColor: currentTextColor,
         },
       ]}
       {...props}
@@ -447,18 +504,17 @@ const styles = StyleSheet.create({
   textItem: {
     flex: 1,
     fontSize: getFontSize(12),
-    fontFamily: theme.font.regular
-
+    fontFamily: theme.font.regular,
   },
   placeholderStyle: {
     fontSize: getFontSize(12),
     // color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
-    fontFamily: theme.font.regular
+    fontFamily: theme.font.regular,
   },
   selectedTextStyle: {
     fontSize: getFontSize(12),
     // color: isDarkMode ? 'green' : theme.color.darkTheme,
-    fontFamily: theme.font.regular
+    fontFamily: theme.font.regular,
   },
 
   iconStyle: {
