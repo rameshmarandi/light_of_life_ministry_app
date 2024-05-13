@@ -7,10 +7,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RootNavigation from './src/Navigation';
 // import AllScreens from './src/Screens/index';
+import { createStackNavigator } from '@react-navigation/stack';
 
+// import NavigationService, { setNavigator } from "./src/Services/NavigationService.js"
 import { getFontSize } from './src/utility/responsive';
 import { persistor, store } from './src/utility/store';
 import theme from './src/utility/theme';
+import { setNavigator } from './src/Services/NavigationService';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +32,8 @@ const App = () => {
     }, 3000);
   }, []);
 
+ 
+    
   return (
     <>
       {isLoading ? (
@@ -107,13 +112,23 @@ const InitialRender = () => {
 
 const AllNavContainer = props => {
   const {isLogedIn} = props;
- 
+  // const navigationRef = React.useRef();
+
+  const navigationRef = React.useRef(); // Ensure useRef is imported correctly
+
+  const onNavigationReady = () => {
+
+    console.log("navigationRef",navigationRef)
+    // setNavigator(navigationRef.current)
+    // NavigationServic.setNavigator(navigationRef.current);
+   
+  };
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           {/* <MenuProvider> */}
-          <NavigationContainer>
+          <NavigationContainer onReady={onNavigationReady}>
             <RootNavigation
              isLogedIn={isLogedIn}
             //  isAdmin = {isAdmin}

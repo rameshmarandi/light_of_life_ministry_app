@@ -24,10 +24,11 @@ import {
 
 import SearchBarComp from '../../../Components/SearchBarComp';
 import SquareCardComp from '../../../Components/SquareCardComp';
+import { pushScreen } from '../../../Services/NavigationService.js';
 
 const cardDataArray = [
   { id: 0, title: 'All Members', image: theme.assets.members, routeName: '' },
-  { id: 1, title: 'Admin Management', image: theme.assets.adminManag, routeName: '' },
+  { id: 1, title: 'Admin Management', image: theme.assets.adminManag, routeName: 'AdminManagment' },
   { id: 2, title: 'Momentous Posts', image: theme.assets.camera, routeName: '' },
   { id: 3, title: 'Daily Verses', image: theme.assets.DBible, routeName: '' },
   { id: 4, title: 'Notification Controls', image: theme.assets.alert, routeName: '' },
@@ -121,8 +122,8 @@ const index = props => {
                     <SquareCardComp
                       filteredData={filteredData}
                       onPress = {(item)=>{
-                        // alert('clikd')
-                        console.log("item", item)
+                        // pushScreen(item.routeName)
+                        props.navigation.navigate(item.routeName)
                       }}
                     />
                   </>

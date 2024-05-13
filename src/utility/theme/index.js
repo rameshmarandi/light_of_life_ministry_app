@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   cardEffect: {
-    backgroundColor: "white",
+   
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

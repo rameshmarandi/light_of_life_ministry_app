@@ -13,7 +13,7 @@ import UserNotification from "./User/Notification/UserNotification"
 // Admin Dashboard
 
 import Dashboard from "./Admin/Dashboard/index"
-
+import AdminManagment from "./Admin/AdminManagment/index"
 
  const UserAllScreens = {
     HomePage,
@@ -28,7 +28,8 @@ import Dashboard from "./Admin/Dashboard/index"
 
 
  const AdminScreens = {
-   Dashboard
+   Dashboard,
+   AdminManagment
  }
 
  export default AllScreens = {

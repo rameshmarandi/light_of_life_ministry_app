@@ -44,6 +44,7 @@ const SearchBarComp = props => {
                 borderBottomWidth: 0,
                 backgroundColor: currentBgColor,
                 margin:0,
+                alignItems:"center"
                 // backgroundColor:"red"
               },
         ]}
@@ -52,9 +53,12 @@ const SearchBarComp = props => {
 
           fontSize: getFontSize(2),
           fontFamily: theme.font.medium,
+          // backgroundColor:"red",
+          alignItems:"center"
         }}
         // cursorColor={'red'}
         inputContainerStyle={{
+          alignItems:"center",
           backgroundColor: isDarkMode ? currentTextColor : theme.color.dimWhite,
         }}
       />

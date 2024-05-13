@@ -35,8 +35,8 @@ const headerTitle = {
   settings : "Settings",
   prayerRequest : "Prayer Request",
   notification : "All Notifications",
-  profile: "My Profile"
-
+  profile: "My Profile",
+  AdminManag:"Admin Management"
 }
 
 export default message = {

@@ -1,11 +1,10 @@
 import React from 'react';
-import AllScreens from '../Screens/index';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabNav from './TabNav';
 import {HomeStack, SettingsStack} from './StackNav';
 import DrawerItems from '../Screens/Drawer/DrawerItems';
 import { useSelector } from 'react-redux';
-
+import AllScreens from '../Screens/index';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerStack(props) {
@@ -39,14 +38,14 @@ export default function DrawerStack(props) {
               headerShown: false,
             }}
           />
-          {/* <Drawer.Screen
-            name="ProfilePage"
-            component={ProfilePage}
+          <Drawer.Screen
+            name="AdminManagment"
+            component={AllScreens.AdminManagment}
             options={{
               headerShadowVisible: false,
               headerShown: false,
             }}
-          /> */}
+          />
         </>) : (
           <Drawer.Screen
             name="Home"
