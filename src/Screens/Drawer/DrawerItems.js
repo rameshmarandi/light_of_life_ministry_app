@@ -344,7 +344,7 @@ console.log("isAdmin", isAdmin)
                 type={'FontAwesome'}
                 // name={'logout'}
                 name={'lock'}
-                size={getFontSize(3)}
+                size={getFontSize(2)}
                 color={currentBgColor}
               />
             }

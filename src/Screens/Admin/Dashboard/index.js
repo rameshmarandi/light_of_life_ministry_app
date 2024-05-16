@@ -10,6 +10,7 @@ import {
   StatusBar,
   Image,
   FlatList,
+  Keyboard,
 } from 'react-native';
 import theme from '../../../utility/theme';
 import {useSelector} from 'react-redux';
@@ -84,6 +85,9 @@ const index = props => {
       <CustomHeader
         Hamburger={() => {
           navigation.openDrawer();
+          // const dismissKeyboard = () => {
+            Keyboard.dismiss();
+          // };
         }}
         onPressNotificaiton={() => {
           navigation.navigate('UserNotification');
@@ -106,7 +110,7 @@ const index = props => {
       </View>
       <View
         style={{
-          paddingBottom: getResHeight(10),
+          paddingBottom: getResHeight(20),
           paddingHorizontal: '2%',
           paddingTop: '2%',
         }}>

@@ -42,13 +42,14 @@ const tabArrays = [
   // },
 ];
 
-const CustomTabBar = ({navigation, selectedTabIndex }) => {
+const CustomTabBar = (props) => {
+  const {navigation, selectedTabIndex , currentBgColor , currentTextColor } = props
   const [selectedTab, setSelectedTab] = useState(selectedTabIndex);
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(translateY, {
-      toValue: -getResHeight(2),
+      // toValue: -getResHeight(2),
       duration: 1800,
       useNativeDriver: true,
       easing: Easing.easeInOut,
@@ -61,7 +62,9 @@ const CustomTabBar = ({navigation, selectedTabIndex }) => {
   };
 
   return (
-    <View style={styles.tabBar}>
+    <View style={[styles.tabBar , {
+      backgroundColor:currentTextColor
+    }]}>
       {tabArrays.map((route, index) => {
         const isFocused = useIsFocused();
 
@@ -91,15 +94,16 @@ const CustomTabBar = ({navigation, selectedTabIndex }) => {
                 // transform: [
                 //   {translateY: index === selectedTab ? translateY : 0},
                 // ],
-                backgroundColor: theme.color.darkTheme,
+                // backgroundColor:index === selectedTab? "red":"white"
+                // theme.color.darkTheme,
               }}>
               <VectorIcon
                 type={route.icon.type}
                 name={route.icon.name}
                 color={
                   selectedTab === index
-                    ? theme.color.white
-                    : theme.color.dimWhite
+                    ? currentBgColor
+                    : theme.color.dimGray
                 }
                 size={getFontSize(2.5)}
               />
@@ -114,8 +118,8 @@ const CustomTabBar = ({navigation, selectedTabIndex }) => {
                           : theme.font.regular,
                       color:
                         selectedTab === index
-                          ? theme.color.white
-                          : theme.color.iceWhite,
+                          ? currentBgColor
+                          : theme.color.dimGray,
                     }}>
                     {isFocused ? route.title : ''}
                   </Animated.Text>
@@ -123,7 +127,7 @@ const CustomTabBar = ({navigation, selectedTabIndex }) => {
                     style={{
                       height: getResHeight(0.5),
                       width: getResHeight(0.5),
-                      backgroundColor: 'white',
+                      backgroundColor: currentBgColor,
                       borderRadius: getResHeight(100),
                     }}
                   />
@@ -148,6 +152,8 @@ export default function TabNav(props) {
           <CustomTabBar
             {...navigation}
             initialRouteName={tabArrays[0].routeNames}
+            currentBgColor={currentBgColor}
+            currentTextColor={currentTextColor}
             selectedTabIndex={0}
           />
         )}>
@@ -170,7 +176,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: theme.color.darkTheme,
+    backgroundColor: "white",
+    // theme.color.darkTheme,
     // borderTopRightRadius: getResHeight(2),
     // borderTopLeftRadius: getResHeight(2),
     // borderTopWidth:1,

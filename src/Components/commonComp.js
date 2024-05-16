@@ -468,7 +468,7 @@ const styles = StyleSheet.create({
   // Prayer modal button style
   btnTitleStyle: {
     textAlign: 'left',
-    fontSize: getFontSize(2),
+    fontSize: getFontSize(1.5),
     fontFamily: theme.font.semiBold,
     marginLeft: '5%',
     // marginTop: '2%',

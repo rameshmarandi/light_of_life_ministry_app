@@ -4,6 +4,7 @@ import {SearchBar} from 'react-native-elements';
 import theme from '../utility/theme';
 import {useSelector} from 'react-redux';
 import {getFontSize} from '../utility/responsive';
+import { fonts } from 'react-native-elements/dist/config';
 
 const SearchBarComp = props => {
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
@@ -27,13 +28,20 @@ const SearchBarComp = props => {
         placeholderTextColor={
           placeholderTextColor ? placeholderTextColor : theme.color.dimGray
         }
+        searchIcon = {{
+          iconStyle :  {
+            fontSize: getFontSize(3)
+          }
+        }}
+        
+        
         showLoading={isLoading}
         autoCapitalize={autoCapitalize ? autoCapitalize : 'none'}
         autoFocus ={autoFocus ?autoFocus :false}
         onChangeText={onChangeText}
         value={value}
         round={ round ?round : 10}
-      
+       cursorColor={isDarkMode ? theme.color.darkTheme:currentTextColor}
         containerStyle={[
           containerStyle
             ? containerStyle
@@ -48,13 +56,17 @@ const SearchBarComp = props => {
                 // backgroundColor:"red"
               },
         ]}
+        
         inputStyle={{
           color: isDarkMode ? theme.color.darkTheme : theme.color.darkTheme,
-
-          fontSize: getFontSize(2),
+          
+          fontSize: getFontSize(1.6),
           fontFamily: theme.font.medium,
           // backgroundColor:"red",
-          alignItems:"center"
+          alignItems:"center",
+          marginTop:"1%"
+          // backgroundColor:"red",
+          // paddingTop:"4%"
         }}
         // cursorColor={'red'}
         inputContainerStyle={{
