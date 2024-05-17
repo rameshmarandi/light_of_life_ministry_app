@@ -23,6 +23,7 @@ import members from "../../assets/admin/members.png"
 import camera from "../../assets/admin/camera.png"
 import DBible from "../../assets/admin/3DBible.png"
 import pdf from "../../assets/admin/pdf.png"
+import closeIcon from "../../assets/admin/closeIcon.png"
 import prayer from "../../assets/admin/prayer.png"
 import contact from "../../assets/admin/contact.png"
 import alert from "../../assets/admin/alert.png"
@@ -54,7 +55,9 @@ const homeIcons = {
   members,
   camera, 
   DBible,
-  pdf, prayer,
+  pdf, 
+  prayer,
+  closeIcon,
   contact,
   alert,
   adminManag

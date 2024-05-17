@@ -6,15 +6,16 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RootNavigation from './src/Navigation';
+import {PaperProvider} from 'react-native-paper';
+
 // import AllScreens from './src/Screens/index';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 // import NavigationService, { setNavigator } from "./src/Services/NavigationService.js"
-import { getFontSize } from './src/utility/responsive';
-import { persistor, store } from './src/utility/store';
+import {getFontSize} from './src/utility/responsive';
+import {persistor, store} from './src/utility/store';
 import theme from './src/utility/theme';
-import { setNavigator } from './src/Services/NavigationService';
-
+import {setNavigator} from './src/Services/NavigationService';
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs(true);
@@ -32,8 +33,6 @@ const App = () => {
     }, 3000);
   }, []);
 
- 
-    
   return (
     <>
       {isLoading ? (
@@ -117,25 +116,25 @@ const AllNavContainer = props => {
   const navigationRef = React.useRef(); // Ensure useRef is imported correctly
 
   const onNavigationReady = () => {
-
-    console.log("navigationRef",navigationRef)
+    console.log('navigationRef', navigationRef);
     // setNavigator(navigationRef.current)
     // NavigationServic.setNavigator(navigationRef.current);
-   
   };
   return (
     <>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          {/* <MenuProvider> */}
-          <NavigationContainer onReady={onNavigationReady}>
-            <RootNavigation
-             isLogedIn={isLogedIn}
-            //  isAdmin = {isAdmin}
-            />
-          </NavigationContainer>
-          {/* </MenuProvider> */}
-        </PersistGate>
+        <PaperProvider>
+          <PersistGate persistor={persistor}>
+            {/* <MenuProvider> */}
+            <NavigationContainer onReady={onNavigationReady}>
+              <RootNavigation
+                isLogedIn={isLogedIn}
+                //  isAdmin = {isAdmin}
+              />
+            </NavigationContainer>
+            {/* </MenuProvider> */}
+          </PersistGate>
+        </PaperProvider>
       </Provider>
     </>
   );

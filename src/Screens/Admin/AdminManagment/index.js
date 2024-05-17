@@ -14,7 +14,9 @@ import {
 import theme from '../../../utility/theme';
 import {useSelector} from 'react-redux';
 import CustomHeader from '../../../Components/CustomHeader';
-import {StatusBarComp} from '../../../Components/commonComp';
+import {Button, Menu, Divider, PaperProvider} from 'react-native-paper';
+
+import {ButtonIconComp, StatusBarComp} from '../../../Components/commonComp';
 import MarqueeComp from '../../../Components/MarqueeComp';
 import {
   getFontSize,
@@ -25,6 +27,9 @@ import {
 import SearchBarComp from '../../../Components/SearchBarComp';
 import SquareCardComp from '../../../Components/SquareCardComp';
 import MsgConfig from '../../../Config/MsgConfig';
+import {VectorIcon} from '../../../Components/VectorIcon';
+import SmallMenuComp from '../../../Components/SmallMenuComp';
+import ConfirmAlert from '../../../Components/ConfirmAlert';
 
 const cardDataArray = [
   {id: 0, title: 'All Members', image: theme.assets.members, routeName: ''},
@@ -47,6 +52,8 @@ const cardDataArray = [
   {id: 7, title: 'Contact us', image: theme.assets.contact, routeName: ''},
 ];
 
+const menuItems = [{title: 'Update'}, {title: 'Deactive'}, {title: 'Delete'}];
+
 const initialState = {
   filteredData: cardDataArray,
   isLoading: false,
@@ -60,6 +67,7 @@ const index = props => {
   );
 
   const [state, setState] = useState(initialState);
+  const [showAlert, setShowAlert] = useState(false);
   const {filteredData, isLoading, searchText} = state;
 
   const updateState = newState =>
@@ -100,7 +108,13 @@ const index = props => {
           screenTitle={MsgConfig.AdminManag}
         />
       </View>
-
+      <ConfirmAlert
+        visible={showAlert}
+        onCancel={() => setShowAlert(false)}
+        onConfirm={() => {
+          setShowAlert(false);
+        }}
+      />
       <StatusBarComp />
 
       <View
@@ -126,28 +140,87 @@ const index = props => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: '20%'}}
           renderItem={({item, index}) => {
-            // switch (index) {
-            //   case 0:
             return (
               <>
                 <View
                   style={[
                     theme.styles.cardEffect,
                     {
-                      width: '95%',
-                      //  paddingVertical:"5%",
-                      backgroundColor: currentBgColor,
+                      width: getResWidth(90),
+                      backgroundColor:
+                        (index + 1) % 2 !== 0
+                          ? theme.color.dimGray
+                          : currentBgColor,
                       borderWidth: 1,
                       borderColor: currentTextColor,
                       alignSelf: 'center',
                       borderRadius: getResHeight(2),
-                      padding: '5%',
+
+                      padding: getResHeight(2),
                       marginBottom: '5%',
                       flexDirection: 'row',
-                      flexWrap: 'wrap',
+                      flexWrap: 'wrap', // Enable wrapping
                     },
                   ]}>
-                  <View>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: getResHeight(1.4),
+                      right: getResWidth(2),
+                      zIndex: 9999,
+                    }}>
+                    <SmallMenuComp
+                      buttonLabel={openMenu => {
+                        return (
+                          <>
+                            <ButtonIconComp
+                              onPress={() => {
+                                openMenu();
+                              }}
+                              disabled = { (index + 1) % 2 !== 0}
+                              icon={
+                                <VectorIcon
+                                  type={'Entypo'}
+                                  name={'dots-three-vertical'}
+                                  size={getFontSize(2.1)}
+                                  color={currentTextColor}
+                                />
+                              }
+                              containerStyle={{
+                                width: getResHeight(5),
+                                height: getResHeight(5),
+                                backgroundColor: (index + 1) % 2 !== 0 ? theme.color.dimGray:currentBgColor,
+
+                                borderRadius: getResHeight(100),
+                              }}
+                            />
+                          </>
+                        );
+                      }}
+                      menuItems={menuItems}
+                      onMenuPress={menuIndex => {
+                        if (menuIndex == 2) {
+                          setShowAlert(true);
+                        }
+                      }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      left: getResWidth(2),
+                      top: getResHeight(1.5),
+                      height: getResHeight(2),
+                      width: getResHeight(2),
+                      borderRadius: getResHeight(100),
+                      backgroundColor: (index + 1) % 2 !== 0 ? 'red' : 'green',
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: getResWidth(26),
+                      // backgroundColor:"green"
+                    }}>
                     <Image
                       source={{
                         uri: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1719',
@@ -155,7 +228,6 @@ const index = props => {
                       style={{
                         height: getResHeight(13),
                         width: getResHeight(13),
-                        backgroundColor: 'green',
                         borderRadius: getResHeight(100),
                       }}
                     />
@@ -163,40 +235,49 @@ const index = props => {
 
                   <View
                     style={{
-                        width:"60%",
+                      width: getResWidth(48), // Set the width to allow wrapping within this container
                       marginLeft: '5%',
                       flexWrap: 'wrap',
                     }}>
                     <Text
                       style={{
+                        maxWidth: '100%',
                         fontSize: getFontSize(2),
                         fontFamily: theme.font.semiBold,
-                        color: currentTextColor
+                        color: currentTextColor,
                       }}>
                       Ramesh Marandi
                     </Text>
-                    <View style={{
-                        flexDirection:"row",
-                        alignItems: "center"
-                    }}>
-                        <View style={{
-                            height: getResHeight(1),
-                            width: getResHeight(1),
-                            borderRadius: getResHeight(100),
-                            backgroundColor:index +1 /2 ==0 ? "red" : "green",
-                            
-                        }}/>
-                        <Text style={{
-                            marginLeft:"4%",
-                            fontFamily: theme.font.medium,
-                            fontSize: getFontSize(1.5)
-                        }} >In-Active</Text>
-                    </View>
+                    {/* <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        flexWrap: 'wrap', // Ensure the inner content wraps if needed
+                      }}>
+                      
+                      <Text
+                        style={{
+                          marginLeft: '4%',
+                          fontFamily: theme.font.medium,
+                          fontSize: getFontSize(1.5),
+                          color: currentTextColor,
+                        }}>
+                        {(index + 1) % 2 !== 0 ? 'Deactive' : 'Active'}
+                      </Text>
+                    </View> */}
+                    <Text
+                      style={{
+                        // marginLeft: '4%',
+                        fontFamily: theme.font.medium,
+                        fontSize: getFontSize(1.5),
+                        color: currentTextColor,
+                      }}>
+                      ramesh.marandi.test@gmail.com
+                    </Text>
                   </View>
                 </View>
               </>
             );
-            // }
           }}
         />
       </View>

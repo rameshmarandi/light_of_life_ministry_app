@@ -352,7 +352,7 @@ export const ButtonIconComp = props => {
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
   );
-  const {onPress,icon ,iconStyle, iconContainerStyle, iconPosition, containerStyle} = props;
+  const {onPress,icon ,iconStyle, disabled ,iconContainerStyle, iconPosition, containerStyle} = props;
   return (
     <>
       <View
@@ -362,6 +362,7 @@ export const ButtonIconComp = props => {
         }}>
         <Button
           type={'clear'}
+          disabled ={disabled}
           onPress={onPress}
           iconPosition={iconPosition}
           icon={
