@@ -30,6 +30,8 @@ import MsgConfig from '../../../Config/MsgConfig';
 import {VectorIcon} from '../../../Components/VectorIcon';
 import SmallMenuComp from '../../../Components/SmallMenuComp';
 import ConfirmAlert from '../../../Components/ConfirmAlert';
+import CustomBottomSheet from '../../../Components/CustomBottomSheet';
+// import { updateState } from '../../../Helpers/CommonHelpers';
 
 const cardDataArray = [
   {id: 0, title: 'All Members', image: theme.assets.members, routeName: ''},
@@ -52,7 +54,7 @@ const cardDataArray = [
   {id: 7, title: 'Contact us', image: theme.assets.contact, routeName: ''},
 ];
 
-const menuItems = [{title: 'Update'}, {title: 'Deactive'}, {title: 'Delete'}];
+const menuItems = [{title: 'Update'}, {title: 'Block'}, {title: 'Delete'}];
 
 const initialState = {
   filteredData: cardDataArray,
@@ -67,11 +69,16 @@ const index = props => {
   );
 
   const [state, setState] = useState(initialState);
+
   const [showAlert, setShowAlert] = useState(false);
-  const {filteredData, isLoading, searchText} = state;
+
+  const sheetRef1 = useRef(null);
+  const sheetRef2 = useRef(null);
 
   const updateState = newState =>
     setState(prevState => ({...prevState, ...newState}));
+
+  const {filteredData, isLoading, searchText} = state;
 
   const handleSearch = text => {
     updateState({searchText: text});
@@ -91,6 +98,15 @@ const index = props => {
     }, 300);
   }, [searchText]);
 
+  renderContent1 = () => {
+    return (
+      <>
+        <View>
+          <Text>Ramesh Test herer</Text>
+        </View>
+      </>
+    );
+  };
   return (
     <SafeAreaView
       style={{
@@ -129,8 +145,21 @@ const index = props => {
           value={searchText}
         />
       </View>
+      {/* <Button title="Open Bottom Sheet 1" onPress={() => )} /> */}
+{/* <View style={{
+  flex:1
+}}> */}
+      <CustomBottomSheet
+        sheetRef={sheetRef1}
+        initialSnapIndex={-1}
+        snapPoints={['25%', '50%']}
+        renderContent={renderContent1}
+        headerTitle="Sheet 1"
+      />
+      {/* </View> */}
       <View
         style={{
+          zIndex:-9999,
           paddingBottom: getResHeight(10),
           paddingHorizontal: '2%',
           paddingTop: '2%',
@@ -175,9 +204,12 @@ const index = props => {
                           <>
                             <ButtonIconComp
                               onPress={() => {
+                                if(sheetRef1 && sheetRef1.current){
+                                  sheetRef1.current.close();
+                                }
                                 openMenu();
                               }}
-                              disabled = { (index + 1) % 2 !== 0}
+                              disabled={(index + 1) % 2 !== 0}
                               icon={
                                 <VectorIcon
                                   type={'Entypo'}
@@ -189,7 +221,10 @@ const index = props => {
                               containerStyle={{
                                 width: getResHeight(5),
                                 height: getResHeight(5),
-                                backgroundColor: (index + 1) % 2 !== 0 ? theme.color.dimGray:currentBgColor,
+                                backgroundColor:
+                                  (index + 1) % 2 !== 0
+                                    ? theme.color.dimGray
+                                    : currentBgColor,
 
                                 borderRadius: getResHeight(100),
                               }}
@@ -199,6 +234,11 @@ const index = props => {
                       }}
                       menuItems={menuItems}
                       onMenuPress={menuIndex => {
+
+                        
+                        if(menuIndex ==0){
+                          sheetRef1.current.expand()
+                        }
                         if (menuIndex == 2) {
                           setShowAlert(true);
                         }
@@ -226,8 +266,8 @@ const index = props => {
                         uri: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1719',
                       }}
                       style={{
-                        height: getResHeight(13),
-                        width: getResHeight(13),
+                        height: getResHeight(10),
+                        width: getResHeight(10),
                         borderRadius: getResHeight(100),
                       }}
                     />
@@ -248,31 +288,15 @@ const index = props => {
                       }}>
                       Ramesh Marandi
                     </Text>
-                    {/* <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        flexWrap: 'wrap', // Ensure the inner content wraps if needed
-                      }}>
-                      
-                      <Text
-                        style={{
-                          marginLeft: '4%',
-                          fontFamily: theme.font.medium,
-                          fontSize: getFontSize(1.5),
-                          color: currentTextColor,
-                        }}>
-                        {(index + 1) % 2 !== 0 ? 'Deactive' : 'Active'}
-                      </Text>
-                    </View> */}
+
                     <Text
                       style={{
-                        // marginLeft: '4%',
+                        width: '98%',
                         fontFamily: theme.font.medium,
                         fontSize: getFontSize(1.5),
                         color: currentTextColor,
                       }}>
-                      ramesh.marandi.test@gmail.com
+                      ramesh.test@gmail.com
                     </Text>
                   </View>
                 </View>

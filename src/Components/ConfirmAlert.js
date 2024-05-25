@@ -40,9 +40,9 @@ const ConfirmAlert = ({visible, onCancel, onConfirm}) => {
           },
         ]}>
         <Image
-          source={theme.assets.closeIcon}
+          source={theme.assets.deleteIcon}
           resizeMode="cover"
-          style={{height: getResHeight(10), width: getResHeight(17)}}
+          style={{height: getResHeight(10), width: getResHeight(10)}}
         />
         <Text
           style={{
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
- 
+
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: getFontSize(1.8),
     color: '#000',
-    fontFamily: theme.font.medium
+    fontFamily: theme.font.medium,
   },
 });
 

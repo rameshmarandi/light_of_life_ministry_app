@@ -6,9 +6,14 @@ import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
 import {VectorIcon} from '../Components/VectorIcon';
 import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
-import {AdminHomeStack, HomeStack, ProfileStack, SettingsStack} from './StackNav';
+import {
+  AdminHomeStack,
+  HomeStack,
+  ProfileStack,
+  SettingsStack,
+} from './StackNav';
 import screenOptions from './NavigationSettings';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,8 +47,9 @@ const tabArrays = [
   // },
 ];
 
-const CustomTabBar = (props) => {
-  const {navigation, selectedTabIndex , currentBgColor , currentTextColor } = props
+const CustomTabBar = props => {
+  const {navigation, selectedTabIndex, currentBgColor, currentTextColor} =
+    props;
   const [selectedTab, setSelectedTab] = useState(selectedTabIndex);
   const translateY = useRef(new Animated.Value(0)).current;
 
@@ -62,9 +68,13 @@ const CustomTabBar = (props) => {
   };
 
   return (
-    <View style={[styles.tabBar , {
-      backgroundColor:currentTextColor
-    }]}>
+    <View
+      style={[
+        styles.tabBar,
+        {
+          backgroundColor: currentTextColor,
+        },
+      ]}>
       {tabArrays.map((route, index) => {
         const isFocused = useIsFocused();
 
@@ -84,8 +94,8 @@ const CustomTabBar = (props) => {
               style={{
                 height: getResHeight(10),
                 width: getResHeight(10),
-                borderTopWidth:index == selectedTab  ?1 : 0,
-                borderTopColor:"white",
+                // borderTopWidth: index == selectedTab ? 1 : 0,
+                // borderTopColor: 'white',
                 // borderTopLeftRadius: getFontSize(100),
                 // borderTopRightRadius: getFontSize(100),
                 justifyContent: 'center',
@@ -101,9 +111,7 @@ const CustomTabBar = (props) => {
                 type={route.icon.type}
                 name={route.icon.name}
                 color={
-                  selectedTab === index
-                    ? currentBgColor
-                    : theme.color.dimGray
+                  selectedTab === index ? currentBgColor : theme.color.dimGray
                 }
                 size={getFontSize(2.5)}
               />
@@ -144,7 +152,7 @@ const CustomTabBar = (props) => {
 export default function TabNav(props) {
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
- );
+  );
   return (
     <>
       <Tab.Navigator
@@ -172,16 +180,11 @@ export default function TabNav(props) {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: getResHeight(10),
+    height: getResHeight(8),
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: "white",
-    // theme.color.darkTheme,
-    // borderTopRightRadius: getResHeight(2),
-    // borderTopLeftRadius: getResHeight(2),
-    // borderTopWidth:1,
-    // borderColor:"#efefef",
+    backgroundColor: 'white',
 
     shadowColor: '#000',
     shadowOffset: {

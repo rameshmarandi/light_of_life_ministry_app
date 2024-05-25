@@ -38,6 +38,7 @@ const CustomHeader = props => {
       <SafeAreaView style={{}}>
         <View
           style={{
+            marginTop:getResHeight(1),
             width: '100%',
             paddingHorizontal: '4%',
             flexDirection: 'row',
