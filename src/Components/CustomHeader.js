@@ -14,7 +14,7 @@ import {Button} from 'react-native-elements';
 import {VectorIcon} from './VectorIcon';
 import PropTypes from 'prop-types';
 import theme from '../utility/theme';
-import {getFontSize, getResHeight} from '../utility/responsive';
+import {getFontSize, getResHeight, getResWidth} from '../utility/responsive';
 import {backgroundColorHandler, textColorHandler} from './commonHelper';
 import {useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -27,6 +27,7 @@ const CustomHeader = props => {
     backgroundColor,
     screenTitle,
     centerLogo,
+    filterIcon,
   } = props;
 
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
@@ -38,7 +39,7 @@ const CustomHeader = props => {
       <SafeAreaView style={{}}>
         <View
           style={{
-            marginTop:getResHeight(1),
+            marginTop: getResHeight(1),
             width: '100%',
             paddingHorizontal: '4%',
             flexDirection: 'row',
@@ -133,6 +134,49 @@ const CustomHeader = props => {
               </Text>
             </View>
           )}
+          {filterIcon && (
+            <View
+              style={{
+                flexDirection: 'row',
+                // alignItems: 'center',
+              }}>
+              <Button
+                type={'clear'}
+                onPress={filterIcon}
+                iconPosition="right"
+                icon={
+                  <VectorIcon
+                    type={'Ionicons'}
+                    name={'filter'}
+                    size={getFontSize(3.5)}
+                    color={currentTextColor}
+                    style={{}}
+                  />
+                }
+                iconContainerStyle={{}}
+                containerStyle={[
+                  {
+                    width: getResHeight(5.5),
+                    height: getResHeight(5.5),
+                    // justifyContent:"center",
+                    backgroundColor: currentBgColor,
+                    // backgroundColor: isDarkMode
+                    //   ? theme.color.primary
+                    //   : theme.color.dimWhite,
+                    // backgroundColor: 'red',
+                    borderRadius: getResHeight(100),
+                  },
+                ]}
+                buttonStyle={[
+                  {
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 100,
+                  },
+                ]}
+              />
+            </View>
+          )}
 
           {centerLogo && typeof centerLogo == 'boolean' && (
             <Image
@@ -216,6 +260,7 @@ const CustomHeader = props => {
 CustomHeader.propTypes = {
   screenTitle: PropTypes.string,
   backPress: PropTypes.func,
+  filterIcon: PropTypes.func,
   centerLogo: PropTypes.bool,
   Hamburger: PropTypes.func,
 };

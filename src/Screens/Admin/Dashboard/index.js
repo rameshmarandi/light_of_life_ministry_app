@@ -25,17 +25,32 @@ import {
 
 import SearchBarComp from '../../../Components/SearchBarComp';
 import SquareCardComp from '../../../Components/SquareCardComp';
-import { pushScreen } from '../../../Services/NavigationService.js';
+import {pushScreen} from '../../../Services/NavigationService.js';
 
 const cardDataArray = [
-  { id: 0, title: 'All Members', image: theme.assets.members, routeName: '' },
-  { id: 1, title: 'Admin Management', image: theme.assets.adminManag, routeName: 'AdminManagment' },
-  { id: 2, title: 'Momentous Posts', image: theme.assets.camera, routeName: '' },
-  { id: 3, title: 'Daily Verses', image: theme.assets.DBible, routeName: '' },
-  { id: 4, title: 'Notification Controls', image: theme.assets.alert, routeName: '' },
-  { id: 5, title: 'Free Resources', image: theme.assets.pdf, routeName: '' },
-  { id: 6, title: 'Prayer Request', image: theme.assets.prayer, routeName: '' },
-  { id: 7, title: 'Contact us', image: theme.assets.contact, routeName: '' },
+  {
+    id: 0,
+    title: 'All Members',
+    image: theme.assets.members,
+    routeName: 'Members',
+  },
+  {
+    id: 1,
+    title: 'Admin Management',
+    image: theme.assets.adminManag,
+    routeName: 'AdminManagment',
+  },
+  {id: 2, title: 'Momentous Posts', image: theme.assets.camera, routeName: ''},
+  {id: 3, title: 'Daily Verses', image: theme.assets.DBible, routeName: ''},
+  {
+    id: 4,
+    title: 'Notification Controls',
+    image: theme.assets.alert,
+    routeName: '',
+  },
+  {id: 5, title: 'Free Resources', image: theme.assets.pdf, routeName: ''},
+  {id: 6, title: 'Prayer Request', image: theme.assets.prayer, routeName: ''},
+  {id: 7, title: 'Contact us', image: theme.assets.contact, routeName: ''},
 ];
 
 const initialState = {
@@ -80,13 +95,13 @@ const index = props => {
         flex: 1,
         backgroundColor: currentBgColor,
       }}>
-        <StatusBarComp />
+      <StatusBarComp />
 
       <CustomHeader
         Hamburger={() => {
           navigation.openDrawer();
           // const dismissKeyboard = () => {
-            Keyboard.dismiss();
+          Keyboard.dismiss();
           // };
         }}
         onPressNotificaiton={() => {
@@ -94,8 +109,8 @@ const index = props => {
         }}
         centerLogo={true}
       />
-       <MarqueeComp textRender={`Nice to see you back , Mr Ramesh`} />
-     
+      <MarqueeComp textRender={`Nice to see you back , Mr Ramesh`} />
+
       <View
         style={{
           marginTop: '3%',
@@ -125,9 +140,9 @@ const index = props => {
                   <>
                     <SquareCardComp
                       filteredData={filteredData}
-                      onPress = {(item)=>{
+                      onPress={item => {
                         // pushScreen(item.routeName)
-                        props.navigation.navigate(item.routeName)
+                        props.navigation.navigate(item.routeName);
                       }}
                     />
                   </>

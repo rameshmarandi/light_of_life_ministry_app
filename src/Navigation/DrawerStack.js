@@ -3,13 +3,15 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabNav from './TabNav';
 import {HomeStack, SettingsStack} from './StackNav';
 import DrawerItems from '../Screens/Drawer/DrawerItems';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import AllScreens from '../Screens/index';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerStack(props) {
-  const {isAdmin } = props;
-  let {isDarkMode , currentBgColor , currentTextColor} = useSelector(state => state.user);
+  const {isAdmin} = props;
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+  );
 
   return (
     <>
@@ -25,28 +27,52 @@ export default function DrawerStack(props) {
             width: '70%',
             // borderBottomRightRadius: 20,
             // borderTopRightRadius:20,
-            overflow:"hidden"
+            overflow: 'hidden',
+          },
+          cardStyleInterpolator: ({current, layouts}) => {
+            return {
+              cardStyle: {
+                opacity: current.progress,
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
           },
         }}>
         {isAdmin ? (
           <>
-          <Drawer.Screen
-            name="Dashboard"
-            component={TabNav}
-            options={{
-              headerShadowVisible: false,
-              headerShown: false,
-            }}
-          />
-          <Drawer.Screen
-            name="AdminManagment"
-            component={AllScreens.AdminManagment}
-            options={{
-              headerShadowVisible: false,
-              headerShown: false,
-            }}
-          />
-        </>) : (
+            <Drawer.Screen
+              name="Dashboard"
+              component={TabNav}
+              options={{
+                headerShadowVisible: false,
+                headerShown: false,
+              }}
+            />
+            <Drawer.Screen
+              name="AdminManagment"
+              component={AllScreens.AdminManagment}
+              options={{
+                headerShadowVisible: false,
+                headerShown: false,
+              }}
+            />
+            <Drawer.Screen
+              name="Members"
+              component={AllScreens.Members}
+              options={{
+                headerShadowVisible: false,
+                headerShown: false,
+              }}
+            />
+          </>
+        ) : (
           <Drawer.Screen
             name="Home"
             options={{

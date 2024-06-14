@@ -122,6 +122,7 @@ const index = props => {
             props.navigation.goBack();
           }}
           screenTitle={MsgConfig.AdminManag}
+          filterIcon={() => {}}
         />
       </View>
       <ConfirmAlert
@@ -145,10 +146,7 @@ const index = props => {
           value={searchText}
         />
       </View>
-      {/* <Button title="Open Bottom Sheet 1" onPress={() => )} /> */}
-{/* <View style={{
-  flex:1
-}}> */}
+
       <CustomBottomSheet
         sheetRef={sheetRef1}
         initialSnapIndex={-1}
@@ -156,10 +154,10 @@ const index = props => {
         renderContent={renderContent1}
         headerTitle="Sheet 1"
       />
-      {/* </View> */}
+
       <View
         style={{
-          zIndex:-9999,
+          zIndex: -9999,
           paddingBottom: getResHeight(10),
           paddingHorizontal: '2%',
           paddingTop: '2%',
@@ -204,7 +202,7 @@ const index = props => {
                           <>
                             <ButtonIconComp
                               onPress={() => {
-                                if(sheetRef1 && sheetRef1.current){
+                                if (sheetRef1 && sheetRef1.current) {
                                   sheetRef1.current.close();
                                 }
                                 openMenu();
@@ -234,10 +232,8 @@ const index = props => {
                       }}
                       menuItems={menuItems}
                       onMenuPress={menuIndex => {
-
-                        
-                        if(menuIndex ==0){
-                          sheetRef1.current.expand()
+                        if (menuIndex == 0) {
+                          sheetRef1.current.expand();
                         }
                         if (menuIndex == 2) {
                           setShowAlert(true);

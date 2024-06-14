@@ -1,7 +1,8 @@
 import React from 'react';
 import AllScreens from '../Screens/index';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import screenOptions from './NavigationSettings';
+import {transitionCard, screenOptions} from './NavigationSettings';
+// import {screenOptions} from './NavigationSettings';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ export function HomeStack(props) {
 export function AdminHomeStack(props) {
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={transitionCard}>
         <Stack.Screen
           initialRouteName={'Dashboard'}
           name={'Dashboard'}
