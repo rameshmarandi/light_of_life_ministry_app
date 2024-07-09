@@ -1,4 +1,4 @@
-import uuid from 'react-native-uuid';
+// import uuid from 'react-native-uuid';
 import {store} from '../utility/store';
 import theme from '../utility/theme';
 
@@ -40,4 +40,4 @@ export const ALL_LINKS = {
     'https://www.lightsource.com/devotionals/bible-study-minute',
 };
 
-export let userID = uuid.v4();
+// export let userID = uuid.v4();

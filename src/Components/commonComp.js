@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {
   Alert,
   Linking,
@@ -19,7 +19,7 @@ import {
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import theme from '../utility/theme';
 import {Button, Image} from 'react-native-elements';
-import { getFontSize, getResHeight } from '../utility/responsive';
+import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
 // import {
 //   getFontSize,
@@ -34,7 +34,15 @@ import theme from '../utility/theme';
 
 // import {Dropdown} from 'react-native-element-dropdown';
 // import {store} from '../utility/store';
-// import {backgroundColorHandler, bgInDarkMode, inAcitveTextInput, textColorHandler, textInDarkMode} from './commonHelper';
+import {
+  backgroundColorHandler,
+  bgInDarkMode,
+  inAcitveTextInput,
+  textColorHandler,
+  textInDarkMode,
+} from './commonHelper';
+import {useSelector} from 'react-redux';
+import {VectorIcon} from './VectorIcon';
 // const isDarkMode = store.getState().auth.isDarkMode;
 
 // export const CommonModal = props => {
@@ -117,15 +125,18 @@ import theme from '../utility/theme';
 //     />
 //   );
 // };
-// export const StatusBarComp = () => {
-//   return (
-//     <StatusBar
-//       animated={true}
-//       backgroundColor={backgroundColorHandler()}
-//       barStyle={'light-content'}
-//     />
-//   );
-// };
+export const StatusBarComp = memo(() => {
+  let {isDarkMode} = useSelector(state => state.user);
+  console.log('memo at status baser');
+  return (
+    <StatusBar
+      animated={true}
+      backgroundColor={backgroundColorHandler()}
+      setBackgroundColor={'red'}
+      barStyle={!isDarkMode ? 'dark-content' : "'light-content'"}
+    />
+  );
+});
 // export const HyperTxt = props => {
 //   const {text, hyperText, onPress} = props;
 //   return (
@@ -233,7 +244,7 @@ import theme from '../utility/theme';
 //             fontFamily: theme.font.semiBold,
 //             fontSize: getFontSize(12),
 //           }}>
-//           {lableName} 
+//           {lableName}
 //         </Text>
 //         {mandatory && (
 //           <Text
@@ -336,6 +347,57 @@ import theme from '../utility/theme';
 //     </>
 //   );
 // };
+
+export const ButtonIconComp = props => {
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+  );
+  const {onPress,icon ,iconStyle, disabled ,iconContainerStyle, iconPosition, containerStyle} = props;
+  return (
+    <>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <Button
+          type={'clear'}
+          disabled ={disabled}
+          onPress={onPress}
+          iconPosition={iconPosition}
+          icon={
+            icon
+          }
+          iconStyle = {iconStyle}
+          iconContainerStyle={iconContainerStyle ? iconContainerStyle:[ , {}]}
+          containerStyle={
+            containerStyle
+              ? containerStyle
+              : [
+                  {
+                    width: getResHeight(5),
+                    height: getResHeight(5),
+                    // justifyContent:"center",
+                    backgroundColor: currentBgColor,
+                    // backgroundColor: isDarkMode
+                    //   ? theme.color.dimWhite
+                    //   : theme.color.primary,
+                    borderRadius: getResHeight(100),
+                  },
+                ]
+          }
+          buttonStyle={[
+            {
+              width: '100%',
+              height: '100%',
+              borderRadius: 100,
+            },
+          ]}
+        />
+      </View>
+    </>
+  );
+};
 export const CommonButtonComp = props => {
   const {
     onPress,
@@ -350,6 +412,9 @@ export const CommonButtonComp = props => {
     disabled,
     containerStyle,
   } = props;
+  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
+  );
   return (
     <Button
       title={title}
@@ -358,7 +423,7 @@ export const CommonButtonComp = props => {
       titleStyle={[
         styles.btnTitleStyle,
         {
-          color: textInDarkMode(),
+          color: currentBgColor,
         },
       ]}
       disabledStyle={{
@@ -373,7 +438,7 @@ export const CommonButtonComp = props => {
       containerStyle={[
         styles.btnContainerStyle,
         {
-          elevation: 6,
+          // elevation: 6,
           borderRadius: 100,
         },
       ]}
@@ -382,7 +447,7 @@ export const CommonButtonComp = props => {
           width: '100%',
           height: '100%',
           borderRadius: 100,
-          backgroundColor: bgInDarkMode(),
+          backgroundColor: currentTextColor,
         },
       ]}
       {...props}
@@ -404,19 +469,19 @@ const styles = StyleSheet.create({
   // Prayer modal button style
   btnTitleStyle: {
     textAlign: 'left',
-    fontSize: getFontSize(12),
+    fontSize: getFontSize(1.5),
     fontFamily: theme.font.semiBold,
     marginLeft: '5%',
-    marginTop: '2%',
+    // marginTop: '2%',
   },
   btnContainerStyle: {
-    marginBottom: '1.5%',
+    marginBottom: getResHeight(6),
     width: '100%',
-    height: getResHeight(45),
+    height: getResHeight(5),
   },
   //Dropdown imle
   lableStyle: {
-    fontSize: getFontSize(12),
+    fontSize: getFontSize(2),
     fontWeight: '600',
     fontFamily: theme.font.regular,
     color: '#666666',
@@ -440,18 +505,17 @@ const styles = StyleSheet.create({
   textItem: {
     flex: 1,
     fontSize: getFontSize(12),
-    fontFamily: theme.font.regular
-
+    fontFamily: theme.font.regular,
   },
   placeholderStyle: {
     fontSize: getFontSize(12),
-    color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
-    fontFamily: theme.font.regular
+    // color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
+    fontFamily: theme.font.regular,
   },
   selectedTextStyle: {
     fontSize: getFontSize(12),
-    color: isDarkMode ? 'green' : theme.color.darkTheme,
-    fontFamily: theme.font.regular
+    // color: isDarkMode ? 'green' : theme.color.darkTheme,
+    fontFamily: theme.font.regular,
   },
 
   iconStyle: {

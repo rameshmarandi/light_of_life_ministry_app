@@ -1,17 +1,21 @@
 import {View, Text, Image, SafeAreaView, StatusBar, LogBox} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import LottieView from 'lottie-react-native';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RootNavigation from './src/Navigation';
+import {PaperProvider} from 'react-native-paper';
+
 // import AllScreens from './src/Screens/index';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import { getFontSize } from './src/utility/responsive';
-import { persistor, store } from './src/utility/store';
+// import NavigationService, { setNavigator } from "./src/Services/NavigationService.js"
+import {getFontSize} from './src/utility/responsive';
+import {persistor, store} from './src/utility/store';
 import theme from './src/utility/theme';
-
+import {setNavigator} from './src/Services/NavigationService';
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs(true);
@@ -21,13 +25,14 @@ const App = () => {
   StatusBar.setBackgroundColor(theme.color.darkTheme); // Set your desired background color
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(true);
   // const []
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
   }, []);
+
   return (
     <>
       {isLoading ? (
@@ -106,20 +111,30 @@ const InitialRender = () => {
 
 const AllNavContainer = props => {
   const {isLogedIn} = props;
+  // const navigationRef = React.useRef();
 
+  const navigationRef = React.useRef(); // Ensure useRef is imported correctly
+
+  const onNavigationReady = () => {
+    console.log('navigationRef', navigationRef);
+    // setNavigator(navigationRef.current)
+    // NavigationServic.setNavigator(navigationRef.current);
+  };
   return (
     <>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          {/* <MenuProvider> */}
-          <NavigationContainer>
-            <RootNavigation
-             isLogedIn={isLogedIn}
-             
-            />
-          </NavigationContainer>
-          {/* </MenuProvider> */}
-        </PersistGate>
+        <PaperProvider>
+          <PersistGate persistor={persistor}>
+            {/* <MenuProvider> */}
+            <NavigationContainer onReady={onNavigationReady}>
+              <RootNavigation
+                isLogedIn={isLogedIn}
+                //  isAdmin = {isAdmin}
+              />
+            </NavigationContainer>
+            {/* </MenuProvider> */}
+          </PersistGate>
+        </PaperProvider>
       </Provider>
     </>
   );

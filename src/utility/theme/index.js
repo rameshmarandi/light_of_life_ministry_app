@@ -2,9 +2,8 @@ import {StyleSheet} from 'react-native';
 // import {CardStyleInterpolators} from 'react-navigation-stack';
 
 import assets from './assets';
-// import {getFontSize, getResHeight, hp, wp} from '../responsive';
-import listData from './listData.json';
-import validation from './validation';
+import { getResHeight } from '../responsive';
+
 // const navigationOptions = {
 //   cardOptions: {
 //     headerShown: false,
@@ -59,9 +58,6 @@ const font = {
   bold: 'Poppins-Bold',
   extraBold :"Poppins-ExtraBold",
   italic :"Poppins-Italic",
-  // boldItalic : 'Poppins Bold Italic 700',
-  // light :"Poppins Light 300",
-  // lightItalic :"Poppins Light Italic 300",
   thin :"Poppins-Thin"
 };
 
@@ -81,83 +77,57 @@ const fontSizes = {
 //   large: 7,
 // };
 
-// const styles = StyleSheet.create({
-//   inputPlaceholder: {
-//     color: '#232731B2',
-//     fontFamily: font.regular,
-//     fontSize: getFontSize(15),
-//     fontWeight: '400',
-//   },
-//   btnTitleStyle: {
-//     fontFamily: font.regular,
-//     fontSize: getFontSize(13),
-//     fontWeight: '600',
-//     color: color.accent,
-//   },
-//   inputTitle: {
-//     color: '#232323',
-//     // opacity: 0.7,
-//     fontFamily: font.Helvetica,
-//     fontSize: getFontSize(13),
-//     fontWeight: '500',
-//   },
-//   roundBtnShadow: {
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: getResHeight(2),
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 8,
-//     elevation: 15,
-//   },
-//   cardEffect: {
-//     backgroundColor: color.accent,
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: getResHeight(2),
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 8,
-//     elevation: 15,
-//   },
-//   profileCard: {
-//     width: wp('90%'),
-//     alignSelf: 'center',
-//     borderRadius: 8,
-//     backgroundColor: color.accent,
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: getResHeight(2),
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 8,
-//     elevation: 15,
-//   },
-//   homeTitle: {
-//     color: color.black,
-//     fontFamily: font.regular,
-//     fontSize: getFontSize(10),
-//     fontWeight: '400',
-//     textAlign: 'center',
-//   },
-//   homeFContainerStyle: {
-//     paddingHorizontal: '4.5%',
-//   },
-//   homeFStyle: {
-//     width: '100%',
-//     // marginTop: '2.5%',
-//   },
-//   categoryTitle: {
-//     color: color.black,
-//     fontFamily: font.regular,
-//     fontSize: getFontSize(11.5),
-//     fontWeight: '700',
-//     textAlign: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  // inputPlaceholder: {
+  //   color: '#232731B2',
+  //   fontFamily: font.regular,
+  //   fontSize: getFontSize(15),
+  //   fontWeight: '400',
+  // },
+  // btnTitleStyle: {
+  //   fontFamily: font.regular,
+  //   fontSize: getFontSize(13),
+  //   fontWeight: '600',
+  //   color: color.accent,
+  // },
+  // inputTitle: {
+  //   color: '#232323',
+  //   // opacity: 0.7,
+  //   fontFamily: font.Helvetica,
+  //   fontSize: getFontSize(13),
+  //   fontWeight: '500',
+  // },
+  roundBtnShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: getResHeight(2),
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 15,
+  },
+  cardEffect: {
+   
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: getResHeight(2),
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 15,
+  },
+  
+  
+  // categoryTitle: {
+  //   color: color.black,
+  //   fontFamily: font.regular,
+  //   fontSize: getFontSize(11.5),
+  //   fontWeight: '700',
+  //   textAlign: 'center',
+  // },
+});
 
 // const listDataArray = {
 //   yesNo: listData.YesNo,
@@ -174,21 +144,12 @@ const fontSizes = {
 //   LGI: listData.LGI,
 // };
 const theme = {
-  // listDataArray,
-  // regex,
+
   color,
   font,
-  // fontSizes,
-  // Radius,
-  // marginHorizontal: 15,
-  // marginVerticle: 15,
-  // setPrimaryColor: function (color) {
-  //   this.color.primary = color;
-  // },
-  // styles,
+  styles,
+ 
   assets,
-  // navigationOptions,
-  // validationSchema: validation,
 };
 
 export default theme;

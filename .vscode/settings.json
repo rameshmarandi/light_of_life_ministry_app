@@ -1,4 +1,35 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "automatic"
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "git.ignoreLimitWarning": true,
+  "workbench.colorCustomizations": {
+    "[Community Material Theme High Contrast]": {},
+    "titleBar.activeForeground": "#000000",
+    "titleBar.inactiveForeground": "#012537",
+    "titleBar.border": "#E04B12",
+    "titleBar.activeBackground": "#1ae754",
+    "editorStickyScroll.background": "#00000080",
+    "editorStickyScroll.border": "#E04B12",
+    "editorStickyScroll.shadow": "#E04B12",
+    "panelTitle.activeBorder": "#E04B12",
+    "activityBar.inactiveForeground": "#6196c4",
+    "activityBar.activeBackground": "#E04B12",
+    "activityBar.foreground": "#ffff",
+    "activityBar.activeBorder": "#fff",
+    "editorGroup.border": "#E04B12",
+    // "titleBar.activeBackground": "#E04B12"
+    "editorLineNumber.foreground": "#fff",
+    "editorLineNumber.activeForeground": "#E04B12",
+    "editorLineNumber.dimmedForeground": "#E04B12",
+    "editor.selectionBackground": "#053c6dcc"
+  },
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "search.useGlobalIgnoreFiles": true,
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "remimarsal.prettier-now"
+  },
+  "circleci.persistedProjectSelection": []
 }
