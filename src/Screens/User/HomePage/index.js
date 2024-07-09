@@ -206,7 +206,7 @@ const index = props => {
                           }}
                           labelStyle={{
                             color: currentTextColor,
-                            fontFamily: theme.font.bold,
+                            fontFamily: theme.font.semiBold,
                           }}
                           sceneContainerStyle={{}}
                         />

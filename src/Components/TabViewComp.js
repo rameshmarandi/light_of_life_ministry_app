@@ -23,7 +23,7 @@ const TabViewComp = props => {
       {...props}
       indicatorStyle={indicatorStyle}
       style={tabBarContainerStyle}
-      labelStyle={labelStyle}
+      labelStyle={[labelStyle, {textTransform: 'capitalize'}]}
     />
   );
   const handleIndexChange = newIndex => {

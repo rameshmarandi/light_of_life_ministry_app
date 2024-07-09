@@ -9,12 +9,12 @@ const Stack = createNativeStackNavigator();
 export function HomeStack(props) {
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{...transitionCard, ...screenOptions}}>
         <Stack.Screen
           initialRouteName={'HomePage'}
           name={'HomePage'}
           component={AllScreens.HomePage}
-          options={screenOptions}
+          // options={screenOptions}
         />
       </Stack.Navigator>
     </>
@@ -23,17 +23,17 @@ export function HomeStack(props) {
 export function AdminHomeStack(props) {
   return (
     <>
-      <Stack.Navigator screenOptions={transitionCard}>
+      <Stack.Navigator screenOptions={{...transitionCard, ...screenOptions}}>
         <Stack.Screen
           initialRouteName={'Dashboard'}
           name={'Dashboard'}
           component={AllScreens.Dashboard}
-          options={screenOptions}
+          // options={screenOptions}
         />
         <Stack.Screen
           name={'Profile'}
           component={AllScreens.ProfilePage}
-          options={screenOptions}
+          // options={screenOptions}
         />
       </Stack.Navigator>
     </>
@@ -43,11 +43,11 @@ export function AdminHomeStack(props) {
 export function SettingsStack() {
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{...transitionCard, ...screenOptions}}>
         <Stack.Screen
           name={'Settings'}
           component={AllScreens.Settings}
-          options={screenOptions}
+          // options={screenOptions}
         />
       </Stack.Navigator>
     </>
@@ -56,11 +56,11 @@ export function SettingsStack() {
 export function ProfileStack() {
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{...transitionCard, ...screenOptions}}>
         <Stack.Screen
           name={'Profile'}
           component={AllScreens.ProfilePage}
-          options={screenOptions}
+          // options={screenOptions}
         />
       </Stack.Navigator>
     </>

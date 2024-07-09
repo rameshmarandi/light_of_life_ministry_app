@@ -23,7 +23,7 @@ export const openInAppBrowser = async url => {
         enableBarCollapsing: false,
         // Android Properties
         showTitle: true,
-        toolbarColor: '#6200EE',
+        toolbarColor: `#012537`,
         secondaryToolbarColor: 'black',
         enableUrlBarHiding: false,
         enableDefaultShare: false,
