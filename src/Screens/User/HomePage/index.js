@@ -1,4 +1,4 @@
-import React ,{useState, memo , useRef}from 'react';
+import React, {useState, memo, useRef} from 'react';
 
 import {
   View,
@@ -13,21 +13,24 @@ import {
 } from 'react-native';
 import theme from '../../../utility/theme';
 import {useSelector} from 'react-redux';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import { Button } from 'react-native-elements';
+// import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {Button} from 'react-native-elements';
 import CustomHeader from '../../../Components/CustomHeader';
 import {StatusBarComp} from '../../../Components/commonComp';
 import MarqueeComp from '../../../Components/MarqueeComp';
 import * as Animatable from 'react-native-animatable';
 import MsgConfig from '../../../Config/MsgConfig';
 import SectionHeader from '../../../Components/SectionHeader';
-import { StyleSheet } from 'react-native';
-import { getFontSize, getResHeight } from '../../../utility/responsive';
-import { backgroundColorHandler, textColorHandler } from '../../../Components/commonHelper';
+import {StyleSheet} from 'react-native';
+import {getFontSize, getResHeight} from '../../../utility/responsive';
+import {
+  backgroundColorHandler,
+  textColorHandler,
+} from '../../../Components/commonHelper';
 import QuickRouteComp from '../../../Components/QuickRouteComp';
-import { ALL_LINKS } from '../../../Config/constants';
+import {ALL_LINKS} from '../../../Config/constants';
 import GoogleMapComp from '../../../Components/GoogleMapComp';
-// import YoutubePlayer from 'react-native-youtube-iframe'; 
+// import YoutubePlayer from 'react-native-youtube-iframe';
 
 const {width} = Dimensions.get('window');
 const itemWidth = width - 40; // Adjust this according to your layout
@@ -43,34 +46,32 @@ const images = [
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const CARD_WIDTH = SCREEN_WIDTH * 0.9;
 
-
 const languageArray = [
   {key: 'hindi', tabTitle: 'Hindi', bg: 'blue'},
   {key: 'english', tabTitle: 'English', bg: 'green'},
   {key: 'marathi', tabTitle: 'Marathi', bg: 'red'},
 ];
 
-
-const index = (props) => {
-  const {navigation} = props
+const index = props => {
+  const {navigation} = props;
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
-     state => state.user,
+    state => state.user,
   );
-const [   activeSlide , setActiveSlide] = useState(0)
-_renderItem = ({item}) => {
-  return (
-    <View
-      style={[
-        styles.slide,
-        {
-          borderRadius: 10,
-          overflow: 'hidden',
-        },
-      ]}>
-      <Image source={{uri: item}} style={styles.image} />
-    </View>
-  );
-};
+  const [activeSlide, setActiveSlide] = useState(0);
+  _renderItem = ({item}) => {
+    return (
+      <View
+        style={[
+          styles.slide,
+          {
+            borderRadius: 10,
+            overflow: 'hidden',
+          },
+        ]}>
+        <Image source={{uri: item}} style={styles.image} />
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView
@@ -85,20 +86,22 @@ _renderItem = ({item}) => {
           navigation.openDrawer();
         }}
         onPressNotificaiton={() => {
-          navigation.navigate("UserNotification")
+          navigation.navigate('UserNotification');
         }}
         centerLogo={true}
       />
       <MarqueeComp textRender={`Welcome to Light of Life Ministries , Pune`} />
-      
+
       <View
-        style={{
-          // paddingBottom:"50%"
-          // flex: 1,
-        }}>
+        style={
+          {
+            // paddingBottom:"50%"
+            // flex: 1,
+          }
+        }>
         <FlatList
           data={[0, 1, 2, 3, 4, 5]}
-          showsVerticalScrollIndicator = {false}
+          showsVerticalScrollIndicator={false}
           // contentContainerStyle={{paddingBottom:"20%"}}
           renderItem={({item, index}) => {
             switch (index) {
@@ -122,7 +125,7 @@ _renderItem = ({item}) => {
                         />
                       </View>
                       <View style={styles.container}>
-                        <Carousel
+                        {/* <Carousel
                           ref={c => (this.carousel = c)}
                           data={images}
                           renderItem={this._renderItem}
@@ -135,22 +138,33 @@ _renderItem = ({item}) => {
                             // this.setState({activeSlide: index})
                             setActiveSlide(index)
                           }
+                          // contentContainerCustomStyle={{
+                          //   style: '',
+                          // }}
                         />
                         <Pagination
                           dotsLength={images.length}
                           activeDotIndex={activeSlide}
                           containerStyle={styles.paginationContainer}
-                          dotStyle={[styles.paginationDot , { 
-                            backgroundColor: isDarkMode? theme.color.white: theme.color.darkTheme,
-                          }]}
+                          dotStyle={[
+                            styles.paginationDot,
+                            {
+                              backgroundColor: isDarkMode
+                                ? theme.color.white
+                                : theme.color.darkTheme,
+                            },
+                          ]}
                           inactiveDotOpacity={0.4}
                           inactiveDotScale={0.6}
-                        />
+                        /> */}
                       </View>
                     </Animatable.View>
-                    <View style={{
-                      // flex:1
-                    }}>
+                    <View
+                      style={
+                        {
+                          // flex:1
+                        }
+                      }>
                       <Animatable.View
                         animation="fadeInUp"
                         duration={500}
@@ -163,16 +177,19 @@ _renderItem = ({item}) => {
                         />
                       </Animatable.View>
                       <DailyVerbs />
-                      </View>
+                    </View>
                   </>
                 );
 
-                case 1:
-                  return (
-                    <>
-                    <View style={{
-                      // flex:1
-                    }}>
+              case 1:
+                return (
+                  <>
+                    <View
+                      style={
+                        {
+                          // flex:1
+                        }
+                      }>
                       <Animatable.View
                         animation="fadeInUp"
                         duration={500}
@@ -180,66 +197,65 @@ _renderItem = ({item}) => {
                         style={{
                           paddingHorizontal: '7%',
                         }}>
-                         
                         <SectionHeader
                           sectionTitle={`${MsgConfig.firstHeaderText}`}
                         />
                       </Animatable.View>
                       <DailyVerbs />
-                      </View>
-                    </>
-                  );
+                    </View>
+                  </>
+                );
 
-                 case 2:
-                  return (
-                    <>
-                      <Animatable.View
-                        animation="fadeInUp"
-                        duration={500}
-                        delay={200}
+              case 2:
+                return (
+                  <>
+                    <Animatable.View
+                      animation="fadeInUp"
+                      duration={500}
+                      delay={200}
+                      style={{
+                        paddingHorizontal: '5%',
+                        marginTop: '5%',
+                        marginBottom: '4%',
+                        borderRadius: 10,
+                      }}>
+                      <View
                         style={{
-                          paddingHorizontal: '5%',
-                          marginTop: '5%',
-                          marginBottom: '4%',
-                          borderRadius: 10,
+                          marginTop: '2%',
+                          marginBottom: '2%',
                         }}>
-                        <View
-                          style={{
-                            marginTop: '2%',
-                            marginBottom: '2%',
-                          }}>
-                          <SectionHeader sectionTitle={`${MsgConfig.quickNav}`} />
-                        </View>
-                        <QuickRouteComp
-                          modalVisible={() => {
-                            // this.setState({isVisible: true});
-                          }}
-                          {...props}
-                        />
-                      </Animatable.View>
-                    </>
-                  );
-                // case 3:
-                //   return (
-                //     <>
-                //       <Animatable.View
-                //         animation="fadeInUp"
-                //         duration={500}
-                //         delay={200}
-                //         style={{
-                //           paddingHorizontal: '5%',
-                //           marginTop: '5%',
-                //           marginBottom: '4%',
-                //           borderRadius: 10,
-                //         }}>
-                //         <SectionHeader
-                //           sectionTitle={`${MsgConfig.socialMedia}`}
-                //         />
-                //         <YoutubeComp />
-                //       </Animatable.View>
-                //     </>
-                //   );
-                case 4:
+                        <SectionHeader sectionTitle={`${MsgConfig.quickNav}`} />
+                      </View>
+                      <QuickRouteComp
+                        modalVisible={() => {
+                          // this.setState({isVisible: true});
+                        }}
+                        {...props}
+                      />
+                    </Animatable.View>
+                  </>
+                );
+              // case 3:
+              //   return (
+              //     <>
+              //       <Animatable.View
+              //         animation="fadeInUp"
+              //         duration={500}
+              //         delay={200}
+              //         style={{
+              //           paddingHorizontal: '5%',
+              //           marginTop: '5%',
+              //           marginBottom: '4%',
+              //           borderRadius: 10,
+              //         }}>
+              //         <SectionHeader
+              //           sectionTitle={`${MsgConfig.socialMedia}`}
+              //         />
+              //         <YoutubeComp />
+              //       </Animatable.View>
+              //     </>
+              //   );
+              case 4:
                 return (
                   <>
                     <Animatable.View
@@ -260,7 +276,7 @@ _renderItem = ({item}) => {
                           marginBottom: '70%',
                           width: '100%',
                           height: getResHeight(45),
-                          
+
                           marginTop: '6%',
                         }}>
                         <GoogleMapComp />
@@ -305,11 +321,11 @@ const YoutubeComp = () => {
 
 const TabBar = ({tabs, activeIndex, onPress}) => {
   return (
-    <View style={{
-      flexDirection: 'row',
-       paddingLeft: '5%',
-      //   marginTop: '2.5%'
-      
+    <View
+      style={{
+        flexDirection: 'row',
+        paddingLeft: '5%',
+        //   marginTop: '2.5%'
       }}>
       {tabs.map((tab, index) => (
         <Button
@@ -351,8 +367,6 @@ const TabBar = ({tabs, activeIndex, onPress}) => {
   );
 };
 
-
-
 const DailyVerbs = () => {
   const [activeTab, setActiveTab] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -379,7 +393,7 @@ const DailyVerbs = () => {
     <Animatable.View
       style={{
         flex: 1,
-      // backgroundColor:"red"
+        // backgroundColor:"red"
       }}
       animation="fadeInUp"
       duration={500}
@@ -398,10 +412,12 @@ const DailyVerbs = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
-        contentContainerStyle={{
-          // flexGrow: 1,
-          // alignItems: 'center',
-        }}
+        contentContainerStyle={
+          {
+            // flexGrow: 1,
+            // alignItems: 'center',
+          }
+        }
         // onScroll={handleScroll}
         scrollEventThrottle={16} // Adjust scroll responsiveness
         renderItem={({item, index}) => (
@@ -465,7 +481,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 5,
-    
   },
 
   //Dropdown imle
@@ -514,5 +529,3 @@ const styles = StyleSheet.create({
 });
 
 export default index;
-
-
