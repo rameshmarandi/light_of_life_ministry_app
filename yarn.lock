@@ -6136,6 +6136,14 @@ react-native-gesture-handler@^2.16.0, "react-native-gesture-handler@>= 1.0.0", r
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-inappbrowser-reborn@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/react-native-inappbrowser-reborn/-/react-native-inappbrowser-reborn-3.7.0.tgz"
+  integrity sha512-Ia53jYNtFcbNaX5W3QfOmN25I7bcvuDiQmSY5zABXjy4+WI20bPc9ua09li55F8yDCjv3C99jX6vKms68mBV7g==
+  dependencies:
+    invariant "^2.2.4"
+    opencollective-postinstall "^2.0.3"
+
 react-native-lottie-loader@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/react-native-lottie-loader/-/react-native-lottie-loader-1.0.0.tgz"
@@ -6159,6 +6167,11 @@ react-native-material-ripple@^0.9.1:
   integrity sha512-dHjARdKoGD3LXwPh2TkURabywM5BfdpKc/AHplJTfBMalhVZ2bc7iJoJmNhNnmT/TZ+B3szL6uV1mO7Pv8zNeA==
   dependencies:
     prop-types "^15.5.10"
+
+react-native-pager-view@*, react-native-pager-view@^6.3.3:
+  version "6.3.3"
+  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.3.3.tgz"
+  integrity sha512-HViKBlfN/kBJUSu5mRL/V9Bkf1j7uDZozGAjbzh4o9XYo11qVcIK7IwvfzqrkNerVSDy/cAmZcXbcyWnII8xMA==
 
 react-native-paper@^5.11.6:
   version "5.12.3"
@@ -6221,6 +6234,13 @@ react-native-svg@^15.1.0:
     css-select "^5.1.0"
     css-tree "^1.1.3"
 
+react-native-tab-view@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.5.2.tgz"
+  integrity sha512-nE5WqjbeEPsWQx4mtz81QGVvgHRhujTNIIZiMCx3Bj6CBFDafbk7XZp9ocmtzXUQaZ4bhtVS43R4FIiR4LboJw==
+  dependencies:
+    use-latest-callback "^0.1.5"
+
 react-native-vector-icons@*, react-native-vector-icons@^10.0.3, react-native-vector-icons@>7.0.0:
   version "10.0.3"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.3.tgz"
@@ -6236,7 +6256,7 @@ react-native-youtube-iframe@^2.3.0:
   dependencies:
     events "^3.2.0"
 
-react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@>= 0.64.3", react-native@>=0.40.0, react-native@>=0.44.1, react-native@>=0.46, react-native@>=0.60, react-native@>=0.63, react-native@>=0.69, react-native@>0.62.0, react-native@0.74.2:
+react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@>= 0.64.3", react-native@>=0.40.0, react-native@>=0.44.1, react-native@>=0.46, react-native@>=0.56, react-native@>=0.60, react-native@>=0.63, react-native@>=0.69, react-native@>0.62.0, react-native@0.74.2:
   version "0.74.2"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.74.2.tgz"
   integrity sha512-EBMBjPPL4/GjHMP4NqsZabT3gI5WU9cSmduABGAGrd8uIcmTZ5F2Ng9k6gFmRm7n8e8CULxDNu98ZpQfBjl7Bw==

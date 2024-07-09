@@ -23,13 +23,11 @@ import MsgConfig from '../../../Config/MsgConfig';
 import SectionHeader from '../../../Components/SectionHeader';
 import {StyleSheet} from 'react-native';
 import {getFontSize, getResHeight} from '../../../utility/responsive';
-import {
-  backgroundColorHandler,
-  textColorHandler,
-} from '../../../Components/commonHelper';
+
 import QuickRouteComp from '../../../Components/QuickRouteComp';
 import {ALL_LINKS} from '../../../Config/constants';
 import GoogleMapComp from '../../../Components/GoogleMapComp';
+import TabViewComp from '../../../Components/TabViewComp';
 // import YoutubePlayer from 'react-native-youtube-iframe';
 
 const {width} = Dimensions.get('window');
@@ -44,7 +42,9 @@ const images = [
 ];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const CARD_WIDTH = SCREEN_WIDTH * 0.9;
+const PADDING = 5; // Padding on the left and right
+const CARD_WIDTH = SCREEN_WIDTH - 2.3 * PADDING; // Card width minus padding on both sides
+const CARD_HEIGHT = 200; // Adjust the height as needed
 
 const languageArray = [
   {key: 'hindi', tabTitle: 'Hindi', bg: 'blue'},
@@ -73,6 +73,24 @@ const index = props => {
     );
   };
 
+  const FirstRoute = () => <DailyVerbs />;
+
+  const SecondRoute = () => <DailyVerbs />;
+
+  const ThirdRoute = () => <DailyVerbs />;
+
+  const routes = [
+    {key: 'first', title: 'Hindi'},
+    {key: 'second', title: 'English'},
+    {key: 'third', title: 'Marathi'},
+  ];
+
+  const scenes = {
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -92,17 +110,10 @@ const index = props => {
       />
       <MarqueeComp textRender={`Welcome to Light of Life Ministries , Pune`} />
 
-      <View
-        style={
-          {
-            // paddingBottom:"50%"
-            // flex: 1,
-          }
-        }>
+      <View style={{}}>
         <FlatList
           data={[0, 1, 2, 3, 4, 5]}
           showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{paddingBottom:"20%"}}
           renderItem={({item, index}) => {
             switch (index) {
               case 1:
@@ -171,12 +182,35 @@ const index = props => {
                         delay={200}
                         style={{
                           paddingHorizontal: '7%',
+                          marginTop: '5%',
                         }}>
                         <SectionHeader
                           sectionTitle={`${MsgConfig.firstHeaderText}`}
                         />
                       </Animatable.View>
-                      <DailyVerbs />
+                      <View
+                        style={{
+                          marginTop: getResHeight(1),
+                          height: getResHeight(35),
+                          width: '100%',
+                        }}>
+                        <TabViewComp
+                          routes={routes}
+                          scenes={scenes}
+                          indicatorStyle={{
+                            backgroundColor: 'red',
+                          }}
+                          tabBarContainerStyle={{
+                            backgroundColor: currentBgColor,
+                            marginBottom: '4%',
+                          }}
+                          labelStyle={{
+                            color: currentTextColor,
+                            fontFamily: theme.font.bold,
+                          }}
+                          sceneContainerStyle={{}}
+                        />
+                      </View>
                     </View>
                   </>
                 );
@@ -184,12 +218,7 @@ const index = props => {
               case 1:
                 return (
                   <>
-                    <View
-                      style={
-                        {
-                          // flex:1
-                        }
-                      }>
+                    <View style={{}}>
                       <Animatable.View
                         animation="fadeInUp"
                         duration={500}
@@ -226,12 +255,7 @@ const index = props => {
                         }}>
                         <SectionHeader sectionTitle={`${MsgConfig.quickNav}`} />
                       </View>
-                      <QuickRouteComp
-                        modalVisible={() => {
-                          // this.setState({isVisible: true});
-                        }}
-                        {...props}
-                      />
+                      <QuickRouteComp modalVisible={() => {}} {...props} />
                     </Animatable.View>
                   </>
                 );
@@ -319,92 +343,14 @@ const YoutubeComp = () => {
   );
 };
 
-const TabBar = ({tabs, activeIndex, onPress}) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        paddingLeft: '5%',
-        //   marginTop: '2.5%'
-      }}>
-      {tabs.map((tab, index) => (
-        <Button
-          title={tab.tabTitle}
-          onPress={() => {
-            onPress(index);
-          }}
-          titleStyle={{
-            color: activeIndex === index ? 'red' : textColorHandler(),
-            fontFamily: theme.font.semiBold,
-            fontSize: getFontSize(1.5),
-            margin: 0,
-            padding: 0,
-          }}
-          iconContainerStyle={{}}
-          containerStyle={[
-            {
-              width: '30%',
-              height: 45,
-              justifyContent: 'center',
-              backgroundColor: backgroundColorHandler(),
-              borderBottomWidth: activeIndex === index ? 2 : 0,
-              borderBottomColor: theme.color.error,
-              marginBottom: '3.5%',
-              paddingBottom: 0,
-            },
-          ]}
-          buttonStyle={[
-            {
-              width: '100%',
-              height: '100%',
-              backgroundColor: backgroundColorHandler(),
-              paddingBottom: 0,
-            },
-          ]}
-        />
-      ))}
-    </View>
-  );
-};
-
 const DailyVerbs = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const flatListRef = useRef(null);
-
-  const handleTabPress = index => {
-    flatListRef.current.scrollToIndex({index, animated: true});
-    setActiveTab(index);
-  };
-
-  const handleScroll = Animated.event(
-    [{nativeEvent: {contentOffset: {x: scrollX}}}],
-    {useNativeDriver: false},
-  );
-
-  const inputRange = languageArray.map((_, index) => index * CARD_WIDTH);
-
-  const translateX = scrollX.interpolate({
-    inputRange,
-    outputRange: [SCREEN_WIDTH * 0.03, 0, -SCREEN_WIDTH * 0.03],
-  });
-
   return (
     <Animatable.View
-      style={{
-        flex: 1,
-        // backgroundColor:"red"
-      }}
+      style={{flex: 1}}
       animation="fadeInUp"
       duration={500}
       delay={200}>
-      <TabBar
-        tabs={languageArray}
-        activeIndex={activeTab}
-        onPress={handleTabPress}
-      />
       <FlatList
-        ref={flatListRef}
         data={languageArray}
         keyExtractor={item => item.key}
         horizontal
@@ -412,51 +358,34 @@ const DailyVerbs = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
-        contentContainerStyle={
-          {
-            // flexGrow: 1,
-            // alignItems: 'center',
-          }
-        }
-        // onScroll={handleScroll}
-        scrollEventThrottle={16} // Adjust scroll responsiveness
-        renderItem={({item, index}) => (
+        contentContainerStyle={{paddingHorizontal: PADDING}}
+        renderItem={({item}) => (
           <Animated.View
             style={{
               width: CARD_WIDTH,
-              height: getResHeight(30),
+              height: CARD_HEIGHT,
+              marginHorizontal: PADDING / 2, // Optional: Add margin between cards
               overflow: 'hidden',
-              marginHorizontal: (SCREEN_WIDTH - CARD_WIDTH) / 2,
+              borderRadius: 10,
+              backgroundColor: 'red',
             }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 10,
-                overflow: 'hidden',
-              }}>
+            <View style={{}}>
               <Image
                 source={theme.assets.dailyVerbsBanner}
-                resizeMode="contain"
+                resizeMode="cover"
                 style={{
-                  flex: 1,
+                  height: '100%',
                   width: '100%',
                 }}
               />
             </View>
           </Animated.View>
         )}
-        onMomentumScrollEnd={event => {
-          const offsetX = event.nativeEvent.contentOffset.x;
-          const newIndex = Math.round(offsetX / CARD_WIDTH);
-          console.log('New Index', newIndex);
-          setActiveTab(newIndex);
-        }}
       />
     </Animatable.View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,30 +1,10 @@
-import React, {Component, useState, useRef} from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Alert,
-  Image,
-  Animated,
-  useWindowDimensions,
-  FlatList,
-  Switch,
-} from 'react-native';
+import React from 'react';
+import {View, SafeAreaView} from 'react-native';
 import theme from '../../../utility/theme';
-
-import {connect, useSelector} from 'react-redux';
-import {store} from '../../../utility/store';
-import * as Animatable from 'react-native-animatable';
 
 import CustomHeader from '../../../Components/CustomHeader';
 import {ALL_LINKS} from '../../../Config/constants';
-import {
-  backgroundColorHandler,
-  textColorHandler,
-} from '../../../Components/commonHelper';
+import {backgroundColorHandler} from '../../../Components/commonHelper';
 import {
   getFontSize,
   getResHeight,
@@ -32,6 +12,9 @@ import {
 } from '../../../utility/responsive';
 import MsgConfig from '../../../Config/MsgConfig';
 import SquareCardComp from '../../../Components/SquareCardComp';
+import InAppBrowserComp, {
+  openInAppBrowser,
+} from '../../../Components/InAppBrowserComp';
 
 const FreeResourceData = [
   {
@@ -68,11 +51,15 @@ const FreeResourceData = [
     id: 4,
     title: 'Christian Rights',
     image: theme.assets.unity,
-    // route: CHRISTIAN_RIGHTS,
+    route: ALL_LINKS.CHRISTIAN_RIGHTS,
   },
 ];
 
 const FreeResource = ({navigation}) => {
+  const handleOpenBrowser = url => {
+    openInAppBrowser(url);
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -95,17 +82,17 @@ const FreeResource = ({navigation}) => {
         }}>
         <View
           style={{
-            width: getResWidth(100), // Assuming SCREENWIDTH is defined elsewhere
+            width: getResWidth(100),
             alignSelf: 'center',
             padding: '4%',
             flexDirection: 'row',
           }}>
           <SquareCardComp
-          onPress = {(item)=>{
-            // alert('clikd')
-            console.log("item", item)
-          }}
-          filteredData={FreeResourceData} />
+            onPress={item => {
+              handleOpenBrowser(item.route);
+            }}
+            filteredData={FreeResourceData}
+          />
         </View>
       </View>
     </SafeAreaView>
