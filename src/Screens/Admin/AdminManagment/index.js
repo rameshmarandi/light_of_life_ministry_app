@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Dimensions,
+  ScrollView,
   StatusBar,
   Image,
   FlatList,
@@ -16,7 +17,11 @@ import {useSelector} from 'react-redux';
 import CustomHeader from '../../../Components/CustomHeader';
 import {Button, Menu, Divider, PaperProvider} from 'react-native-paper';
 
-import {ButtonIconComp, StatusBarComp} from '../../../Components/commonComp';
+import {
+  ButtonIconComp,
+  EmptyUserProfile,
+  StatusBarComp,
+} from '../../../Components/commonComp';
 import MarqueeComp from '../../../Components/MarqueeComp';
 import {
   getFontSize,
@@ -31,6 +36,7 @@ import {VectorIcon} from '../../../Components/VectorIcon';
 import SmallMenuComp from '../../../Components/SmallMenuComp';
 import ConfirmAlert from '../../../Components/ConfirmAlert';
 import CustomBottomSheet from '../../../Components/CustomBottomSheet';
+import WaveButton from '../../../Components/WaveButton';
 // import { updateState } from '../../../Helpers/CommonHelpers';
 
 const cardDataArray = [
@@ -75,6 +81,14 @@ const index = props => {
   const sheetRef1 = useRef(null);
   const sheetRef2 = useRef(null);
 
+  const bottomSheetRef = useRef(null);
+  const [bottomSheetContent, setBottomSheetContent] = useState(null);
+
+  const openBottomSheetWithContent = content => {
+    setBottomSheetContent(content);
+    bottomSheetRef.current?.open();
+  };
+
   const updateState = newState =>
     setState(prevState => ({...prevState, ...newState}));
 
@@ -107,6 +121,47 @@ const index = props => {
       </>
     );
   };
+
+  const singleUserCardData = item => {
+    // const {userBio} = item;
+
+    // console.log('sing_user', userBio);
+    return (
+      <View
+        style={{
+          flex: 1,
+          // padding: '5%',
+          alignItems: 'center',
+        }}>
+        <ScrollView
+          style={{
+            width: '100%',
+          }}>
+          <View
+            style={{
+              marginTop: getResHeight(12),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <EmptyUserProfile
+              onPress={() => {
+                alert('sdfsd');
+              }}
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: '5%',
+            }}>
+            <Text style={{color: 'red'}}>{`Name fof the`}</Text>
+          </View>
+          {/* <FormikHandler /> */}
+        </ScrollView>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -114,15 +169,29 @@ const index = props => {
         backgroundColor: currentBgColor,
       }}>
       <View
-        style={{
-          marginTop: '4%',
-        }}>
+        style={
+          {
+            // marginTop: '4%',
+          }
+        }>
         <CustomHeader
           backPress={() => {
             props.navigation.goBack();
           }}
           screenTitle={MsgConfig.AdminManag}
           filterIcon={() => {}}
+        />
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: getResHeight(7),
+          right: getResWidth(7),
+        }}>
+        <WaveButton
+          onPress={() => {
+            props.navigation.navigate('Members');
+          }}
         />
       </View>
       <ConfirmAlert
@@ -147,14 +216,17 @@ const index = props => {
         />
       </View>
 
-      <CustomBottomSheet
+      {/* <CustomBottomSheet
         sheetRef={sheetRef1}
         initialSnapIndex={-1}
         snapPoints={['25%', '50%']}
         renderContent={renderContent1}
         headerTitle="Sheet 1"
-      />
+      /> */}
 
+      <CustomBottomSheet ref={bottomSheetRef} modalHeight={500}>
+        {bottomSheetContent}
+      </CustomBottomSheet>
       <View
         style={{
           zIndex: -9999,
@@ -233,7 +305,12 @@ const index = props => {
                       menuItems={menuItems}
                       onMenuPress={menuIndex => {
                         if (menuIndex == 0) {
-                          sheetRef1.current.expand();
+                          // sheetRef1.current.expand();
+                          const res = singleUserCardData(item);
+                          console.log('userData', res);
+                          setTimeout(() => {
+                            openBottomSheetWithContent(res);
+                          }, 500);
                         }
                         if (menuIndex == 2) {
                           setShowAlert(true);

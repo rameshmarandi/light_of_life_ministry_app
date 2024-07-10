@@ -35,9 +35,12 @@ const headerTitle = {
   settings: 'Settings',
   prayerRequest: 'Prayer Request',
   notification: 'All Notifications',
+
+  // Admin screens
   profile: 'My Profile',
   AdminManag: 'Admin Management',
   allMembers: 'All Members',
+  // contactUS  : 'Contact Us',
 };
 
 export default message = {

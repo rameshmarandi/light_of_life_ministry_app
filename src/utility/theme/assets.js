@@ -9,7 +9,7 @@ import SignIn from '../../assets/signIn.png';
 import SignUp from '../../assets/signUp.png';
 //Loader Animations
 
-import WaveAnimation from "../../assets/animationLoader/wave-animation.json"
+import WaveAnimation from '../../assets/animationLoader/wave-animation.json';
 
 //Resources images
 import missionary from '../../assets/resources/missionary.jpg';
@@ -19,25 +19,24 @@ import unity from '../../assets/resources/unity.png';
 import ebook from '../../assets/resources/ebook.png';
 
 //Admin
-import members from "../../assets/admin/members.png"
-import camera from "../../assets/admin/camera.png"
-import DBible from "../../assets/admin/3DBible.png"
-import pdf from "../../assets/admin/pdf.png"
-import closeIcon from "../../assets/admin/closeIcon.png"
-import deleteIcon from "../../assets/admin/deleteIcon.png"
-import prayer from "../../assets/admin/prayer.png"
-import contact from "../../assets/admin/contact.png"
-import alert from "../../assets/admin/alert.png"
-import adminManag from "../../assets/admin/adminManag.png"
-
+import members from '../../assets/admin/members.png';
+import camera from '../../assets/admin/camera.png';
+import DBible from '../../assets/admin/3DBible.png';
+import pdf from '../../assets/admin/pdf.png';
+import closeIcon from '../../assets/admin/closeIcon.png';
+import deleteIcon from '../../assets/admin/deleteIcon.png';
+import prayer from '../../assets/admin/prayer.png';
+import contact from '../../assets/admin/contact.png';
+import alert from '../../assets/admin/alert.png';
+import adminManag from '../../assets/admin/adminManag.png';
+import churchLocation from '../../assets/admin/churchLocation.png';
 
 const resourcesImages = {
-missionary,
-theology,
-gotquestion,
-unity,
-ebook
-
+  missionary,
+  theology,
+  gotquestion,
+  unity,
+  ebook,
 };
 
 const authIcons = {
@@ -54,18 +53,19 @@ const homeIcons = {
   dailyVerbsBanner,
   birthday,
   members,
-  camera, 
+  camera,
   DBible,
-  pdf, 
+  pdf,
   prayer,
   closeIcon,
   deleteIcon,
   contact,
   alert,
-  adminManag
+  adminManag,
+  churchLocation,
 };
 export default assets = {
   ...authIcons,
   ...homeIcons,
-  ...resourcesImages
+  ...resourcesImages,
 };

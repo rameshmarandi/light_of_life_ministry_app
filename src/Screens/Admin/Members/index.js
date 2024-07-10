@@ -22,6 +22,7 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import FormikHandler from '../../../Components/FormikHandler';
 import {TextInput} from 'react-native';
+import WaveButton from '../../../Components/WaveButton';
 
 const demoUsers = [
   {
@@ -486,15 +487,29 @@ const Index = props => {
       }}>
       <StatusBarComp />
       <View
-        style={{
-          marginTop: '4%',
-        }}>
+        style={
+          {
+            // marginTop: '4%',
+          }
+        }>
         <CustomHeader
           backPress={() => {
             navigation.goBack();
           }}
           screenTitle={MsgConfig.allMembers}
           filterIcon={() => {}}
+        />
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: getResHeight(7),
+          right: getResWidth(7),
+        }}>
+        <WaveButton
+          onPress={() => {
+            props.navigation.navigate('Members');
+          }}
         />
       </View>
       <ConfirmAlert

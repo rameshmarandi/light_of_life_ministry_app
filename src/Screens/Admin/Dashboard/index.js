@@ -50,7 +50,25 @@ const cardDataArray = [
   },
   {id: 5, title: 'Free Resources', image: theme.assets.pdf, routeName: ''},
   {id: 6, title: 'Prayer Request', image: theme.assets.prayer, routeName: ''},
-  {id: 7, title: 'Contact us', image: theme.assets.contact, routeName: ''},
+  {
+    id: 7,
+    title: 'Contact us',
+    image: theme.assets.contact,
+    routeName: 'AdminContact',
+  },
+  {
+    id: 8,
+    title: 'Testimonial Wall',
+    image: theme.assets.contact,
+    routeName: '',
+  },
+  {id: 9, title: 'What We Believe', image: theme.assets.contact, routeName: ''},
+  {
+    id: 10,
+    title: 'Church Locations',
+    image: theme.assets.churchLocation,
+    routeName: '',
+  },
 ];
 
 const initialState = {

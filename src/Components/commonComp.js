@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {StatusBar, View, StyleSheet, TouchableOpacity} from 'react-native';
-
+import Clipboard from '@react-native-clipboard/clipboard';
 import {Button, Image} from 'react-native-elements';
 import {getFontSize, getResHeight, getResWidth} from '../utility/responsive';
 import theme from '../utility/theme';
@@ -19,7 +19,13 @@ export const StatusBarComp = () => {
     />
   );
 };
-
+export const CopyToClipBoard = text => {
+  try {
+    Clipboard.setString(`${text}`);
+  } catch (error) {
+    console.error('clip_board_text_copy_faild', error);
+  }
+};
 export const EmptyUserProfile = props => {
   const {onPress} = props;
   let {isDarkMode, currentTextColor, currentBgColor} = useSelector(

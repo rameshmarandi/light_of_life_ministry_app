@@ -14,6 +14,7 @@ import UserNotification from './User/Notification/UserNotification';
 import Dashboard from './Admin/Dashboard/index';
 import AdminManagment from './Admin/AdminManagment/index';
 import Members from './Admin/Members/index';
+import AdminContact from './Admin/Contactus/AdminContact';
 const UserAllScreens = {
   HomePage,
   ProfilePage,
@@ -29,6 +30,7 @@ const AdminScreens = {
   Dashboard,
   AdminManagment,
   Members,
+  AdminContact,
 };
 
 export default AllScreens = {

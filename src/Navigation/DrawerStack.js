@@ -71,6 +71,14 @@ export default function DrawerStack(props) {
                 headerShown: false,
               }}
             />
+            <Drawer.Screen
+              name="AdminContact"
+              component={AllScreens.AdminContact}
+              options={{
+                headerShadowVisible: false,
+                headerShown: false,
+              }}
+            />
           </>
         ) : (
           <Drawer.Screen
