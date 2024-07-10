@@ -1,358 +1,96 @@
 import React, {memo} from 'react';
-import {
-  Alert,
-  Linking,
-  Platform,
-  StatusBar,
-  Share,
-  View,
-  SafeAreaView,
-  Text,
-  Modal,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native';
-// import DocumentPicker from 'react-native-document-picker';
-// import * as rnfs from 'react-native-fs';
-// import {atob} from 'abab';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import theme from '../utility/theme';
-import {Button, Image} from 'react-native-elements';
-import {getFontSize, getResHeight} from '../utility/responsive';
-import theme from '../utility/theme';
-// import {
-//   getFontSize,
-//   getResHeight,
-//   SCREENWIDTH,
-//   SCREENHEIGHT,
-//   getResWidth,
-//   hp,
-//   wp,
-// } from '../utility/responsive';
-// import {VectorIcon} from './VectorIcon';
+import {StatusBar, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-// import {Dropdown} from 'react-native-element-dropdown';
-// import {store} from '../utility/store';
-import {
-  backgroundColorHandler,
-  bgInDarkMode,
-  inAcitveTextInput,
-  textColorHandler,
-  textInDarkMode,
-} from './commonHelper';
+import {Button, Image} from 'react-native-elements';
+import {getFontSize, getResHeight, getResWidth} from '../utility/responsive';
+import theme from '../utility/theme';
+
 import {useSelector} from 'react-redux';
 import {VectorIcon} from './VectorIcon';
-// const isDarkMode = store.getState().auth.isDarkMode;
 
-// export const CommonModal = props => {
-//   const {onClick, isVisible, renderUi, loading} = props;
-
-//   return (
-//     <SafeAreaView style={{flex: 1}}>
-//       <View
-//         style={{
-//           flex: 1,
-//         }}>
-//         <Modal visible={isVisible} animationType="slide" transparent={true}>
-//           <View style={styles.modalContainer}>
-//             <TouchableOpacity
-//               onPress={onClick}
-//               style={styles.clickClose}></TouchableOpacity>
-
-//             {renderUi()}
-//           </View>
-//         </Modal>
-//       </View>
-//     </SafeAreaView>
-//   );
-// };
-// export const CommonButton = props => {
-//   const {
-//     onPress,
-//     title,
-//     isLoading,
-//     buttonStyle,
-//     backgroundColor,
-//     titleStyle,
-//     disabled,
-//     containerStyle,
-//   } = props;
-//   return (
-//     <Button
-//       {...props}
-//       title={title}
-//       onPress={onPress}
-//       disabled={disabled}
-//       disabledStyle={{
-//         backgroundColor: theme.color.disabledBtn,
-//       }}
-//       disabledTitleStyle={{
-//         color: theme.color.accent,
-//         fontSize: getFontSize(16),
-//         fontFamily: theme.font.semiBold,
-//         fontWeight: 600,
-//       }}
-//       titleStyle={[
-//         {
-//           color: theme.color.accent,
-//           fontSize: getFontSize(14),
-//           fontFamily: theme.font.semiBold,
-//           fontWeight: 600,
-//           color:textInDarkMode(),
-//         },
-//         titleStyle,
-//       ]}
-//       loading={isLoading}
-//       loadingProps={{size: 'small', color: 'white'}}
-//       containerStyle={[
-//         containerStyle,
-//         {
-//           width: '100%',
-//           height: getResHeight(45),
-//         },
-//       ]}
-//       buttonStyle={[
-//         {
-//           width: '100%',
-//           height: '100%',
-//           borderRadius: 60,
-//           backgroundColor: bgInDarkMode()
-//         },
-//         buttonStyle,
-//       ]}
-//       letfIcon
-//     />
-//   );
-// };
-export const StatusBarComp = memo(() => {
+export const StatusBarComp = () => {
   let {isDarkMode} = useSelector(state => state.user);
-  console.log('memo at status baser');
+  console.log('memo at status baser', isDarkMode);
   return (
     <StatusBar
       animated={true}
-      backgroundColor={backgroundColorHandler()}
-      setBackgroundColor={'red'}
-      barStyle={!isDarkMode ? 'dark-content' : "'light-content'"}
+      backgroundColor={isDarkMode ? '#333' : '#f0f0f0'} // Example of custom colors based on dark mode
+      barStyle={isDarkMode ? 'light-content' : 'dark-content'}
     />
   );
-});
-// export const HyperTxt = props => {
-//   const {text, hyperText, onPress} = props;
-//   return (
-//     <>
-//       <View
-//         style={{
-//           paddingHorizontal: '5%',
-//           marginTop: '5%',
-//           justifyContent: 'center',
-//           alignItems: 'center',
-//           flexDirection: 'row',
-//         }}>
-//         <Text
-//           style={{
-//             color: 'white',
-//             fontSize: getFontSize(12),
-//             fontFamily: theme.font.regular,
-//           }}>
-//           {text}
-//         </Text>
-//         <TouchableOpacity onPress={onPress}>
-//           <Text
-//             style={{
-//               color: 'white',
-//               fontSize: getFontSize(13),
-//               fontFamily: theme.font.bold,
-//               marginLeft: '5%',
-//               textDecorationLine: 'underline',
-//             }}>
-//             {hyperText}
-//           </Text>
-//         </TouchableOpacity>
-//       </View>
-//     </>
-//   );
-// };
-// export const Note = props => {
-//   const isDarkMode = store.getState().auth.isDarkMode;
-//   return (
-//     <View
-//       style={{
-//         width: '100%',
-//         backgroundColor: '#1d3766',
-//         // backgroundColor: 'rgba(47, 59, 117, 0.6)',
-//         padding: '5%',
-//         borderRadius: 10,
-//         marginTop: '4%',
-//       }}>
-//       <Text
-//         style={[
-//           styles.noticeStyle,
-//           {
-//             color: 'white',
-//             // color:isDarkMode ? theme.color.white: 'black',
-//             fontWeight: '800',
-//           },
-//         ]}>
-//         Note:
-//       </Text>
-//       <Text
-//         style={[
-//           {
-//             lineHeight: 18,
-//             color: 'white',
-//           },
-//         ]}>
-//         {props.desc}
-//       </Text>
-//     </View>
-//   );
-// };
-// export const DropdownComp = props => {
-//   const {
-//     dropdownData,
-//     dropDownPlaceholder,
-//     placeholder,
-//     mandatory,
-//     lableName,
-//     value,
-//     itemContainerStyle,
-//     containerStyle,
-//     selectedTextStyle,
-//     itemStyles,
-//     style,
-//     onChange,
-//     inverted,
-//     lableColor,
-//     backgroundColor,
-//     dropdownPosition,
-//   } = props;
-//   const isDarkMode = store.getState().auth.isDarkMode;
+};
 
-//   return (
-//     <>
-//       <View
-//         style={{
-//           flexDirection: 'row',
-//           alignItems: 'center',
-//         }}>
-//         <Text
-//           style={{
-//             color: lableColor ? lableColor : '#666666',
-//             marginTop: '2.5%',
-//             paddingVertical: '2%',
-//             fontFamily: theme.font.semiBold,
-//             fontSize: getFontSize(12),
-//           }}>
-//           {lableName}
-//         </Text>
-//         {mandatory && (
-//           <Text
-//             style={{
-//               color: 'red',
-//               marginTop: '3%',
-//             }}>
-//             *
-//           </Text>
-//         )}
-//       </View>
-//       <Dropdown
-//         data={dropdownData}
-//         maxHeight={getResHeight(250)}
-//         labelField="label"
-//         valueField="value"
-//         placeholder={dropDownPlaceholder ? dropDownPlaceholder : 'Select Item'}
-//         value={value}
-//         onChange={onChange}
-//         style={[
-//           styles.dropdown,
-//           {
-//             backgroundColor: backgroundColor
-//               ? backgroundColor
-//               : isDarkMode
-//               ? theme.color.darkTheme
-//               : theme.color.white,
-//             borderColor:style ? style.borderColor :inAcitveTextInput()
-//             //  isDarkMode
-//             //   ? theme.color.darkModeTextInputOutline
-//             //   : theme.color.normalModeTextInputOutline,
-//           },
-//         ]}
-//         placeholderStyle={[
-//           styles.placeholderStyle,
-//           {
-//             color: isDarkMode
-//               ? theme.color.white
-//               : theme.color.normalModeTextInputOutline,
-//           },
-//         ]}
-//         selectedTextStyle={[
-//           styles.selectedTextStyle,
-//           {
-//             color: selectedTextStyle
-//               ? selectedTextStyle.color
-//               : isDarkMode
-//               ? theme.color.white
-//               : theme.color.primary,
-//           },
-//         ]}
-//         inputSearchStyle={styles.inputSearchStyle}
-//         containerStyle={{
-//           borderRadius: 10,
-//           backgroundColor: containerStyle
-//             ? containerStyle.backgroundColor
-//             : isDarkMode
-//             ? theme.color.darkTheme
-//             : 'white',
-//           marginTop: '-2%',
-//           overflow: 'hidden',
-//         }}
-//         iconStyle={styles.iconStyle}
-//         itemContainerStyle={{
-//           backgroundColor: itemContainerStyle
-//             ? itemContainerStyle.backgroundColor
-//             : isDarkMode
-//             ? theme.color.darkTheme
-//             : theme.color.white,
-//           borderColor: isDarkMode ? '#666666' : '#666666',
-//         }}
-//         renderItem={item => {
-//           return (
-//             <>
-//               <View
-//                 style={[
-//                   styles.item,
-//                   {
-//                     overflow: 'hidden',
-//                     borderBottomWidth: 1,
-//                     borderBottomColor: '#f2f2f2',
-//                   },
-//                 ]}>
-//                 <Text
-//                   style={[
-//                     styles.textItem,
-//                     {
-//                       color: theme.color.primary,
-//                         overflow: 'hidden',
-//                     },
-//                   ]}>
-//                   {item.label}
-//                 </Text>
-//               </View>
-//             </>
-//           );
-//         }}
-//        dropdownPosition = {dropdownPosition}
-//       />
-//     </>
-//   );
-// };
+export const EmptyUserProfile = props => {
+  const {onPress} = props;
+  let {isDarkMode, currentTextColor, currentBgColor} = useSelector(
+    state => state.user,
+  );
+  return (
+    <>
+      <View
+        style={{
+          width: getResHeight(18),
+          height: getResHeight(18),
+          borderRadius: getResHeight(100),
+          backgroundColor: theme.color.dimWhite,
+          marginTop: getResHeight(-10),
+          borderWidth: 2,
+          borderColor: currentTextColor,
+          marginLeft: getResWidth(3),
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <VectorIcon
+          type={'FontAwesome'}
+          name={'user'}
+          size={getFontSize(8)}
+          color={isDarkMode ? theme.color.darkTheme : currentTextColor}
+        />
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            bottom: getResHeight(1),
+            right: getResWidth(-1.1),
+            zIndex: 999,
+          }}>
+          <ButtonIconComp
+            onPress={() => {
+              alert('Psfsf');
+            }}
+            icon={
+              <VectorIcon
+                type={'FontAwesome'}
+                name={'camera'}
+                size={getFontSize(2.1)}
+                color={currentBgColor}
+              />
+            }
+            containerStyle={{
+              width: getResHeight(5),
+              height: getResHeight(5),
+              backgroundColor: currentTextColor,
 
+              borderRadius: getResHeight(100),
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </>
+  );
+};
 export const ButtonIconComp = props => {
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
   );
-  const {onPress,icon ,iconStyle, disabled ,iconContainerStyle, iconPosition, containerStyle} = props;
+  const {
+    onPress,
+    icon,
+    iconStyle,
+    disabled,
+    iconContainerStyle,
+    iconPosition,
+    containerStyle,
+  } = props;
   return (
     <>
       <View
@@ -362,14 +100,12 @@ export const ButtonIconComp = props => {
         }}>
         <Button
           type={'clear'}
-          disabled ={disabled}
+          disabled={disabled}
           onPress={onPress}
           iconPosition={iconPosition}
-          icon={
-            icon
-          }
-          iconStyle = {iconStyle}
-          iconContainerStyle={iconContainerStyle ? iconContainerStyle:[ , {}]}
+          icon={icon}
+          iconStyle={iconStyle}
+          iconContainerStyle={iconContainerStyle ? iconContainerStyle : [, {}]}
           containerStyle={
             containerStyle
               ? containerStyle
@@ -455,76 +191,16 @@ export const CommonButtonComp = props => {
   );
 };
 const styles = StyleSheet.create({
-  // Common Modal
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-  },
-  // clickClose: {
-  //   width: SCREENWIDTH,
-  //   height: SCREENHEIGHT,
-  //   position: 'absolute',
-  // },
   // Prayer modal button style
   btnTitleStyle: {
     textAlign: 'left',
     fontSize: getFontSize(1.5),
     fontFamily: theme.font.semiBold,
     marginLeft: '5%',
-    // marginTop: '2%',
   },
   btnContainerStyle: {
     marginBottom: getResHeight(6),
     width: '100%',
     height: getResHeight(5),
-  },
-  //Dropdown imle
-  lableStyle: {
-    fontSize: getFontSize(2),
-    fontWeight: '600',
-    fontFamily: theme.font.regular,
-    color: '#666666',
-  },
-  dropdown: {
-    borderWidth: 1,
-    width: '100%',
-    height: 50,
-    borderRadius: 10,
-    paddingHorizontal: '5%',
-  },
-  icon: {
-    marginRight: 5,
-  },
-  item: {
-    padding: 17,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  textItem: {
-    flex: 1,
-    fontSize: getFontSize(12),
-    fontFamily: theme.font.regular,
-  },
-  placeholderStyle: {
-    fontSize: getFontSize(12),
-    // color: isDarkMode ? '#ffffff' : theme.color.darkTheme,
-    fontFamily: theme.font.regular,
-  },
-  selectedTextStyle: {
-    fontSize: getFontSize(12),
-    // color: isDarkMode ? 'green' : theme.color.darkTheme,
-    fontFamily: theme.font.regular,
-  },
-
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 20,
-    fontSize: getFontSize(14),
-    backgroundColor: theme.color.darkTheme,
   },
 });

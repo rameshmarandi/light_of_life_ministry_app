@@ -14,7 +14,14 @@ import CustomBottomSheet from '../../../Components/CustomBottomSheet';
 import {VectorIcon} from '../../../Components/VectorIcon';
 import theme from '../../../utility/theme';
 import MsgConfig from '../../../Config/MsgConfig';
-import {ButtonIconComp} from '../../../Components/commonComp';
+import {
+  ButtonIconComp,
+  EmptyUserProfile,
+  StatusBarComp,
+} from '../../../Components/commonComp';
+import {ScrollView} from 'react-native-gesture-handler';
+import FormikHandler from '../../../Components/FormikHandler';
+import {TextInput} from 'react-native';
 
 const demoUsers = [
   {
@@ -350,10 +357,7 @@ const Index = props => {
         .toLowerCase()
         .includes(searchText.toLowerCase()),
     );
-    // .sort((a, b) => a.title.localeCompare(b.title));
-    // {
-    //   console.log('Search_item', item.userBio['Full name']);
-    // },
+
     updateState({setUserData: filtered});
     setTimeout(() => {
       updateState({isLoading: false});
@@ -402,50 +406,6 @@ const Index = props => {
     );
   };
 
-  // const renderUserBio = userBio => {
-  //   // Log userBio to ensure it's correctly passed
-  //   console.log('renderUserBio', userBio);
-  //   let userData = '';
-
-  //   // Check if userBio is a valid object
-  //   if (!userBio || typeof userBio !== 'object') {
-  //     return null; // or return an empty component
-  //   }
-
-  //   // Convert userBio to an array of key-value pairs and map through it
-  //   return Object.entries(userBio).map(([key, value], index) => {
-  //     // Log each key and value pair to ensure correct processing
-  //     console.log('renderUserBio entry', key, value);
-
-  //     return (
-  //       <View
-  //         key={index}
-  //         style={{
-  //           flexDirection: 'row',
-  //           paddingHorizontal: getResWidth(2),
-  //           marginTop: getResHeight(1),
-  //         }}>
-  //         <Text
-  //           style={{
-  //             width: getResWidth(43),
-  //             color: currentTextColor,
-  //             fontFamily: theme.font.semiBold,
-  //           }}>
-  //           {key}
-  //         </Text>
-  //         <Text
-  //           style={{
-  //             width: getResWidth(43),
-  //             color: currentTextColor,
-  //             fontFamily: theme.font.regular,
-  //           }}>
-  //           {value}
-  //         </Text>
-  //       </View>
-  //     );
-  //   });
-  // };
-
   const renderContent1 = () => {
     return (
       <>
@@ -456,12 +416,75 @@ const Index = props => {
     );
   };
 
+  const bottomSheetRef = useRef(null);
+  const [bottomSheetContent, setBottomSheetContent] = useState(null);
+
+  const openBottomSheetWithContent = content => {
+    setBottomSheetContent(content);
+    bottomSheetRef.current?.open();
+  };
+
+  const closeBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  };
+
+  const singleUserCardData = item => {
+    const {userBio} = item;
+
+    console.log('sing_user', userBio);
+    return (
+      <View
+        style={{
+          flex: 1,
+          // padding: '5%',
+          alignItems: 'center',
+        }}>
+        <ScrollView
+          style={{
+            width: '100%',
+          }}>
+          <View
+            style={{
+              marginTop: getResHeight(12),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <EmptyUserProfile
+              onPress={() => {
+                alert('sdfsd');
+              }}
+            />
+          </View>
+          <View
+            style={{
+              marginTop: '5%',
+            }}>
+            <Text style={{color: 'red'}}>{userBio['Full name']}</Text>
+          </View>
+          {/* <FormikHandler /> */}
+
+          <TextInput
+            style={{
+              width: '100%',
+              borderWidth: 1,
+            }}
+            placeholder="Name"
+            onChangeText={() => {}}
+            onBlur={() => {}}
+            value={''}
+          />
+        </ScrollView>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: currentBgColor,
       }}>
+      <StatusBarComp />
       <View
         style={{
           marginTop: '4%',
@@ -493,13 +516,10 @@ const Index = props => {
           value={searchText}
         />
       </View>
-      <CustomBottomSheet
-        sheetRef={sheetRef1}
-        initialSnapIndex={-1}
-        snapPoints={['25%', '50%']}
-        renderContent={renderContent1}
-        headerTitle="Sheet 1"
-      />
+
+      <CustomBottomSheet ref={bottomSheetRef} modalHeight={500}>
+        {bottomSheetContent}
+      </CustomBottomSheet>
       <View
         style={{
           zIndex: -9999,
@@ -509,6 +529,7 @@ const Index = props => {
         }}>
         <FlatList
           data={userData}
+          keyExtractor={(item, index) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: '20%'}}
           renderItem={({item, index}) => {
@@ -519,7 +540,6 @@ const Index = props => {
                   theme.styles.cardEffect,
                   {
                     width: getResWidth(90),
-                    // height: getResHeight(40),
                     backgroundColor: currentBgColor,
                     borderWidth: 1,
                     borderColor: currentTextColor,
@@ -542,9 +562,6 @@ const Index = props => {
                     buttonLabel={openMenu => (
                       <ButtonIconComp
                         onPress={() => {
-                          if (sheetRef1 && sheetRef1.current) {
-                            sheetRef1.current.close();
-                          }
                           openMenu();
                         }}
                         icon={
@@ -566,7 +583,11 @@ const Index = props => {
                     menuItems={menuItems}
                     onMenuPress={menuIndex => {
                       if (menuIndex === 0) {
-                        sheetRef1.current.expand();
+                        const res = singleUserCardData(item);
+                        console.log('userData', res);
+                        setTimeout(() => {
+                          openBottomSheetWithContent(res);
+                        }, 500);
                       }
                       if (menuIndex === 2) {
                         setShowAlert(true);

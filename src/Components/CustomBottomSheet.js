@@ -1,83 +1,78 @@
-import React, {useCallback, useMemo} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { getResHeight, getResWidth } from '../utility/responsive';
-import theme from '../utility/theme';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
+import {View, Text} from 'react-native';
+import BottomSheet from 'react-native-raw-bottom-sheet';
+import {useSelector} from 'react-redux';
 
-const CustomBottomSheet = ({
-  sheetRef,
-  snapPoints = ['25%', '50%', '75%'],
-  initialSnapIndex = 999,
-  renderContent,
-  headerTitle = 'Title',
-  onClose,
-}) => {
-  // Close the bottom sheet
-  const handleClose = useCallback(() => {
-    if (sheetRef && sheetRef.current) {
-      sheetRef.current.close();
-      if (onClose) {
-        onClose();
-      }
-    }
-  }, [sheetRef, onClose]);
-
-  // Render the header
-  const renderHeader = useMemo(
-    () => (
-      <View style={styles.header}>
-        <View
-        style={{
-            height: getResHeight(0.5),
-            width: getResWidth(20),
-            backgroundColor: theme.color.dimGray,
-            position: "absolute",
-            left :getResWidth(40),
-            borderBottomRightRadius : getResHeight(40),
-            borderBottomLeftRadius : getResHeight(40),
-        }}/>
-        <Text style={styles.headerTitle}>{headerTitle}</Text>
-        <TouchableOpacity onPress={handleClose}>
-          <Text style={styles.closeButton}>Close</Text>
-        </TouchableOpacity>
-      </View>
-    ),
-    [headerTitle, handleClose],
+const CustomBottomSheet = forwardRef((props, ref) => {
+  const bottomSheetRef = useRef(null);
+  const {isDarkMode, currentBgColor, currentTextColor} = useSelector(
+    state => state.user,
   );
+
+  const {modalHeight = 300, onOpen, onClose, children, ...rest} = props;
+
+  const [contentHeight, setContentHeight] = useState(300);
+  useEffect(() => {
+    setContentHeight(modalHeight);
+  }, [modalHeight]);
+
+  useImperativeHandle(ref, () => ({
+    open: () => {
+      bottomSheetRef.current?.open();
+      if (props.onOpen) {
+        props.onOpen();
+      }
+    },
+    close: () => {
+      bottomSheetRef.current?.close();
+      if (props.onClose) {
+        props.onClose();
+      }
+    },
+  }));
+
+  useEffect(() => {
+    // Reset the bottom sheet state on mount and unmount
+    return () => {
+      bottomSheetRef.current?.close();
+    };
+  }, []);
 
   return (
     <BottomSheet
-      ref={sheetRef}
-      index={initialSnapIndex}
-      snapPoints={snapPoints}
-      handleComponent={() => renderHeader}>
-      <View style={styles.contentContainer}>{renderContent()}</View>
+      ref={bottomSheetRef}
+      height={contentHeight}
+      draggable={true}
+      closeOnDragDown={true}
+      closeOnPressMask={true}
+      customStyles={{
+        container: {
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          backgroundColor: currentBgColor,
+        },
+      }}>
+      <View
+        // onLayout={event => {
+        //   console.log('Layout_event', event);
+        //   const {height} = event.nativeEvent.layout;
+        //   setContentHeight(height);
+        // }}
+        style={{
+          flex: 1,
+          backgroundColor: currentBgColor,
+          paddingHorizontal: '5%',
+        }}>
+        {props.children}
+      </View>
     </BottomSheet>
   );
-};
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-    backgroundColor: '#f0f0f0',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    color: 'red',
-    fontWeight: 'bold',
-  },
-  contentContainer: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
 });
 
 export default CustomBottomSheet;

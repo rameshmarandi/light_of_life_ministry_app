@@ -1,7 +1,18 @@
-import {View, Text, SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import React from 'react';
 import theme from '../../../utility/theme';
-import {ButtonIconComp, StatusBarComp} from '../../../Components/commonComp';
+import {
+  ButtonIconComp,
+  EmptyUserProfile,
+  StatusBarComp,
+} from '../../../Components/commonComp';
 import CustomHeader from '../../../Components/CustomHeader';
 import MsgConfig from '../../../Config/MsgConfig';
 import {
@@ -29,7 +40,7 @@ const index = props => {
       'Date of Baptism': '16 Jun 20121',
     },
   ];
- 
+
   return (
     <SafeAreaView
       style={{
@@ -100,7 +111,13 @@ const index = props => {
                           }}
                         />
                       </View>
-                      <View
+
+                      <EmptyUserProfile
+                        onPress={() => {
+                          alert('sdfsd');
+                        }}
+                      />
+                      {/* <View
                         style={{
                           width: getResHeight(18),
                           height: getResHeight(18),
@@ -148,7 +165,7 @@ const index = props => {
                             }}
                           />
                         </View>
-                      </View>
+                      </View> */}
                     </View>
                   </View>
                 </>
