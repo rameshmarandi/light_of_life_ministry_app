@@ -40,6 +40,7 @@ import InAppBrowserComp, {
 } from '../../../Components/InAppBrowserComp';
 import WaveButton from '../../../Components/WaveButton';
 import FAQList from '../../../Components/FAQList';
+import {fonts} from 'react-native-elements/dist/config';
 
 const initialState = {
   filteredData: [],
@@ -296,7 +297,39 @@ const AdminContact = props => {
                 </>
               );
             })}
-
+            <View style={[style.faqContainer]}>
+              <Text
+                style={[
+                  {
+                    color: currentTextColor,
+                    fontFamily: theme.font.bold,
+                    fontSize: getFontSize(2.2),
+                  },
+                ]}>
+                FAQ Section
+              </Text>
+              <View style={{}}>
+                <ButtonIconComp
+                  onPress={() => {}}
+                  icon={
+                    <VectorIcon
+                      type={'Entypo'}
+                      name={'plus'}
+                      size={getFontSize(2.3)}
+                      color={currentBgColor}
+                    />
+                  }
+                  containerStyle={{
+                    width: getResHeight(4),
+                    height: getResHeight(4),
+                    backgroundColor: currentTextColor,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: getResHeight(100),
+                  }}
+                />
+              </View>
+            </View>
             <FAQList />
           </View>
         </ScrollView>
@@ -314,6 +347,11 @@ const style = StyleSheet.create({
     fontFamily: theme.font.bold,
     fontSize: getFontSize(2),
     // width: getResWidth(27),
+  },
+  faqContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 export default AdminContact;

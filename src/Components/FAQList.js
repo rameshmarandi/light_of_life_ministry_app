@@ -1,9 +1,10 @@
 // FAQList.js
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
 import {useSelector} from 'react-redux';
+import {getFontSize} from '../utility/responsive';
 
 const faqData = [
   {
@@ -78,7 +79,7 @@ const faqData = [
   },
 ];
 
-const FAQItem = ({item}) => {
+const FAQItem = ({item, currentTextColor}) => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
@@ -87,12 +88,25 @@ const FAQItem = ({item}) => {
       duration={300}
       transition="backgroundColor">
       <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
-        <Text style={styles.itemTitle}>{item.lableName}</Text>
+        <Text
+          style={[
+            styles.itemTitle,
+            {
+              color: currentTextColor,
+            },
+          ]}>
+          {item.lableName}
+        </Text>
       </TouchableOpacity>
       <Collapsible collapsed={collapsed}>
         <Animatable.Text
           animation={collapsed ? undefined : 'fadeIn'}
-          style={styles.itemContent}>
+          style={[
+            styles.itemContent,
+            {
+              color: currentTextColor,
+            },
+          ]}>
           {item.lableValue}
         </Animatable.Text>
       </Collapsible>
@@ -120,7 +134,9 @@ const FAQSection = ({section}) => {
         <Animatable.View animation={collapsed ? undefined : 'fadeIn'}>
           <FlatList
             data={section.tableSection}
-            renderItem={({item}) => <FAQItem item={item} />}
+            renderItem={({item}) => (
+              <FAQItem item={item} currentTextColor={currentTextColor} />
+            )}
             keyExtractor={(item, index) => index.toString()}
           />
         </Animatable.View>
@@ -129,7 +145,7 @@ const FAQSection = ({section}) => {
   );
 };
 
-const FAQList = () => {
+const FAQList = useCallback(() => {
   return (
     <FlatList
       data={faqData}
@@ -137,8 +153,7 @@ const FAQList = () => {
       keyExtractor={(item, index) => index.toString()}
     />
   );
-};
-
+});
 const styles = StyleSheet.create({
   sectionContainer: {
     marginVertical: 10,
@@ -146,7 +161,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: getFontSize(1.5),
     fontWeight: 'bold',
     // marginVertical: 10,
   },

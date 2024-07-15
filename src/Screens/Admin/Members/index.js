@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback, useMemo} from 'react';
 import {View, Text, Image, FlatList, SafeAreaView, Button} from 'react-native';
 import {useSelector} from 'react-redux';
 import {
@@ -23,6 +23,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import FormikHandler from '../../../Components/FormikHandler';
 import {TextInput} from 'react-native';
 import WaveButton from '../../../Components/WaveButton';
+import {debounce} from 'lodash';
 
 const demoUsers = [
   {
@@ -347,9 +348,12 @@ const Index = props => {
     setState(prevState => ({...prevState, ...newState}));
   const {filteredData, isLoading, searchText} = state;
 
-  const handleSearch = text => {
-    updateState({searchText: text});
-  };
+  const handleSearch = useCallback(
+    debounce(text => {
+      updateState({searchText: text});
+    }, 300),
+    [],
+  );
 
   useEffect(() => {
     updateState({isLoading: true});
@@ -359,110 +363,90 @@ const Index = props => {
         .includes(searchText.toLowerCase()),
     );
 
-    updateState({setUserData: filtered});
+    setUserData(filtered);
     setTimeout(() => {
       updateState({isLoading: false});
     }, 300);
   }, [searchText]);
-  const UserBioComponent = ({userBio}) => {
-    // Convert userBio object to an array of key-value pairs
-    const userBioArray = Object.entries(userBio).map(([key, value]) => ({
-      key,
-      value,
-    }));
 
-    // Render each item in the FlatList
-    const renderItem = ({item}) => (
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingHorizontal: getResWidth(2),
-          marginTop: getResHeight(1),
-        }}>
-        <Text
-          style={{
-            width: getResWidth(40),
-            color: currentTextColor,
-            fontFamily: theme.font.semiBold,
-          }}>
-          {item.key}
-        </Text>
-        <Text
-          style={{
-            width: getResWidth(43),
-            color: currentTextColor,
-            fontFamily: theme.font.regular,
-          }}>
-          {item.value}
-        </Text>
-      </View>
-    );
+  const UserBioComponent = useMemo(
+    () =>
+      ({userBio}) => {
+        const userBioArray = Object.entries(userBio).map(([key, value]) => ({
+          key,
+          value,
+        }));
 
-    return (
-      <FlatList
-        data={userBioArray}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
-  };
+        const renderItem = ({item}) => (
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingHorizontal: getResWidth(2),
+              marginTop: getResHeight(1),
+            }}>
+            <Text
+              style={{
+                width: getResWidth(40),
+                color: currentTextColor,
+                fontFamily: theme.font.semiBold,
+              }}>
+              {item.key}
+            </Text>
+            <Text
+              style={{
+                width: getResWidth(43),
+                color: currentTextColor,
+                fontFamily: theme.font.regular,
+              }}>
+              {item.value}
+            </Text>
+          </View>
+        );
 
-  const renderContent1 = () => {
-    return (
-      <>
-        <View>
-          <Text>Ramesh Test herer</Text>
-        </View>
-      </>
-    );
-  };
+        return (
+          <FlatList
+            data={userBioArray}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        );
+      },
+    [currentTextColor],
+  );
 
   const bottomSheetRef = useRef(null);
   const [bottomSheetContent, setBottomSheetContent] = useState(null);
 
-  const openBottomSheetWithContent = content => {
+  const openBottomSheetWithContent = useCallback(content => {
     setBottomSheetContent(content);
     bottomSheetRef.current?.open();
-  };
+  }, []);
 
-  const closeBottomSheet = () => {
+  const closeBottomSheet = useCallback(() => {
     bottomSheetRef.current?.close();
-  };
+  }, []);
 
-  const singleUserCardData = item => {
+  const singleUserCardData = useCallback(item => {
     const {userBio} = item;
 
-    console.log('sing_user', userBio);
     return (
       <View
         style={{
           flex: 1,
-          // padding: '5%',
           alignItems: 'center',
         }}>
-        <ScrollView
-          style={{
-            width: '100%',
-          }}>
+        <ScrollView style={{width: '100%'}}>
           <View
             style={{
               marginTop: getResHeight(12),
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <EmptyUserProfile
-              onPress={() => {
-                alert('sdfsd');
-              }}
-            />
+            <EmptyUserProfile onPress={() => {}} />
           </View>
-          <View
-            style={{
-              marginTop: '5%',
-            }}>
+          <View style={{marginTop: '5%'}}>
             <Text style={{color: 'red'}}>{userBio['Full name']}</Text>
           </View>
-          {/* <FormikHandler /> */}
 
           <TextInput
             style={{
@@ -477,21 +461,138 @@ const Index = props => {
         </ScrollView>
       </View>
     );
-  };
+  }, []);
+
+  const renderUserCard = useCallback(
+    ({item}) => {
+      return (
+        <View
+          style={[
+            theme.styles.cardEffect,
+            {
+              width: getResWidth(90),
+              backgroundColor: currentBgColor,
+              borderWidth: 1,
+              borderColor: currentTextColor,
+              alignSelf: 'center',
+              borderRadius: getResHeight(2),
+              paddingVertical: getResHeight(2),
+              marginBottom: '5%',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            },
+          ]}>
+          <View
+            style={{
+              position: 'absolute',
+              top: getResHeight(1.4),
+              right: getResWidth(2),
+              zIndex: 9999,
+            }}>
+            <SmallMenuComp
+              buttonLabel={openMenu => (
+                <ButtonIconComp
+                  onPress={() => {
+                    openMenu();
+                  }}
+                  icon={
+                    <VectorIcon
+                      type={'Entypo'}
+                      name={'dots-three-vertical'}
+                      size={getFontSize(2.1)}
+                      color={currentTextColor}
+                    />
+                  }
+                  containerStyle={{
+                    width: getResHeight(5),
+                    height: getResHeight(5),
+                    backgroundColor: currentBgColor,
+                    borderRadius: getResHeight(100),
+                  }}
+                />
+              )}
+              menuItems={menuItems}
+              onMenuPress={menuIndex => {
+                if (menuIndex === 0) {
+                  const res = singleUserCardData(item);
+                  setTimeout(() => {
+                    openBottomSheetWithContent(res);
+                  }, 500);
+                }
+                if (menuIndex === 2) {
+                  setShowAlert(true);
+                }
+              }}
+            />
+          </View>
+          <View
+            style={{
+              width: getResWidth(26),
+              paddingLeft: getResHeight(2),
+            }}>
+            <Image
+              source={{
+                uri: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1719',
+              }}
+              style={{
+                height: getResHeight(10),
+                width: getResHeight(10),
+                borderRadius: getResHeight(100),
+              }}
+            />
+          </View>
+          <View
+            style={{
+              width: getResWidth(48),
+              marginLeft: '5%',
+              flexWrap: 'wrap',
+            }}>
+            <Text
+              style={{
+                maxWidth: '100%',
+                fontSize: getFontSize(2),
+                fontFamily: theme.font.semiBold,
+                color: currentTextColor,
+              }}>
+              {item.userBio['Full name']}
+            </Text>
+            <Text
+              style={{
+                width: '98%',
+                fontFamily: theme.font.medium,
+                fontSize: getFontSize(1.5),
+                color: currentTextColor,
+              }}>
+              {item.userBio.Email}
+            </Text>
+          </View>
+          <View
+            style={{
+              borderTopWidth: 0.5,
+              borderColor: 'white',
+              width: '100%',
+              marginTop: '5%',
+              paddingTop: '5%',
+              flexDirection: 'row',
+              paddingHorizontal: getResWidth(2),
+            }}>
+            <UserBioComponent userBio={item.userBio} />
+          </View>
+        </View>
+      );
+    },
+    [
+      currentBgColor,
+      currentTextColor,
+      singleUserCardData,
+      openBottomSheetWithContent,
+    ],
+  );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: currentBgColor,
-      }}>
+    <SafeAreaView style={{flex: 1, backgroundColor: currentBgColor}}>
       <StatusBarComp />
-      <View
-        style={
-          {
-            // marginTop: '4%',
-          }
-        }>
+      <View>
         <CustomHeader
           backPress={() => {
             navigation.goBack();
@@ -547,134 +648,10 @@ const Index = props => {
           keyExtractor={(item, index) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: '20%'}}
-          renderItem={({item, index}) => {
-            console.log('single_items', item);
-            return (
-              <View
-                style={[
-                  theme.styles.cardEffect,
-                  {
-                    width: getResWidth(90),
-                    backgroundColor: currentBgColor,
-                    borderWidth: 1,
-                    borderColor: currentTextColor,
-                    alignSelf: 'center',
-                    borderRadius: getResHeight(2),
-                    paddingVertical: getResHeight(2),
-                    marginBottom: '5%',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                  },
-                ]}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    top: getResHeight(1.4),
-                    right: getResWidth(2),
-                    zIndex: 9999,
-                  }}>
-                  <SmallMenuComp
-                    buttonLabel={openMenu => (
-                      <ButtonIconComp
-                        onPress={() => {
-                          openMenu();
-                        }}
-                        icon={
-                          <VectorIcon
-                            type={'Entypo'}
-                            name={'dots-three-vertical'}
-                            size={getFontSize(2.1)}
-                            color={currentTextColor}
-                          />
-                        }
-                        containerStyle={{
-                          width: getResHeight(5),
-                          height: getResHeight(5),
-                          backgroundColor: currentBgColor,
-                          borderRadius: getResHeight(100),
-                        }}
-                      />
-                    )}
-                    menuItems={menuItems}
-                    onMenuPress={menuIndex => {
-                      if (menuIndex === 0) {
-                        const res = singleUserCardData(item);
-                        console.log('userData', res);
-                        setTimeout(() => {
-                          openBottomSheetWithContent(res);
-                        }, 500);
-                      }
-                      if (menuIndex === 2) {
-                        setShowAlert(true);
-                      }
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    width: getResWidth(26),
-                    paddingLeft: getResHeight(2),
-                  }}>
-                  <Image
-                    source={{
-                      uri: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1719',
-                    }}
-                    style={{
-                      height: getResHeight(10),
-                      width: getResHeight(10),
-                      borderRadius: getResHeight(100),
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    width: getResWidth(48),
-                    marginLeft: '5%',
-                    flexWrap: 'wrap',
-                  }}>
-                  <Text
-                    style={{
-                      maxWidth: '100%',
-                      fontSize: getFontSize(2),
-                      fontFamily: theme.font.semiBold,
-                      color: currentTextColor,
-                    }}>
-                    {item.userBio['Full name']}
-                  </Text>
-                  <Text
-                    style={{
-                      width: '98%',
-                      fontFamily: theme.font.medium,
-                      fontSize: getFontSize(1.5),
-                      color: currentTextColor,
-                    }}>
-                    {item.userBio.Email}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    borderTopWidth: 0.5,
-                    borderColor: 'white',
-                    width: '100%',
-                    marginTop: '5%',
-                    paddingTop: '5%',
-                    flexDirection: 'row',
-                    paddingHorizontal: getResWidth(2),
-                  }}>
-                  <UserBioComponent userBio={item.userBio} />
-                  {/* {console.log(
-                    'renderUserBio(item.userBio)',
-                    renderUserBio(item.userBio)[0],
-                  )}
-                  {renderUserBio( <UserBioComponent userBio={userBio} />)[0]} */}
-                </View>
-              </View>
-            );
-          }}
+          renderItem={renderUserCard}
         />
       </View>
     </SafeAreaView>
   );
 };
-
 export default Index;
