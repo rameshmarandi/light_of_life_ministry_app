@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, View} from 'react-native';
 import Animated, {
   Easing,
   useSharedValue,
@@ -8,9 +7,9 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-import {getFontSize, getResHeight} from '../utility/responsive';
+import {getResHeight} from '../utility/responsive';
 
-const WaveButton = React.memo(props => {
+const WaveMarker = () => {
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
 
@@ -45,35 +44,23 @@ const WaveButton = React.memo(props => {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.circle, animatedStyle]} />
-      <TouchableOpacity style={styles.button} onPress={props.onPress}>
-        <Icon name="plus" size={getFontSize(2.5)} color="#FFF" />
-      </TouchableOpacity>
+      <Animated.View style={[styles.wave, animatedStyle]} />
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
   },
-  circle: {
+  wave: {
     position: 'absolute',
-    width: getResHeight(6), // Adjust size to fit your design
-    height: getResHeight(6),
-    borderRadius: getResHeight(6) / 2, // Ensure correct border radius for circle
-    backgroundColor: 'rgba(0, 150, 255, 0.5)', // Red color with transparency
-  },
-  button: {
-    width: getResHeight(6),
-    height: getResHeight(6),
-    borderRadius: getResHeight(6) / 2, // Ensure correct border radius for button
-    backgroundColor: '#0096FF', // Red color
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: getResHeight(5), // Adjust size to fit your design
+    height: getResHeight(5),
+    borderRadius: getResHeight(5) / 2,
+    backgroundColor: 'rgba(255, 0, 0, 0.5)', // Red color with transparency
   },
 });
 
-export default WaveButton;
+export default WaveMarker;

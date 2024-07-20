@@ -79,6 +79,14 @@ export default function DrawerStack(props) {
                 headerShown: false,
               }}
             />
+            <Drawer.Screen
+              name="ChurchMap"
+              component={AllScreens.ChurchMap}
+              options={{
+                headerShadowVisible: false,
+                headerShown: false,
+              }}
+            />
           </>
         ) : (
           <Drawer.Screen

@@ -67,7 +67,7 @@ const cardDataArray = [
     id: 10,
     title: 'Church Locations',
     image: theme.assets.churchLocation,
-    routeName: '',
+    routeName: 'ChurchMap',
   },
 ];
 

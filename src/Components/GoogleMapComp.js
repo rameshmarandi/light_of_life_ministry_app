@@ -50,7 +50,7 @@ const GoogleUIComp = () => {
   ]);
   return (
     <>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           position: 'absolute',
           top: 20,
@@ -62,7 +62,7 @@ const GoogleUIComp = () => {
         }}
         onPress={handleReset}>
         <Text>Reset</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <MapView
         style={{
@@ -103,11 +103,15 @@ const GoogleUIComp = () => {
                   handleCalloutPress(coordinate.latitude, coordinate.longitude);
                   handleCalloutPress();
                 }}>
-                <TouchableOpacity onPress={() => {
-                  alert('sdf');
-                  handleCalloutPress(coordinate.latitude, coordinate.longitude);
-                  handleCalloutPress();
-                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    alert('sdf');
+                    handleCalloutPress(
+                      coordinate.latitude,
+                      coordinate.longitude,
+                    );
+                    handleCalloutPress();
+                  }}>
                   <Text
                     style={{fontWeight: 'bold', color: theme.color.primary}}>
                     Light of Life Ministries

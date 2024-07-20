@@ -15,6 +15,7 @@ import Dashboard from './Admin/Dashboard/index';
 import AdminManagment from './Admin/AdminManagment/index';
 import Members from './Admin/Members/index';
 import AdminContact from './Admin/Contactus/AdminContact';
+import ChurchMap from './Admin/ChurchMap/index';
 const UserAllScreens = {
   HomePage,
   ProfilePage,
@@ -31,6 +32,7 @@ const AdminScreens = {
   AdminManagment,
   Members,
   AdminContact,
+  ChurchMap,
 };
 
 export default AllScreens = {

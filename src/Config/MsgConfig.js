@@ -40,6 +40,7 @@ const headerTitle = {
   profile: 'My Profile',
   AdminManag: 'Admin Management',
   allMembers: 'All Members',
+  ChurchMap: 'View all church',
   // contactUS  : 'Contact Us',
 };
 

@@ -6,6 +6,7 @@ import {
   Platform,
   FlatList,
   Alert,
+  ScrollView,
   StyleSheet,
   ToastAndroid,
   SafeAreaView,
@@ -20,10 +21,6 @@ import {
 } from '../../../utility/responsive';
 
 import CustomHeader from '../../../Components/CustomHeader';
-import SearchBarComp from '../../../Components/SearchBarComp';
-import SmallMenuComp from '../../../Components/SmallMenuComp';
-import ConfirmAlert from '../../../Components/ConfirmAlert';
-import CustomBottomSheet from '../../../Components/CustomBottomSheet';
 import {VectorIcon} from '../../../Components/VectorIcon';
 import theme from '../../../utility/theme';
 import MsgConfig from '../../../Config/MsgConfig';
@@ -33,55 +30,18 @@ import {
   EmptyUserProfile,
   StatusBarComp,
 } from '../../../Components/commonComp';
-import {ScrollView} from 'react-native-gesture-handler';
-import FormikHandler from '../../../Components/FormikHandler';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import InAppBrowserComp, {
-  openInAppBrowser,
-} from '../../../Components/InAppBrowserComp';
-import WaveButton from '../../../Components/WaveButton';
+
 import FAQList from '../../../Components/FAQList';
 import SectionHeader from '../../../Components/SectionHeader';
 import RadioAndCheckBoxComp from '../../../Components/RadioAndCheckBoxComp';
+// import AdminContact from './AdminContact';
 
-const initialState = {
-  filteredData: [],
-  isLoading: false,
-  searchText: '',
-};
-
-const AdminContact = props => {
+const AdminContact = React.memo(props => {
   const {navigation} = props;
   const {isDarkMode, currentBgColor, currentTextColor} = useSelector(
     state => state.user,
   );
-
-  const [state, setState] = useState(initialState);
-  //   const [userData, setUserData] = useState([...demoUsers]);
-  const [showAlert, setShowAlert] = useState(false);
-  const sheetRef1 = useRef(null);
-
-  const updateState = newState =>
-    setState(prevState => ({...prevState, ...newState}));
-  const {filteredData, isLoading, searchText} = state;
-
-  const handleSearch = text => {
-    updateState({searchText: text});
-  };
-
-  //   useEffect(() => {
-  //     updateState({isLoading: true});
-  //     const filtered = [].filter(item =>
-  //       item.userBio['Full name']
-  //         .toLowerCase()
-  //         .includes(searchText.toLowerCase()),
-  //     );
-
-  //     updateState({setUserData: filtered});
-  //     setTimeout(() => {
-  //       updateState({isLoading: false});
-  //     }, 300);
-  //   }, [searchText]);
 
   const bottomSheetRef = useRef(null);
   const [bottomSheetContent, setBottomSheetContent] = useState(null);
@@ -330,7 +290,8 @@ const AdminContact = props => {
       </View>
     </SafeAreaView>
   );
-};
+});
+// const AdminContact =
 
 const style = StyleSheet.create({
   lableContainer: {
