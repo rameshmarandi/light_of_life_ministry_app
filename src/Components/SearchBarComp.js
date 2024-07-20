@@ -3,7 +3,7 @@ import React from 'react';
 import {SearchBar} from 'react-native-elements';
 import theme from '../utility/theme';
 import {useSelector} from 'react-redux';
-import {getFontSize} from '../utility/responsive';
+import {getFontSize, getResWidth} from '../utility/responsive';
 import {fonts} from 'react-native-elements/dist/config';
 
 const SearchBarComp = props => {
@@ -44,7 +44,7 @@ const SearchBarComp = props => {
           containerStyle
             ? containerStyle
             : {
-                width: '96%',
+                width: getResWidth(95),
                 alignSelf: 'center',
                 borderTopWidth: 0,
                 borderBottomWidth: 0,

@@ -14,7 +14,7 @@ export const StatusBarComp = () => {
   return (
     <StatusBar
       animated={true}
-      backgroundColor={isDarkMode ? '#333' : '#f0f0f0'} // Example of custom colors based on dark mode
+      backgroundColor={isDarkMode ? theme.color.darkTheme : 'white'} // Example of custom colors based on dark mode
       barStyle={isDarkMode ? 'light-content' : 'dark-content'}
     />
   );
@@ -119,11 +119,8 @@ export const ButtonIconComp = props => {
                   {
                     width: getResHeight(5),
                     height: getResHeight(5),
-                    // justifyContent:"center",
                     backgroundColor: currentBgColor,
-                    // backgroundColor: isDarkMode
-                    //   ? theme.color.dimWhite
-                    //   : theme.color.primary,
+
                     borderRadius: getResHeight(100),
                   },
                 ]

@@ -10,6 +10,7 @@ import {
   ToastAndroid,
   SafeAreaView,
   Button,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {
@@ -40,6 +41,8 @@ import InAppBrowserComp, {
 } from '../../../Components/InAppBrowserComp';
 import WaveButton from '../../../Components/WaveButton';
 import FAQList from '../../../Components/FAQList';
+import SectionHeader from '../../../Components/SectionHeader';
+import RadioAndCheckBoxComp from '../../../Components/RadioAndCheckBoxComp';
 
 const initialState = {
   filteredData: [],
@@ -82,7 +85,7 @@ const AdminContact = props => {
 
   const bottomSheetRef = useRef(null);
   const [bottomSheetContent, setBottomSheetContent] = useState(null);
-
+  const [isLongPressed, setLongPress] = useState(false);
   const openBottomSheetWithContent = content => {
     setBottomSheetContent(content);
     bottomSheetRef.current?.open();
@@ -125,6 +128,8 @@ const AdminContact = props => {
       ],
     },
   ];
+
+  let isSelected = isLongPressed;
   return (
     <SafeAreaView
       style={{
@@ -132,47 +137,24 @@ const AdminContact = props => {
         backgroundColor: currentBgColor,
       }}>
       <StatusBarComp />
-      <View
-        style={
-          {
-            //   marginTop: '4%',
-          }
-        }>
+      <View style={{}}>
         <CustomHeader
           backPress={() => {
             navigation.goBack();
+            setLongPress(false);
           }}
+          // isDeleteIcon = {}
           screenTitle={MsgConfig.contactUS}
-          filterIcon={() => {}}
+          isDelete={isSelected}
+          // filterIcon={() => {}}
         />
       </View>
-      <ConfirmAlert
-        visible={showAlert}
-        onCancel={() => setShowAlert(false)}
-        onConfirm={() => {
-          setShowAlert(false);
-        }}
-      />
+
       <View
         style={{
-          marginTop: '3%',
           paddingHorizontal: '1%',
         }}>
-        <SearchBarComp
-          placeholder="Search all members..."
-          isLoading={isLoading}
-          onChangeText={handleSearch}
-          value={searchText}
-        />
-        <CustomBottomSheet ref={bottomSheetRef} modalHeight={500}>
-          {bottomSheetContent}
-        </CustomBottomSheet>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{
-            // flex: 1,
-            marginBottom: getResHeight(12),
-          }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{}}>
           <View
             style={{
               paddingHorizontal: '2%',
@@ -183,120 +165,165 @@ const AdminContact = props => {
               return (
                 <>
                   <View
-                    style={[
-                      {
-                        borderWidth: 1,
-                        width: '100%',
-                        borderRadius: getResHeight(1),
-                        padding: '5%',
-                        //   paddingVertical: '2%',
-                        //   paddingHorizontal: '3%',
-                        marginBottom: '5%',
-                        borderColor: currentTextColor,
-                      },
-                      // theme.styles.cardEffect,
-                    ]}>
-                    <View
-                      style={{
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        flexDirection: 'row',
+                    style={{
+                      width: isSelected ? getResWidth(84) : getResWidth(91),
+                      flexDirection: 'row',
+                      alignSelf: isSelected ? 'flex-start' : 'center',
+                    }}>
+                    {isSelected && <RadioAndCheckBoxComp />}
+
+                    <TouchableWithoutFeedback
+                      onLongPress={() => {
+                        setLongPress(true);
                       }}>
-                      <Text
+                      <View
                         style={[
-                          style.lableStyle,
                           {
-                            //   width: '100%',
-                            color: currentTextColor,
-                            // marginTop: '5%',
-                            marginBottom: '6%',
+                            borderWidth: 1,
+                            width: '100%',
+                            borderRadius: getResHeight(1),
+                            padding: '5%',
+                            marginBottom: '5%',
+                            alignSelf: 'center',
+                            borderColor: currentTextColor,
                           },
                         ]}>
-                        {title}
-                      </Text>
-                      <View
-                        style={{
-                          position: 'absolute',
-                          right: 0,
-                          top: getResHeight(-1),
-                        }}>
-                        <ButtonIconComp
-                          onPress={() => {}}
-                          icon={
-                            <VectorIcon
-                              type={'FontAwesome'}
-                              name={'edit'}
-                              size={getFontSize(2.3)}
-                              color={currentBgColor}
-                            />
-                          }
-                          containerStyle={{
-                            width: getResHeight(4),
-                            height: getResHeight(4),
-                            backgroundColor: currentTextColor,
-                            justifyContent: 'center',
+                        <View
+                          style={{
+                            justifyContent: 'space-between',
                             alignItems: 'center',
-                            borderRadius: getResHeight(100),
-                          }}
-                        />
-                      </View>
-                    </View>
-                    {tableSection.map((e, i) => {
-                      return (
-                        <>
-                          <View
+                            flexDirection: 'row',
+                          }}>
+                          <Text
                             style={[
-                              style.lableContainer,
+                              style.lableStyle,
                               {
-                                marginBottom: '4%',
+                                color: currentTextColor,
+                                fontFamily: theme.font.bold,
+                                marginBottom: '6%',
                               },
                             ]}>
-                            <Text
-                              style={[
-                                style.lableStyle,
-                                {
-                                  color: currentTextColor,
-                                  width: index == 0 ? '27%' : '35%',
-                                },
-                              ]}>{`${e.lableName}  : `}</Text>
-                            <TouchableOpacity
-                              disabled={!e.isLink}
+                            {title}
+                          </Text>
+                          <View
+                            style={{
+                              position: 'absolute',
+                              right: getResWidth(-1.4),
+                              top: getResHeight(-1),
+                            }}>
+                            <ButtonIconComp
                               onPress={() => {
-                                openInAppBrowser(e.lableValue);
+                                setLongPress(false);
                               }}
-                              onLongPress={() => {
-                                CopyToClipBoard(`${e.lableValue}`);
-                                if (Platform.OS === 'android') {
-                                  showToast(e.lableName);
-                                } else {
-                                  Alert.alert(`${e.lableName} link copied!`);
-                                }
-                              }}>
-                              <Text
+                              icon={
+                                <VectorIcon
+                                  type={'Entypo'}
+                                  name={'plus'}
+                                  size={getFontSize(2)}
+                                  color={currentBgColor}
+                                />
+                              }
+                              containerStyle={[
+                                style.btnContainer,
+                                {
+                                  backgroundColor: currentTextColor,
+                                },
+                              ]}
+                            />
+                          </View>
+                        </View>
+                        {tableSection.map((e, i) => {
+                          let trimLength = isSelected ? 25 : 27;
+                          return (
+                            <>
+                              <View
                                 style={[
-                                  style.lableStyle,
+                                  style.lableContainer,
                                   {
-                                    width: '100%',
-                                    textDecorationLine: e.isLink
-                                      ? 'underline'
-                                      : 'none',
-                                    color: currentTextColor,
+                                    marginBottom: '4%',
                                   },
                                 ]}>
-                                {e.lableValue.length > 22
-                                  ? `${e.lableValue.slice(0, 22)}..`
-                                  : `${e.lableValue}  `}
-                              </Text>
-                            </TouchableOpacity>
-                          </View>
-                        </>
-                      );
-                    })}
+                                <Text
+                                  style={[
+                                    style.lableStyle,
+                                    {
+                                      color: currentTextColor,
+                                      fontSize: getFontSize(1.6),
+                                      // width: isSelected
+                                      //   ? getResWidth(18)
+                                      //   : getResWidth(25),
+                                      // width: index == 0 ? '27%' : '35%',
+                                    },
+                                  ]}>{`${e.lableName}  : `}</Text>
+                                <TouchableOpacity
+                                  disabled={!e.isLink}
+                                  onPress={() => {
+                                    openInAppBrowser(e.lableValue);
+                                  }}
+                                  onLongPress={() => {
+                                    CopyToClipBoard(`${e.lableValue}`);
+                                    if (Platform.OS === 'android') {
+                                      showToast(e.lableName);
+                                    } else {
+                                      Alert.alert(
+                                        `${e.lableName} link copied!`,
+                                      );
+                                    }
+                                  }}>
+                                  <Text
+                                    style={[
+                                      style.lableStyle,
+                                      {
+                                        width: '100%',
+                                        textDecorationLine: e.isLink
+                                          ? 'underline'
+                                          : 'none',
+                                        color: currentTextColor,
+                                        marginLeft: '5%',
+                                      },
+                                    ]}>
+                                    {e.lableValue.length > trimLength
+                                      ? `${e.lableValue.slice(0, trimLength)}..`
+                                      : `${e.lableValue}  `}
+                                  </Text>
+                                </TouchableOpacity>
+                              </View>
+                            </>
+                          );
+                        })}
+                      </View>
+                    </TouchableWithoutFeedback>
                   </View>
                 </>
               );
             })}
-
+            <View
+              style={{
+                paddingHorizontal: '2%',
+                marginVertical: getResHeight(2),
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <SectionHeader sectionTitle={`Frequenly asked questions`} />
+              <ButtonIconComp
+                onPress={() => {}}
+                icon={
+                  <VectorIcon
+                    type={'Entypo'}
+                    name={'plus'}
+                    size={getFontSize(2)}
+                    color={currentBgColor}
+                  />
+                }
+                containerStyle={[
+                  style.btnContainer,
+                  {
+                    backgroundColor: currentTextColor,
+                  },
+                ]}
+              />
+            </View>
             <FAQList />
           </View>
         </ScrollView>
@@ -311,9 +338,16 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   lableStyle: {
-    fontFamily: theme.font.bold,
-    fontSize: getFontSize(2),
-    // width: getResWidth(27),
+    fontFamily: theme.font.medium,
+    fontSize: getFontSize(1.6),
+  },
+  btnContainer: {
+    width: getResHeight(4),
+    height: getResHeight(4),
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: getResHeight(100),
   },
 });
 export default AdminContact;

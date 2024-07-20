@@ -28,11 +28,11 @@ import {
 import {styles} from './DrawerItem.style';
 import {VectorIcon} from '../../Components/VectorIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import { CommonButtonComp } from '../../Components/commonComp';
+import {CommonButtonComp} from '../../Components/commonComp';
 
 const DrawerItems = ({navigation}) => {
   const dispatch = useDispatch();
-  let {isDarkMode, currentBgColor,isAdmin, currentTextColor} = useSelector(
+  let {isDarkMode, currentBgColor, isAdmin, currentTextColor} = useSelector(
     state => state.user,
   );
 
@@ -81,7 +81,7 @@ const DrawerItems = ({navigation}) => {
       id: 2,
       lable: MsgConfig.freeResource,
       route: 'FreeResource',
-   
+
       icon: (
         <VectorIcon
           type={'FontAwesome5'}
@@ -112,7 +112,7 @@ const DrawerItems = ({navigation}) => {
       id: 4,
       lable: MsgConfig.event,
       route: 'Events',
-   
+
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
@@ -128,7 +128,7 @@ const DrawerItems = ({navigation}) => {
       id: 5,
       lable: MsgConfig.contactWithUs,
       route: 'ContactWithUs',
-     
+
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
@@ -143,7 +143,7 @@ const DrawerItems = ({navigation}) => {
       id: 6,
       lable: MsgConfig.feedBack,
       route: 'Feedback',
-     
+
       icon: (
         <VectorIcon
           type={'MaterialIcons'}
@@ -188,7 +188,7 @@ const DrawerItems = ({navigation}) => {
     },
     {
       id: 9,
-      lable: "Set Admin",
+      lable: 'Set Admin',
       // route: 'HomePage',
       route: '',
 
@@ -219,7 +219,6 @@ const DrawerItems = ({navigation}) => {
   };
   const handleSetAdmin = async () => {
     dispatch(setAdmin(!isAdmin));
-   
 
     navigation.closeDrawer();
   };
@@ -230,21 +229,18 @@ const DrawerItems = ({navigation}) => {
         <View
           style={{
             marginTop: index === 0 ? '5%' : 0,
-
           }}>
           <Button
             title={item.lable}
             onPress={() => {
               if (item.id === 8) {
                 handleDarkMode(); // Functional for dark/Night mode
-              }
-              else if (item.id === 9) {
+              } else if (item.id === 9) {
                 handleSetAdmin(); // Functional for dark/Night mode
-              }
-              else{
+              } else {
                 navigation.navigate(item.route);
               }
-              
+
               // navigation.closeDrawer();
             }}
             icon={item.icon}
@@ -263,7 +259,7 @@ const DrawerItems = ({navigation}) => {
       </>
     );
   };
-console.log("isAdmin", isAdmin)
+  console.log('isAdmin', isAdmin);
   return (
     <SafeAreaView
       style={[styles.drawerContainer, {backgroundColor: currentBgColor}]}>
@@ -278,9 +274,8 @@ console.log("isAdmin", isAdmin)
         ]}>
         <View
           style={{
-            height: getResHeight(10),
-            width: getResHeight(10),
-            backgroundColor: 'green',
+            height: getResHeight(8),
+            width: getResHeight(8),
             borderRadius: getResHeight(100),
             marginVertical: '5%',
           }}>
@@ -298,7 +293,7 @@ console.log("isAdmin", isAdmin)
           <Text
             style={{
               color: currentTextColor,
-              fontFamily: theme.font.bold
+              fontFamily: theme.font.bold,
             }}>
             Ramesh Marandi
           </Text>
@@ -322,34 +317,34 @@ console.log("isAdmin", isAdmin)
           </Text>
         </View>
       </View>
-       <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            position: 'absolute',
-            bottom: '2%',
-          }}>
-          <CommonButtonComp
-            // title={'Log Out'}
-            title={'Are you a member?'}
-            onPress={() => {
-              // navigation.navigate("Login")
-              // navigation.closeDrawer();
-            }}
-            iconLeft
-            // loading = {true}
-            icon={
-              <VectorIcon
-                // type={'AntDesign'}
-                type={'FontAwesome'}
-                // name={'logout'}
-                name={'lock'}
-                size={getFontSize(2)}
-                color={currentBgColor}
-              />
-            }
-          />
-        </View> 
+      <View
+        style={{
+          width: '90%',
+          alignSelf: 'center',
+          position: 'absolute',
+          bottom: '2%',
+        }}>
+        <CommonButtonComp
+          // title={'Log Out'}
+          title={'Are you a member?'}
+          onPress={() => {
+            // navigation.navigate("Login")
+            // navigation.closeDrawer();
+          }}
+          iconLeft
+          // loading = {true}
+          icon={
+            <VectorIcon
+              // type={'AntDesign'}
+              type={'FontAwesome'}
+              // name={'logout'}
+              name={'lock'}
+              size={getFontSize(2)}
+              color={currentBgColor}
+            />
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };

@@ -12,7 +12,7 @@ import {PaperProvider} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // import NavigationService, { setNavigator } from "./src/Services/NavigationService.js"
-import {getFontSize} from './src/utility/responsive';
+import {getFontSize, getResHeight} from './src/utility/responsive';
 import {persistor, store} from './src/utility/store';
 import theme from './src/utility/theme';
 import {setNavigator} from './src/Services/NavigationService';
@@ -68,8 +68,8 @@ function AnimatedSlash() {
           source={theme.assets.church_logo_origianl}
           resizeMode="center"
           style={{
-            height: '50%',
-            width: '50%',
+            height: getResHeight(10),
+            width: getResHeight(10),
             position: 'absolute',
           }}
         />

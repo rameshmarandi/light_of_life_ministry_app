@@ -2,17 +2,7 @@ import {StyleSheet} from 'react-native';
 // import {CardStyleInterpolators} from 'react-navigation-stack';
 
 import assets from './assets';
-import { getResHeight } from '../responsive';
-
-// const navigationOptions = {
-//   cardOptions: {
-//     headerShown: false,
-//     // cardShadowEnabled: true,
-//     // detachPreviousScreen: true,
-//     gestureResponseDistance: hp('50%'),
-//     gestureDirection: 'vertical',
-//   },
-// };
+import {getResHeight} from '../responsive';
 
 const regex = {
   percentage: /^(\d*\.{0,1}\d{0,2}$)/,
@@ -27,14 +17,12 @@ const regex = {
     /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/,
 };
 const color = {
-  primary:
-    '#2F3B75', // ok //F99D27
-  darkTheme:'#012537',
+  primary: '#2F3B75',
+  darkTheme: '#012537',
   // "#000f0b",
-  iconCircleBg:'#011621',
-  //  '#343434',
-  //Textinput start
-  darkModeTextInputOutline : '#666666',
+  iconCircleBg: '#011621',
+
+  darkModeTextInputOutline: '#666666',
   normalModeTextInputOutline: '#C4C4C4',
   // Textinput end
   seletedBtn: '#303254',
@@ -43,8 +31,8 @@ const color = {
   dimGray: '#828282',
   lableColor: '#666666',
   white: '#FFFFFF',
-  iceWhite:"#f9f9f9",
-  dimWhite:"#f1f1f1",
+  iceWhite: '#f9f9f9',
+  dimWhite: '#f1f1f1',
   outlineColor: '#999999',
   placeholder: '#C0C0C0',
   error: '#FF0000',
@@ -54,11 +42,11 @@ const color = {
 const font = {
   regular: 'Poppins-Regular',
   semiBold: 'Poppins-SemiBold',
-  medium:"Poppins-Medium",
+  medium: 'Poppins-Medium',
   bold: 'Poppins-Bold',
-  extraBold :"Poppins-ExtraBold",
-  italic :"Poppins-Italic",
-  thin :"Poppins-Thin"
+  extraBold: 'Poppins-ExtraBold',
+  italic: 'Poppins-Italic',
+  thin: 'Poppins-Thin',
 };
 
 const fontSizes = {
@@ -70,12 +58,6 @@ const fontSizes = {
   extraLarge: 25,
   ultraLarge: 45,
 };
-
-// const Radius = {
-//   small: 3,
-//   medium: 5,
-//   large: 7,
-// };
 
 const styles = StyleSheet.create({
   // inputPlaceholder: {
@@ -108,7 +90,6 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   cardEffect: {
-   
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -118,37 +99,13 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 15,
   },
-  
-  
-  // categoryTitle: {
-  //   color: color.black,
-  //   fontFamily: font.regular,
-  //   fontSize: getFontSize(11.5),
-  //   fontWeight: '700',
-  //   textAlign: 'center',
-  // },
 });
 
-// const listDataArray = {
-//   yesNo: listData.YesNo,
-//   month: listData.monthList,
-//   gender: listData.gender,
-//   identifyProof: listData.identifyProof,
-//   addresProof: listData.addresProof,
-//   employmentProof: listData.employmentProof,
-//   educationProof: listData.educationProof,
-//   otherProofProof: listData.otherProof,
-//   summaryQue: listData.summary,
-//   educationType: listData.educationType,
-//   respect: listData.respect,
-//   LGI: listData.LGI,
-// };
 const theme = {
-
   color,
   font,
   styles,
- 
+
   assets,
 };
 

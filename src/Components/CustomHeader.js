@@ -28,6 +28,7 @@ const CustomHeader = props => {
     screenTitle,
     centerLogo,
     filterIcon,
+    isDelete,
   } = props;
 
   let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
@@ -45,6 +46,7 @@ const CustomHeader = props => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: '3%',
             borderBottomWidth: Hamburger ? 0.5 : 0,
             borderBottomColor: currentBgColor,
           }}>
@@ -57,7 +59,7 @@ const CustomHeader = props => {
                 <VectorIcon
                   type={'Ionicons'}
                   name={'menu'}
-                  size={getFontSize(3.9)}
+                  size={getFontSize(4)}
                   color={currentTextColor}
                   style={{}}
                 />
@@ -134,7 +136,8 @@ const CustomHeader = props => {
               </Text>
             </View>
           )}
-          {filterIcon && (
+
+          {(filterIcon || isDelete) && (
             <View
               style={{
                 flexDirection: 'row',
@@ -146,10 +149,10 @@ const CustomHeader = props => {
                 iconPosition="right"
                 icon={
                   <VectorIcon
-                    type={'Ionicons'}
-                    name={'filter'}
+                    type={isDelete ? 'MaterialIcons' : 'Ionicons'}
+                    name={isDelete ? 'delete' : 'filter'}
                     size={getFontSize(3.5)}
-                    color={currentTextColor}
+                    color={isDelete ? 'red' : currentTextColor}
                     style={{}}
                   />
                 }
@@ -158,12 +161,8 @@ const CustomHeader = props => {
                   {
                     width: getResHeight(5.5),
                     height: getResHeight(5.5),
-                    // justifyContent:"center",
                     backgroundColor: currentBgColor,
-                    // backgroundColor: isDarkMode
-                    //   ? theme.color.primary
-                    //   : theme.color.dimWhite,
-                    // backgroundColor: 'red',
+
                     borderRadius: getResHeight(100),
                   },
                 ]}
@@ -183,8 +182,8 @@ const CustomHeader = props => {
               source={theme.assets.church_logo_origianl}
               resizeMode="cover"
               style={{
-                width: getResHeight(8),
-                height: getResHeight(8),
+                width: getResHeight(5),
+                height: getResHeight(5),
                 borderRadius: getResHeight(100),
               }}
             />
