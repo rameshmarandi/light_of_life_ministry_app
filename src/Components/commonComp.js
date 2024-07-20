@@ -14,8 +14,8 @@ export const StatusBarComp = () => {
   return (
     <StatusBar
       animated={true}
-      backgroundColor={isDarkMode ? '#333' : '#f0f0f0'} // Example of custom colors based on dark mode
-      barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+      // backgroundColor={isDarkMode ? '#333' : '#f0f0f0'} // Example of custom colors based on dark mode
+      barStyle={'default'}
     />
   );
 };
