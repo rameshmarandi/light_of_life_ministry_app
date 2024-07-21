@@ -11,7 +11,7 @@ import UserNotification from './User/Notification/UserNotification';
 
 // Admin Dashboard
 
-import Dashboard from './Admin/Dashboard/index';
+import Dashboard from './Admin/AdminDashboard/index';
 import AdminManagment from './Admin/AdminManagment/index';
 import Members from './Admin/Members/index';
 import AdminContact from './Admin/Contactus/AdminContact';

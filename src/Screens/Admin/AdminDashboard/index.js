@@ -12,19 +12,19 @@ import {
   FlatList,
   Keyboard,
 } from 'react-native';
-import theme from '../../../utility/theme';
+import theme from '../../../utility/theme/index.js';
 import {useSelector} from 'react-redux';
-import CustomHeader from '../../../Components/CustomHeader';
-import {StatusBarComp} from '../../../Components/commonComp';
-import MarqueeComp from '../../../Components/MarqueeComp';
+import CustomHeader from '../../../Components/CustomHeader.js';
+import {StatusBarComp} from '../../../Components/commonComp.js';
+import MarqueeComp from '../../../Components/MarqueeComp.js';
 import {
   getFontSize,
   getResHeight,
   getResWidth,
-} from '../../../utility/responsive';
+} from '../../../utility/responsive/index.js';
 
-import SearchBarComp from '../../../Components/SearchBarComp';
-import SquareCardComp from '../../../Components/SquareCardComp';
+import SearchBarComp from '../../../Components/SearchBarComp.js';
+import SquareCardComp from '../../../Components/SquareCardComp.js';
 import {pushScreen} from '../../../Services/NavigationService.js';
 
 const cardDataArray = [
