@@ -1,19 +1,13 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useIsFocused} from '@react-navigation/native';
 import Ripple from 'react-native-material-ripple';
-import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
+import {StyleSheet, View, Text, Animated} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {VectorIcon} from '../Components/VectorIcon';
 import {getFontSize, getResHeight} from '../utility/responsive';
 import theme from '../utility/theme';
-import {
-  AdminHomeStack,
-  HomeStack,
-  ProfileStack,
-  SettingsStack,
-} from './StackNav';
-import screenOptions from './NavigationSettings';
 import {useSelector} from 'react-redux';
+import {AdminHomeStack, ProfileStack} from './StackNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,45 +30,26 @@ const tabArrays = [
     routeNames: 'Profile',
     component: ProfileStack,
   },
-  // {
-  //   title: 'Settings',
-  //   icon: {
-  //     type: 'Fontisto',
-  //     name: 'player-settings',
-  //   },
-  //   routeNames: '',
-  //   component: "",
-  // },
 ];
 
-const CustomTabBar = props => {
-  const {navigation, selectedTabIndex, currentBgColor, currentTextColor} =
-    props;
+const CustomTabBar = ({
+  navigation,
+  selectedTabIndex,
+  currentBgColor,
+  currentTextColor,
+}) => {
   const [selectedTab, setSelectedTab] = useState(selectedTabIndex);
-  const translateY = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    Animated.timing(translateY, {
-      // toValue: -getResHeight(2),
-      duration: 1800,
-      useNativeDriver: true,
-      easing: Easing.easeInOut,
-    }).start();
-  }, [selectedTab]);
-
-  const onPress = index => {
-    setSelectedTab(index);
-    navigation.navigate(tabArrays[index].routeNames);
-  };
+  const onPress = useCallback(
+    index => {
+      setSelectedTab(index);
+      navigation.navigate(tabArrays[index].routeNames);
+    },
+    [navigation],
+  );
 
   return (
-    <View
-      style={[
-        styles.tabBar,
-        {
-          backgroundColor: currentTextColor,
-        },
-      ]}>
+    <View style={[styles.tabBar, {backgroundColor: '#EA2C62'}]}>
       {tabArrays.map((route, index) => {
         const isFocused = useIsFocused();
 
@@ -82,64 +57,34 @@ const CustomTabBar = props => {
           <Ripple
             key={index}
             onPress={() => onPress(index)}
-            style={
-              {
-                // overflow: 'hidden',
-              }
-            }
-            rippleCentered={true}
+            rippleCentered
             rippleSize={100}
-            rippleColor={theme.color.dimWhite}>
+            rippleColor={theme.color.dimWhite}
+            style={styles.tabButton}>
             <Animated.View
-              style={{
-                height: getResHeight(10),
-                width: getResHeight(10),
-                // borderTopWidth: index == selectedTab ? 1 : 0,
-                // borderTopColor: 'white',
-                // borderTopLeftRadius: getFontSize(100),
-                // borderTopRightRadius: getFontSize(100),
-                justifyContent: 'center',
-                alignItems: 'center',
-                overflow: 'hidden',
-                // transform: [
-                //   {translateY: index === selectedTab ? translateY : 0},
-                // ],
-                // backgroundColor:index === selectedTab? "red":"white"
-                // theme.color.darkTheme,
-              }}>
+              style={[
+                styles.iconContainer,
+                {
+                  borderTopWidth: index === selectedTab ? 2 : 0,
+                  borderTopColor: 'white',
+                },
+              ]}>
               <VectorIcon
                 type={route.icon.type}
                 name={route.icon.name}
-                color={
-                  selectedTab === index ? currentBgColor : theme.color.dimGray
-                }
+                color={'white'}
                 size={getFontSize(2.5)}
               />
-
               {selectedTab === index && (
-                <>
-                  <Animated.Text
-                    style={{
-                      fontFamily:
-                        selectedTab === index
-                          ? theme.font.medium
-                          : theme.font.regular,
-                      color:
-                        selectedTab === index
-                          ? currentBgColor
-                          : theme.color.dimGray,
-                    }}>
-                    {isFocused ? route.title : ''}
-                  </Animated.Text>
-                  <Animated.View
-                    style={{
-                      height: getResHeight(0.5),
-                      width: getResHeight(0.5),
-                      backgroundColor: currentBgColor,
-                      borderRadius: getResHeight(100),
-                    }}
-                  />
-                </>
+                <Animated.Text
+                  style={[
+                    styles.tabText,
+                    {
+                      color: 'white',
+                    },
+                  ]}>
+                  {isFocused ? route.title : ''}
+                </Animated.Text>
               )}
             </Animated.View>
           </Ripple>
@@ -149,21 +94,23 @@ const CustomTabBar = props => {
   );
 };
 
-export default function TabNav(props) {
-  let {isDarkMode, currentBgColor, currentTextColor} = useSelector(
-    state => state.user,
+const TabNav = props => {
+  const {currentBgColor, currentTextColor} = useSelector(state => state.user);
+  const tabBarOptions = useMemo(
+    () => ({
+      initialRouteName: tabArrays[0].routeNames,
+      currentBgColor,
+      currentTextColor,
+      selectedTabIndex: 0,
+    }),
+    [currentBgColor, currentTextColor],
   );
+
   return (
-    <>
+    <View style={styles.navigatorContainer}>
       <Tab.Navigator
         tabBar={navigation => (
-          <CustomTabBar
-            {...navigation}
-            initialRouteName={tabArrays[0].routeNames}
-            currentBgColor={currentBgColor}
-            currentTextColor={currentTextColor}
-            selectedTabIndex={0}
-          />
+          <CustomTabBar {...navigation} {...tabBarOptions} />
         )}>
         {tabArrays.map((e, i) => (
           <Tab.Screen
@@ -174,18 +121,23 @@ export default function TabNav(props) {
           />
         ))}
       </Tab.Navigator>
-    </>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  navigatorContainer: {
+    flex: 1,
+    // borderTopLeftRadius: 15,
+    // borderTopRightRadius: 15,
+    overflow: 'hidden',
+  },
   tabBar: {
     height: getResHeight(8),
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -195,4 +147,23 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5.5,
   },
+  tabButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    height: getResHeight(8),
+    width: getResHeight(8),
+    // borderRadius:""
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  tabText: {
+    fontFamily: theme.font.medium,
+    fontSize: getFontSize(1.5),
+    // marginTop: 4,
+  },
 });
+
+export default TabNav;

@@ -23,6 +23,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import FormikHandler from '../../../Components/FormikHandler';
 import {TextInput} from 'react-native';
 import WaveButton from '../../../Components/WaveButton';
+import ExampleUsage from '../../../Components/ExampleUsage';
 
 const demoUsers = [
   {
@@ -486,6 +487,7 @@ const Index = props => {
         backgroundColor: currentBgColor,
       }}>
       <StatusBarComp />
+
       <View
         style={
           {
@@ -535,6 +537,7 @@ const Index = props => {
       <CustomBottomSheet ref={bottomSheetRef} modalHeight={500}>
         {bottomSheetContent}
       </CustomBottomSheet>
+
       <View
         style={{
           zIndex: -9999,
@@ -542,6 +545,7 @@ const Index = props => {
           paddingHorizontal: '2%',
           paddingTop: '2%',
         }}>
+        <ExampleUsage />
         <FlatList
           data={userData}
           keyExtractor={(item, index) => item.id}

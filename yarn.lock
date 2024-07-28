@@ -2009,6 +2009,13 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
+"@react-native-community/datetimepicker@>=6.7.0":
+  version "8.2.0"
+  resolved "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-8.2.0.tgz"
+  integrity sha512-qrUPhiBvKGuG9Y+vOqsc56RPFcHa1SU2qbAMT0hfGkoFIj3FodE0VuPVrEa8fgy7kcD5NQmkZIKgHOBLV0+hWg==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-mac/virtualized-lists@^0.73.3":
   version "0.73.3"
   resolved "https://registry.npmjs.org/@react-native-mac/virtualized-lists/-/virtualized-lists-0.73.3.tgz"
@@ -3787,7 +3794,7 @@ data-view-byte-offset@^1.0.0:
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
 
-dayjs@^1.8.15:
+dayjs@^1.11.10, dayjs@^1.8.15:
   version "1.11.10"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.10.tgz"
   integrity sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==
@@ -6989,7 +6996,7 @@ prompts@^2.0.1, prompts@^2.4.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@>=15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@>=15.7.2:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7111,6 +7118,13 @@ react-native-animatable@^1.4.0:
   dependencies:
     prop-types "^15.8.1"
 
+react-native-animatable@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-1.3.3.tgz"
+  integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-calendar-strip@^1.4.2:
   version "1.4.2"
   resolved "https://registry.npmjs.org/react-native-calendar-strip/-/react-native-calendar-strip-1.4.2.tgz"
@@ -7231,6 +7245,21 @@ react-native-material-ripple@^0.9.1:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-modal-datetime-picker@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.npmjs.org/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-17.0.0.tgz"
+  integrity sha512-/NFZMlugmd4WnKfNHjWQ5vz7PWfL2ECg8+hH0i661EqunT3+Oulp8a/0BCjNfCy2YEHargeII4T0ztLEe5MsfA==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-modal@^13.0.1:
+  version "13.0.1"
+  resolved "https://registry.npmjs.org/react-native-modal/-/react-native-modal-13.0.1.tgz"
+  integrity sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-animatable "1.3.3"
+
 react-native-pager-view@*, react-native-pager-view@^6.3.3:
   version "6.3.3"
   resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.3.3.tgz"
@@ -7309,6 +7338,16 @@ react-native-tab-view@^3.5.2:
   dependencies:
     use-latest-callback "^0.1.5"
 
+react-native-ui-datepicker@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/react-native-ui-datepicker/-/react-native-ui-datepicker-2.0.3.tgz"
+  integrity sha512-I7W24zoB5DQEZxAEx5grSbgWWKVCZWxWAiwSl2e7sn8d/tE2psFF6ki8qnUZQGfBfa+DNyLvFiblUl2kbHlfEA==
+  dependencies:
+    dayjs "^1.11.10"
+    lodash "^4.17.21"
+    react-native-wheely "^0.6.0"
+    uninstall "^0.0.0"
+
 react-native-vector-icons@*, react-native-vector-icons@^10.0.3, react-native-vector-icons@>7.0.0:
   version "10.0.3"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.3.tgz"
@@ -7317,7 +7356,12 @@ react-native-vector-icons@*, react-native-vector-icons@^10.0.3, react-native-vec
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-"react-native-windows@^0.61.0 || ^0.62.0 || ^0.63.0 || ^0.64.0 || ^0.65.0 || ^0.66.0 || ^0.67.0 || ^0.68.0 || ^0.69.0 || ^0.70.0 || ^0.71.0 || ^0.72.0 || ^0.73.0", react-native-windows@>=0.63.x:
+react-native-wheely@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/react-native-wheely/-/react-native-wheely-0.6.0.tgz"
+  integrity sha512-WDnynKOdHZ3m0VnXF5pC11dXSJZDC/6/e9LuZ6UKs4IjIRI1NTTd14pRwKYEnTgWmJdlDjqJvNSIVbd7EuMxHQ==
+
+react-native-windows@*, "react-native-windows@^0.61.0 || ^0.62.0 || ^0.63.0 || ^0.64.0 || ^0.65.0 || ^0.66.0 || ^0.67.0 || ^0.68.0 || ^0.69.0 || ^0.70.0 || ^0.71.0 || ^0.72.0 || ^0.73.0", react-native-windows@>=0.63.x:
   version "0.73.16"
   resolved "https://registry.npmjs.org/react-native-windows/-/react-native-windows-0.73.16.tgz"
   integrity sha512-7HG3uQx+RnJ3jLuLRVnwjeqOvS+dt9xStGNByl5OuhY7L1q2zTY/Dm94+2ZSjs3zglnlTJv3Laobd+i5IUiL/g==
@@ -7371,7 +7415,7 @@ react-native-youtube-iframe@^2.3.0:
   dependencies:
     events "^3.2.0"
 
-react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@^0.61.5 || ^0.62.3 || ^0.63.2 || ^0.64.2 || ^0.65.0 || ^0.66.0 || ^0.67.0 || ^0.68.0 || ^0.69.0 || ^0.70.0 || ^0.71.0 || ^0.72.0 || ^0.73.0", react-native@^0.73.0, "react-native@>= 0.64.3", react-native@>=0.40.0, react-native@>=0.44.1, react-native@>=0.46, react-native@>=0.56, react-native@>=0.60, react-native@>=0.63, react-native@>=0.69, react-native@>0.62.0, react-native@0.74.2:
+react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@^0.61.5 || ^0.62.3 || ^0.63.2 || ^0.64.2 || ^0.65.0 || ^0.66.0 || ^0.67.0 || ^0.68.0 || ^0.69.0 || ^0.70.0 || ^0.71.0 || ^0.72.0 || ^0.73.0", react-native@^0.73.0, "react-native@>= 0.64.3", react-native@>=0.40.0, react-native@>=0.44.1, react-native@>=0.46, react-native@>=0.56, react-native@>=0.60, react-native@>=0.63, react-native@>=0.65.0, react-native@>=0.69, react-native@>0.62.0, react-native@0.74.2:
   version "0.74.2"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.74.2.tgz"
   integrity sha512-EBMBjPPL4/GjHMP4NqsZabT3gI5WU9cSmduABGAGrd8uIcmTZ5F2Ng9k6gFmRm7n8e8CULxDNu98ZpQfBjl7Bw==
@@ -8494,6 +8538,11 @@ unicode-property-aliases-ecmascript@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
+
+uninstall@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/uninstall/-/uninstall-0.0.0.tgz"
+  integrity sha512-pjP/0+A4gsbDVa8XH/S2GZdT9NPJW8NFMy3GI7HnsWG+NAmFSSj3QidNosXBI9cPtxxNExEDdhKFO6sli8K3mA==
 
 universalify@^0.1.0:
   version "0.1.2"

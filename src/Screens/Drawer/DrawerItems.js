@@ -29,20 +29,13 @@ import {styles} from './DrawerItem.style';
 import {VectorIcon} from '../../Components/VectorIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CommonButtonComp} from '../../Components/commonComp';
+import CustomSwitch from '../../Components/CustomSwitch';
 
 const DrawerItems = ({navigation}) => {
   const dispatch = useDispatch();
   let {isDarkMode, currentBgColor, isAdmin, currentTextColor} = useSelector(
     state => state.user,
   );
-
-  // useEffect(() => {
-  //   // const fetchDarkMode = async () => {
-  //   //   const res = await getAsyncValue('darkMode');
-  //   //   setDarkMode(res === 'true');
-  //   // };
-  //   // fetchDarkMode();
-  // }, []);
 
   let iconFontSize = getFontSize(3);
   let navRoute = [
@@ -118,7 +111,6 @@ const DrawerItems = ({navigation}) => {
           type={'MaterialIcons'}
           name={'event-note'}
           size={iconFontSize}
-          // size={getFontSize(25)}
           color={currentTextColor}
         />
       ),
@@ -134,7 +126,6 @@ const DrawerItems = ({navigation}) => {
           type={'MaterialIcons'}
           name={'contact-mail'}
           size={iconFontSize}
-          // size={getFontSize(25)}
           color={currentTextColor}
         />
       ),
@@ -149,7 +140,6 @@ const DrawerItems = ({navigation}) => {
           type={'MaterialIcons'}
           name={'feedback'}
           size={iconFontSize}
-          // size={getFontSize(25)}
           color={currentTextColor}
         />
       ),
@@ -165,7 +155,6 @@ const DrawerItems = ({navigation}) => {
           type={'Ionicons'}
           name={'settings'}
           size={iconFontSize}
-          // size={getFontSize(25)}
           color={currentTextColor}
         />
       ),
@@ -174,6 +163,7 @@ const DrawerItems = ({navigation}) => {
       id: 8,
       lable: MsgConfig.darkmode,
       // route: 'HomePage',
+      from: 'darkMode',
       route: '',
 
       icon: (
@@ -227,11 +217,20 @@ const DrawerItems = ({navigation}) => {
     return (
       <>
         <View
-          style={{
-            marginTop: index === 0 ? '5%' : 0,
-          }}>
+          style={[
+            item.from == 'darkMode' && {
+              flexDirection: 'row',
+              alignItems: 'center',
+
+              width: '70%',
+            },
+            {
+              marginTop: index === 0 ? '5%' : 0,
+            },
+          ]}>
           <Button
             title={item.lable}
+            disabled={item.from == 'darkMode'}
             onPress={() => {
               if (item.id === 8) {
                 handleDarkMode(); // Functional for dark/Night mode
@@ -244,10 +243,18 @@ const DrawerItems = ({navigation}) => {
               // navigation.closeDrawer();
             }}
             icon={item.icon}
+            disabledTitleStyle={[
+              styles.btnTitleStyle,
+              {color: currentTextColor},
+            ]}
             titleStyle={[styles.btnTitleStyle, {color: currentTextColor}]}
             containerStyle={[
               styles.btnContainerStyle,
               {alignItems: 'flex-start'},
+            ]}
+            disabledStyle={[
+              styles.buttonStyle,
+              {backgroundColor: currentBgColor},
             ]}
             buttonStyle={[
               styles.buttonStyle,
@@ -255,6 +262,9 @@ const DrawerItems = ({navigation}) => {
             ]}
             letfIcon
           />
+          {item.from == 'darkMode' && (
+            <CustomSwitch value={isDarkMode} onValueChange={handleDarkMode} />
+          )}
         </View>
       </>
     );

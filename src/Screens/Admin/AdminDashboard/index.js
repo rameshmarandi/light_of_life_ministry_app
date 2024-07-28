@@ -25,54 +25,13 @@ import {
 
 import SearchBarComp from '../../../Components/SearchBarComp.js';
 import SquareCardComp from '../../../Components/SquareCardComp.js';
-import {pushScreen} from '../../../Services/NavigationService.js';
 
-const cardDataArray = [
-  {
-    id: 0,
-    title: 'All Members',
-    image: theme.assets.members,
-    routeName: 'Members',
-  },
-  {
-    id: 1,
-    title: 'Admin Management',
-    image: theme.assets.adminManag,
-    routeName: 'AdminManagment',
-  },
-  {id: 2, title: 'Momentous Posts', image: theme.assets.camera, routeName: ''},
-  {id: 3, title: 'Daily Verses', image: theme.assets.DBible, routeName: ''},
-  {
-    id: 4,
-    title: 'Notification Controls',
-    image: theme.assets.alert,
-    routeName: '',
-  },
-  {id: 5, title: 'Free Resources', image: theme.assets.pdf, routeName: ''},
-  {id: 6, title: 'Prayer Request', image: theme.assets.prayer, routeName: ''},
-  {
-    id: 7,
-    title: 'Contact us',
-    image: theme.assets.contact,
-    routeName: 'AdminContact',
-  },
-  {
-    id: 8,
-    title: 'Testimonial Wall',
-    image: theme.assets.contact,
-    routeName: '',
-  },
-  {id: 9, title: 'What We Believe', image: theme.assets.contact, routeName: ''},
-  {
-    id: 10,
-    title: 'Church Locations',
-    image: theme.assets.churchLocation,
-    routeName: 'ChurchMap',
-  },
-];
+import useScrollDirection from '../../../Components/useScrollDirection';
+import {adminDashboardCardData} from '../../../Components/StaticDataHander.js';
+import ExampleUsage from '../../../Components/ExampleUsage.js';
 
 const initialState = {
-  filteredData: cardDataArray,
+  filteredData: adminDashboardCardData,
   isLoading: false,
   searchText: '',
 };
@@ -95,7 +54,7 @@ const index = props => {
 
   useEffect(() => {
     updateState({isLoading: true});
-    const filtered = cardDataArray
+    const filtered = adminDashboardCardData
       .filter(item =>
         item.title.toLowerCase().includes(searchText.toLowerCase()),
       )
@@ -106,6 +65,13 @@ const index = props => {
       updateState({isLoading: false});
     }, 300);
   }, [searchText]);
+
+  const {scrollY, scrollDirection} = useScrollDirection();
+
+  const transform =
+    scrollDirection === 'up'
+      ? {transform: [{translateY: -100}, {scale: 0.9}]}
+      : {transform: [{translateY: 0}, {scale: 1}]};
 
   return (
     <SafeAreaView
@@ -127,13 +93,11 @@ const index = props => {
         }}
         centerLogo={true}
       />
-      <MarqueeComp textRender={`Nice to see you back , Mr Ramesh`} />
+      {/* <Header scrollDirection={scrollDirection} /> */}
+      {/* {console.log('opaciy', opacity)} */}
 
-      <View
-        style={{
-          marginTop: '3%',
-          paddingHorizontal: '1%',
-        }}>
+      <MarqueeComp textRender={`Nice to see you back , Mr Ramesh`} />
+      <View style={{marginTop: '3%', paddingHorizontal: '1%'}}>
         <SearchBarComp
           placeholder="Search menus.."
           isLoading={isLoading}
@@ -141,16 +105,21 @@ const index = props => {
           value={searchText}
         />
       </View>
+
       <View
         style={{
           paddingBottom: getResHeight(20),
           paddingHorizontal: '2%',
           paddingTop: '2%',
         }}>
-        <FlatList
+        <Animated.FlatList
           data={[0, 1, 2, 3, 4, 5]}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: '20%'}}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: false},
+          )}
           renderItem={({item, index}) => {
             switch (index) {
               case 0:
@@ -160,6 +129,7 @@ const index = props => {
                       filteredData={filteredData}
                       onPress={item => {
                         // pushScreen(item.routeName)
+                        console.log('Navigate_route', item.routeName);
                         props.navigation.navigate(item.routeName);
                       }}
                     />
